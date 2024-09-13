@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../screens/home_screen.dart';
 import '../screens/history_screen.dart';
 import '../screens/inbox_screen.dart';
+import '../profile/profile.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
@@ -15,7 +16,8 @@ class _NavigationState extends State<Navigation> {
   final screen = [
     const HomeScreen(),
     const HistoryScreen(),
-    const InboxScreen()
+    const InboxScreen(),
+    const ProfileScreen()
   ];
 
   @override
