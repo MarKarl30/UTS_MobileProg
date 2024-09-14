@@ -23,7 +23,8 @@ class ProfileScreen extends StatelessWidget {
               Center(
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundImage: NetworkImage('https://via.placeholder.com/150'), // Placeholder image
+                  backgroundImage: NetworkImage(
+                      'https://via.placeholder.com/150'), // Placeholder image
                 ),
               ),
               const SizedBox(height: 20),
@@ -69,3 +70,4 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
+//test
