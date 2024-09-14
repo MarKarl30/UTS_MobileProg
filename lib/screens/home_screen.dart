@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:midterm_project/top-up/top_up_screen.dart';
 
 import 'payment_screen.dart';
 
@@ -84,7 +85,13 @@ class HomeScreen extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => TopUpScreen()),
+                                    );
+                                  },
                                   icon: const Icon(Icons.shop_2)),
                               const Text('Top Up')
                             ],
