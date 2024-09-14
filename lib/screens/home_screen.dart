@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'payment_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  void navigateToPaymentScreen(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const PaymentScreen()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +93,8 @@ class HomeScreen extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
-                                  onPressed: () {},
+                                  onPressed: () =>
+                                      navigateToPaymentScreen(context),
                                   icon: const Icon(Icons.payments)),
                               const Text('Pembayaran')
                             ],
