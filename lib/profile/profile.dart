@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:midterm_project/screens/login_screen.dart';
+
+void navigateToLoginScreen(BuildContext context) {
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(builder: (context) => const SignIn()),
+  );
+}
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -23,8 +31,8 @@ class ProfileScreen extends StatelessWidget {
               Center(
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundImage: NetworkImage(
-                      'https://via.placeholder.com/150'), // Placeholder image
+                  backgroundImage:
+                      NetworkImage('https://via.placeholder.com/150'),
                 ),
               ),
               const SizedBox(height: 20),
@@ -60,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
                 leading: const Icon(Icons.logout),
                 title: const Text('Keluar'),
                 onTap: () {
-                  // Add logout functionality here
+                  navigateToLoginScreen(context);
                 },
               ),
             ],
@@ -70,4 +78,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-//test

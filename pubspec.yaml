@@ -84,6 +84,8 @@ flutter:
     - assets/images/genshin_impact.png
     - assets/images/honkai_impact.png
     - assets/images/honor_of_kings.png
+    - assets/images/login_img.png
+    - assets/images/register_img.jpg
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
