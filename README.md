@@ -1,6 +1,6 @@
 # midterm_project
 
-A new Flutter project.
+Project UTS flutter membuat aplikasi e-wallet
 
 ## Getting Started
 
