@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:midterm_project/top-up/top_up_screen.dart';
 
 import 'payment_screen.dart';
+import 'package:midterm_project/screens/transfer_screen.dart';
+import 'package:midterm_project/screens/saldo_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -67,7 +69,14 @@ class HomeScreen extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SaldoScreen()),
+                                    );
+                                  },
                                   icon: const Icon(Icons.money)),
                               const Text('Isi Saldo')
                             ],
@@ -76,7 +85,14 @@ class HomeScreen extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const TransferScreen()),
+                                    );
+                                  },
                                   icon: const Icon(Icons.send)),
                               const Text('Transfer')
                             ],
