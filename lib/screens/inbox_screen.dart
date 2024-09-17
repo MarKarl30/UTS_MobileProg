@@ -6,18 +6,16 @@ class InboxScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        title: const Text(
-          'Notifikasi',
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-      ),
-      body: Container(
-          margin: const EdgeInsets.all(1.0),
-          child: Stack(
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.blueAccent,
+            title: const Text(
+              'Notifikasi',
+              style: TextStyle(color: Colors.white),
+            ),
+            centerTitle: true,
+          ),
+          body: Stack(
             children: [
               ListView(
                 children: [
@@ -29,6 +27,9 @@ class InboxScreen extends StatelessWidget {
                   Container(
                       padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: const ListTile(
+                        shape: Border(
+                          bottom: BorderSide(width: 0.7, color: Colors.grey),
+                        ),
                         leading: Icon(Icons.person),
                         title: Text('Transfer Gagal'),
                         subtitle: Text('29 September 2024 19:11'),
@@ -36,6 +37,9 @@ class InboxScreen extends StatelessWidget {
                   Container(
                       padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: const ListTile(
+                        shape: Border(
+                          bottom: BorderSide(width: 0.7, color: Colors.grey),
+                        ),
                         leading: Icon(Icons.person),
                         title: Text('Transfer Berhasil'),
                         subtitle: Text('24 September 2024 12:11'),
@@ -43,6 +47,9 @@ class InboxScreen extends StatelessWidget {
                   Container(
                       padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: const ListTile(
+                        shape: Border(
+                          bottom: BorderSide(width: 0.7, color: Colors.grey),
+                        ),
                         leading: Icon(Icons.person),
                         title: Text('Top Up Berhasil'),
                         subtitle: Text('24 September 2024 12:01'),
@@ -62,6 +69,9 @@ class InboxScreen extends StatelessWidget {
                   Container(
                       padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: const ListTile(
+                        shape: Border(
+                          bottom: BorderSide(width: 0.7, color: Colors.grey),
+                        ),
                         leading: Icon(Icons.person),
                         title: Text('Top Up Berhasil'),
                         subtitle: Text('27 Agustus 2024 16:08'),
@@ -77,6 +87,6 @@ class InboxScreen extends StatelessWidget {
               )
             ],
           )),
-    ));
+    );
   }
 }

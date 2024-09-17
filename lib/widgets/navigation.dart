@@ -27,32 +27,52 @@ class _NavigationState extends State<Navigation> {
           index: currentIndex,
           children: screen,
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentIndex,
-          iconSize: 24,
-          selectedFontSize: 12,
-          unselectedFontSize: 12,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.grey,
-          backgroundColor: Colors.white,
-          showUnselectedLabels: false,
-          onTap: (index) => setState(() => currentIndex = index),
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Beranda',
+        bottomNavigationBar: Container(
+          color: currentIndex == 0 ? Colors.blueAccent : Colors.white,
+          child: Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+              ],
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.history),
-              label: 'Histori',
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
+              child: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                currentIndex: currentIndex,
+                iconSize: 24,
+                selectedFontSize: 12,
+                unselectedFontSize: 12,
+                selectedItemColor: Colors.black,
+                unselectedItemColor: Colors.grey,
+                backgroundColor: Colors.white,
+                showUnselectedLabels: false,
+                onTap: (index) => setState(() => currentIndex = index),
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: 'Beranda',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.history),
+                    label: 'Histori',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.notifications),
+                    label: 'Notifikasi',
+                  ),
+                  BottomNavigationBarItem(
+                      icon: Icon(Icons.account_circle), label: 'Profil')
+                ],
+              ),
             ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: 'Notifikasi',
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle), label: 'Profil')
-          ],
+          ),
         ));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/balance.dart';
 import 'package:midterm_project/top-up/top_up_screen.dart';
 
 import 'payment_screen.dart';
@@ -21,24 +22,16 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 75,
-          backgroundColor: Colors.blue,
-          title: RichText(
-              text: const TextSpan(children: [
-            WidgetSpan(
-                child: Icon(
-              Icons.account_balance_wallet,
-              size: 16,
-              color: Colors.white,
-            )),
-            TextSpan(text: " Rp 50.000", style: TextStyle(color: Colors.white))
-          ])),
+          backgroundColor: Colors.blueAccent,
+          title: const Balance(),
         ),
         backgroundColor: Colors.blueAccent,
         body: Container(
           margin: const EdgeInsets.only(
               top: 0.0, bottom: 15.0, left: 15, right: 15.0),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5.0), color: Colors.white),
+              borderRadius: BorderRadius.circular(5.0),
+              color: const Color.fromARGB(255, 245, 245, 245)),
           width: 350,
           height: 305,
           child: Stack(
@@ -138,7 +131,6 @@ class HomeScreen extends StatelessWidget {
                       )
                     ],
                   )),
-              Container()
             ],
           ),
         ),

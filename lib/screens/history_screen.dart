@@ -6,18 +6,16 @@ class HistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        title: const Text(
-          'Histori',
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-      ),
-      body: Container(
-          margin: const EdgeInsets.all(1.0),
-          child: Stack(
+      child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.blueAccent,
+            title: const Text(
+              'Histori',
+              style: TextStyle(color: Colors.white),
+            ),
+            centerTitle: true,
+          ),
+          body: Stack(
             children: [
               ListView(
                 children: [
@@ -33,6 +31,9 @@ class HistoryScreen extends StatelessWidget {
                   Container(
                       padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: const ListTile(
+                        shape: Border(
+                          bottom: BorderSide(width: 0.7, color: Colors.grey),
+                        ),
                         title: Text('Transfer'),
                         trailing: Text(
                           '-Rp 135.000',
@@ -43,6 +44,9 @@ class HistoryScreen extends StatelessWidget {
                   Container(
                       padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: const ListTile(
+                        shape: Border(
+                          bottom: BorderSide(width: 0.7, color: Colors.grey),
+                        ),
                         title: Text('Valve Corporation'),
                         trailing: Text(
                           '-Rp 45.000',
@@ -72,6 +76,9 @@ class HistoryScreen extends StatelessWidget {
                   Container(
                       padding: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: const ListTile(
+                        shape: Border(
+                          bottom: BorderSide(width: 0.7, color: Colors.grey),
+                        ),
                         title: Text('Hoyoverse Corporation'),
                         trailing: Text(
                           '-Rp 80.000',
@@ -93,6 +100,6 @@ class HistoryScreen extends StatelessWidget {
               ),
             ],
           )),
-    ));
+    );
   }
 }
