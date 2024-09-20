@@ -11,15 +11,13 @@ void navigateToLoginScreen(BuildContext context) {
 }
 
 void navigateToHomeScreen(BuildContext context) {
-  Navigator.pushReplacement(context,
-  MaterialPageRoute(builder: (context) => const HomeScreen())
-  );
+  Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => const HomeScreen()));
 }
 
 void navigateToNavigation(BuildContext context) {
-  Navigator.pushReplacement(context,
-  MaterialPageRoute(builder: (context) => const Navigation())
-  );
+  Navigator.pushReplacement(
+      context, MaterialPageRoute(builder: (context) => const Navigation()));
 }
 
 class Register extends StatefulWidget {
@@ -31,9 +29,9 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   final textController = TextEditingController();
-  final pinController = TextEditingController(); 
-  final confirmPinController = TextEditingController(); 
-  bool _obscurePassword = true; 
+  final pinController = TextEditingController();
+  final confirmPinController = TextEditingController();
+  bool _obscurePassword = true;
 
   // Function to build a TextField to avoid repetition
   Widget buildTextField({
@@ -74,7 +72,8 @@ class _RegisterState extends State<Register> {
                 ),
                 onPressed: () {
                   setState(() {
-                    _obscurePassword = !_obscurePassword; // Toggle password visibility
+                    _obscurePassword =
+                        !_obscurePassword; // Toggle password visibility
                   });
                 },
               )
@@ -116,7 +115,7 @@ class _RegisterState extends State<Register> {
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
               ),
-              const SizedBox (height: 7.0),
+              const SizedBox(height: 7.0),
               const Text('Verify Phone Number'),
               const SizedBox(height: 10),
               buildTextField(

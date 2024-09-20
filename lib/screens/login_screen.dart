@@ -71,7 +71,7 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
               ),
-              const SizedBox (height: 10.0),
+              const SizedBox(height: 10.0),
               const Text('Request for OTP'),
               const SizedBox(height: 16),
               TextField(
@@ -80,11 +80,14 @@ class _SignInState extends State<SignIn> {
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                      _obscurePassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
                     ),
                     onPressed: () {
                       setState(() {
-                        _obscurePassword = !_obscurePassword; // Toggle password visibility
+                        _obscurePassword =
+                            !_obscurePassword; // Toggle password visibility
                       });
                     },
                   ),
@@ -112,11 +115,11 @@ class _SignInState extends State<SignIn> {
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue, 
+                  backgroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5), 
+                    borderRadius: BorderRadius.circular(5),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 14.0), 
+                  padding: const EdgeInsets.symmetric(vertical: 14.0),
                 ),
                 child: const Text(
                   'Login',
@@ -126,11 +129,11 @@ class _SignInState extends State<SignIn> {
                   ),
                 ),
               ),
-            const SizedBox(height: 24.0),
-            const Text(
-              'Don\'t have an account yet?',
-              textAlign: TextAlign.center,
-            ),
+              const SizedBox(height: 24.0),
+              const Text(
+                'Don\'t have an account yet?',
+                textAlign: TextAlign.center,
+              ),
               TextButton(
                 onPressed: () {
                   navigateToRegisterScreen(context);
