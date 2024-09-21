@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:midterm_project/screens/login_screen.dart';
+import 'package:midterm_project/profile/edit.dart';
+import 'package:midterm_project/profile/changepw.dart';
+import 'package:midterm_project/profile/service/profileservice.dart';
 
 void navigateToLoginScreen(BuildContext context) {
   Navigator.pushReplacement(
@@ -8,8 +11,32 @@ void navigateToLoginScreen(BuildContext context) {
   );
 }
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final StorageService _storageService = StorageService();
+  String _username = 'Nama Pengguna';
+  String _email = 'email@example.com'; // Anda dapat menyesuaikan ini sesuai kebutuhan
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUsername();
+  }
+
+  Future<void> _loadUsername() async {
+    String? username = await _storageService.getUsername();
+    setState(() {
+      if (username != null && username.isNotEmpty) {
+        _username = username;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,43 +58,50 @@ class ProfileScreen extends StatelessWidget {
               Center(
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundImage:
-                      NetworkImage('https://via.placeholder.com/150'),
+                  backgroundImage: NetworkImage('https://via.placeholder.com/150'),
                 ),
               ),
               const SizedBox(height: 20),
               Center(
                 child: Text(
-                  'Nama Pengguna',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  _username,
+                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(height: 10),
               Center(
                 child: Text(
-                  'email@example.com',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                  _email,
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
               ),
               const Divider(height: 40),
               ListTile(
                 leading: const Icon(Icons.edit),
                 title: const Text('Edit Profil'),
-                onTap: () {
-                  // Add edit profile functionality here
+                onTap: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ProfileEditScreen()),
+                  );
+                  _loadUsername(); // Refresh username setelah kembali
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.lock),
                 title: const Text('Ubah Kata Sandi'),
                 onTap: () {
-                  // Add change password functionality here
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ChangePasswordScreen()),
+                  );
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Keluar'),
-                onTap: () {
+                onTap: () async {
+                  await _storageService.clearAll();
                   navigateToLoginScreen(context);
                 },
               ),
