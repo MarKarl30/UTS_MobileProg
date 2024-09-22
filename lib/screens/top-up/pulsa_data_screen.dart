@@ -35,11 +35,11 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Top Up Pulsa & Data"),
-        backgroundColor: const Color.fromARGB(255, 9, 247, 255),
+        backgroundColor: const Color.fromARGB(183, 233, 232, 232),
       ),
-      backgroundColor: Colors.black,
+      backgroundColor: const Color.fromARGB(243, 246, 245, 245),
       body: Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.all(40),
         child: ListView(
           children: [
             // Input nomor telepon
@@ -47,13 +47,15 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
             TextField(
               controller: _phoneNumberController,
               keyboardType: TextInputType.phone,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.phone, color: Colors.white70),
+                prefixIcon: Icon(Icons.phone,
+                    color: const Color.fromARGB(179, 40, 39, 39)),
                 hintText: "No. Telp",
-                hintStyle: const TextStyle(color: Colors.white70),
+                hintStyle: const TextStyle(color: Color.fromARGB(179, 0, 0, 0)),
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade300),
+                  borderSide:
+                      BorderSide(color: const Color.fromARGB(255, 0, 0, 0)),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
@@ -83,11 +85,12 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
               controller: _pinController,
               obscureText: true,
               keyboardType: TextInputType.number,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.lock, color: Colors.white70),
+                prefixIcon:
+                    Icon(Icons.lock, color: const Color.fromARGB(179, 0, 0, 0)),
                 hintText: "PIN",
-                hintStyle: const TextStyle(color: Colors.white70),
+                hintStyle: const TextStyle(color: Color.fromARGB(179, 0, 0, 0)),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.grey.shade300),
                   borderRadius: BorderRadius.circular(10.0),
@@ -103,13 +106,12 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
                 _confirmTopUp();
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 3, 184, 148),
+                backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                 padding: const EdgeInsets.all(15.0),
               ),
               child: const Text(
                 "Top-up Sekarang!",
-                style: TextStyle(
-                    fontFamily: 'Poppins', fontSize: 18, color: Colors.white),
+                style: TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
           ],
@@ -118,6 +120,7 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
     );
   }
 
+  //widget untuk menentukan category apa yang dipilih (pulsa dan data) secara interaktif
   Widget choiceChipWidget(String category) {
     return ChoiceChip(
       label: Text(category),
@@ -127,12 +130,13 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
           _selectedCategory = category;
         });
       },
-      selectedColor: const Color.fromARGB(255, 3, 184, 148),
+      selectedColor: const Color.fromARGB(255, 111, 120, 118),
       backgroundColor: const Color.fromARGB(255, 25, 25, 25),
       labelStyle: const TextStyle(color: Colors.white),
     );
   }
 
+  //widget untuk item topup pulsa ataupun data
   Widget topUpItem(String amount) {
     return GestureDetector(
       onTap: () {
@@ -164,7 +168,7 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
   }
 
   void _confirmTopUp() {
-    // Memeriksa ketentuan input apakah sudah valid untuk melakukan konfirmasi top-up
+    // Memeriksa input apakah sudah valid sesuai dengan ketentuan untuk melakukan konfirmasi top-up
     if (_phoneNumberController.text.isEmpty ||
         _selectedAmount.isEmpty ||
         _pinController.text.isEmpty) {

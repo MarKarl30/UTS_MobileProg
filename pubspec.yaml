@@ -78,16 +78,39 @@ flutter:
         - asset: fonts/Poppins-Regular.ttf
 
   assets:
-    - assets/images/mobile_legends.png
-    - assets/images/pubg.png
-    - assets/images/free_fire.png
-    - assets/images/growtopia.png
-    - assets/images/genshin_impact.png
-    - assets/images/honkai_impact.png
-    - assets/images/honor_of_kings.png
+    #icon games
+    - assets/icons/games/mobile_legends.png
+    - assets/icons/games/pubg.png
+    - assets/icons/games/free_fire.png
+    - assets/icons/games/growtopia.png
+    - assets/icons/games/genshin_impact.png
+    - assets/icons/games/honkai_impact.png
+    - assets/icons/games/honor_of_kings.png
+
+    #icon streamings
+    - assets/icons/streamings/netflix.png
+    - assets/icons/streamings/viu.png
+    - assets/icons/streamings/prime.png
+    - assets/icons/streamings/disney.png
+
+    #icon tours
+    - assets/icons/tours/dufan.png
+    - assets/icons/tours/kidzania.png
+    - assets/icons/tours/orchid.png
+    - assets/icons/tours/wahoo.png
+
+    #icon e-wallet
+    - assets/icons/e-wallet/gopay.png
+    - assets/icons/e-wallet/isaku.png
+    - assets/icons/e-wallet/ovo.png
+    - assets/icons/e-wallet/spay.png
+
+    #general icon
     - assets/images/login_img.png
     - assets/images/register_img.jpg
     - assets/images/saldo_bg.jpg
+    - assets/images/collaboration.png
+
     # icon bank
     - assets/icons/bank/icon_bca.jpg
     - assets/icons/bank/icon_mandiri.png
@@ -95,6 +118,7 @@ flutter:
     - assets/icons/bank/icon_bri.png
     - assets/icons/bank/icon_jago.jpg
     - assets/icons/bank/icon_permata.jpg
+
     # icon toko
     - assets/icons/toko/icon_alfamart.png
     - assets/icons/toko/icon_indomaret.png
@@ -102,6 +126,13 @@ flutter:
     - assets/icons/toko/icon_familymart.png
     - assets/icons/toko/icon_lawson.jpg
     - assets/icons/toko/icon_mitratoped.jpg
+
+    # banner picture
+    - assets/images/banner/games/valorant.png
+    - assets/images/banner/games/promo1.png
+    - assets/images/banner/streamings/netflix.png
+    - assets/images/banner/streamings/viu.png
+    - assets/images/banner/streamings/disney.png
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
