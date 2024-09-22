@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../widgets/balance.dart';
+import 'package:midterm_project/payment/payment_screen.dart';
+import 'package:midterm_project/screens/saldo_screen.dart';
 import 'package:midterm_project/screens/top-up/top_up_screen.dart';
 
-import 'payment_screen.dart';
-import 'package:midterm_project/screens/saldo_screen.dart';
+import '../widgets/balance.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
