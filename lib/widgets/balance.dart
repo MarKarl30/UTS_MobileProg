@@ -15,7 +15,7 @@ class _BalanceState extends State<Balance> {
       // list of text which the text get form here
       const Text(
         'Rp 50.000',
-        style: TextStyle(color: Colors.white, fontSize: 16),
+        style: TextStyle(color: Colors.white, fontSize: 18),
       ),
       const Icon(
         Icons.more_horiz,
@@ -29,7 +29,7 @@ class _BalanceState extends State<Balance> {
           WidgetSpan(
               child: Icon(
             Icons.account_balance_wallet,
-            size: 16,
+            size: 18,
             color: Colors.white,
           )),
         ])),
@@ -48,7 +48,7 @@ class _BalanceState extends State<Balance> {
                 icon: Icon(
                     currentIndex ? Icons.visibility : Icons.visibility_off),
                 color: Colors.white,
-                iconSize: 16,
+                iconSize: 18,
               )
             ],
           ),

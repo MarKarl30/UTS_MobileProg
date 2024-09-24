@@ -16,7 +16,7 @@ class InboxScreen extends StatelessWidget {
             centerTitle: true,
           ),
           body: ListView(
-            padding: const EdgeInsets.only(bottom: 10.0),
+            padding: const EdgeInsets.only(bottom: 15.0),
             children: [
               Container(
                   color: const Color.fromARGB(255, 230, 227, 227),

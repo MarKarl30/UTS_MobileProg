@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../screens/transfer_screen.dart';
+import '../screens/minta_saldo_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/history_screen.dart';
 import '../screens/inbox_screen.dart';
@@ -17,7 +17,7 @@ class _NavigationState extends State<Navigation> {
   final screen = [
     const HomeScreen(),
     const HistoryScreen(),
-    const TransferScreen(),
+    const MintaSaldoScreen(),
     const InboxScreen(),
     const ProfileScreen()
   ];
@@ -31,12 +31,15 @@ class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: IndexedStack(
         index: currentIndex,
         children: screen,
       ),
       bottomNavigationBar: Container(
-        color: currentIndex == 0 ? Colors.blueAccent : Colors.white,
+        color: currentIndex == 0 || currentIndex == 2
+            ? Colors.blueAccent
+            : Colors.white,
         child: Container(
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -55,7 +58,7 @@ class _NavigationState extends State<Navigation> {
                 shape: const CircularNotchedRectangle(),
                 color: Colors.white,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     buildNavBarItem(Icons.home, 'Home', 0),
                     buildNavBarItem(Icons.history, 'History', 1),
@@ -72,16 +75,25 @@ class _NavigationState extends State<Navigation> {
           color: Colors.white,
           child: InkWell(
               onTap: () => _onItemTapped(2),
-              child: Container(
-                padding: const EdgeInsets.only(left: 4.0),
-                width: 48,
-                height: 48,
-                child: const Icon(
-                  Icons.send,
-                  size: 24,
-                  color: Colors.black,
-                ),
-              )),
+              child: const SizedBox(
+                  width: 67,
+                  height: 67,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 8.0),
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.qr_code_2,
+                          size: 30,
+                          color: Colors.black,
+                        ),
+                        Text(
+                          'Minta',
+                          style: TextStyle(fontSize: 14),
+                        )
+                      ],
+                    ),
+                  ))),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
