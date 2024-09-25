@@ -7,10 +7,14 @@ class TransferScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            appBar: AppBar(
-      toolbarHeight: 56,
-      backgroundColor: const Color.fromARGB(255, 33, 150, 243),
-      leading: BackButton(color: const Color.fromARGB(255, 255, 255, 255)),
-    )));
+      appBar: AppBar(
+        backgroundColor: Colors.blueAccent,
+        title: const Text(
+          'Transfer',
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+      ),
+    ));
   }
 }

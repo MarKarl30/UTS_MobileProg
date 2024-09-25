@@ -1,4 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:midterm_project/widgets/payment_option_widget.dart'; // Impor widget baru
+
+// Pembayaran via bank
+import 'next-saldo/bank/BCA/payment_bca.dart';
+import 'next-saldo/bank/BNI/payment_bni.dart';
+import 'next-saldo/bank/BRI/payment_bri.dart';
+import 'next-saldo/bank/Jago/payment_jago.dart';
+import 'next-saldo/bank/Mandiri/payment_mandiri.dart';
+import 'next-saldo/bank/PermataBank/payment_permata.dart';
+
+// Pembayaran tunai
+import 'next-saldo/tunai/payment_tunai_alfamart.dart';
+import 'next-saldo/tunai/payment_tunai_familymart.dart';
+import 'next-saldo/tunai/payment_tunai_indomaret.dart';
+import 'next-saldo/tunai/payment_tunai_lawson.dart';
+import 'next-saldo/tunai/payment_tunai_tokopedia.dart';
+import 'next-saldo/tunai/payment_tunai_alfamidi.dart';
 
 class SaldoScreen extends StatefulWidget {
   const SaldoScreen({super.key});
@@ -8,481 +25,195 @@ class SaldoScreen extends StatefulWidget {
 }
 
 class _SaldoScreenState extends State<SaldoScreen> {
-  bool _isBalanceVisible = true; // This controls whether the balance is visible
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 56,
-          backgroundColor: const Color.fromARGB(183, 233, 232, 232),
-          leading: const BackButton(color: Color.fromARGB(200, 0, 0, 0)),
+          backgroundColor: Colors.blueAccent,
+          leading: const BackButton(color: Colors.white),
           title: const Text(
             "Isi Saldo",
             style: TextStyle(
-              color: Color.fromARGB(200, 0, 0, 0),
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
+              color: Colors.white,
             ),
           ),
+          centerTitle: true,
         ),
-        backgroundColor: const Color.fromARGB(243, 246, 245, 245),
+        backgroundColor: const Color.fromARGB(255, 246, 245, 245),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              // Container Info Saldo
-              Container(
-                margin: const EdgeInsets.symmetric(
-                    vertical: 15.0, horizontal: 15.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/saldo_bg.jpg"),
-                    fit: BoxFit.cover,
+          child: Center(
+            child: Column(
+              children: [
+                // Payment Section Container
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 15.0, horizontal: 15.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(1.0),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(1.0),
-                      spreadRadius: 3,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                width: 350,
-                height: 175,
-                child: Stack(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30.0, left: 3.0),
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 8.0),
-                          IconButton(
-                            icon: Icon(
-                              _isBalanceVisible
-                                  ? Icons.visibility // eye icon
-                                  : Icons.visibility_off, // closed eye icon
-                              color: Colors.white,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _isBalanceVisible =
-                                    !_isBalanceVisible; // toggle visibility
-                              });
-                            },
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: _isBalanceVisible
-                                      ? "Rp. 50.000"
-                                      : "Rp. ---",
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // Container Pembayaran via Tunai
-              Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 5.0, horizontal: 15.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(1.0),
-                      spreadRadius: 3,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                width: 350,
-                height: 290,
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 3.0),
-                      child: RichText(
-                        text: const TextSpan(
-                          text: "Bayar tunai",
-                          style: TextStyle(
-                            color: Color.fromARGB(150, 0, 0, 0),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                          ),
+                  padding: const EdgeInsets.all(18.0),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Bayar tunai",
+                        style: TextStyle(
+                          color: Color.fromARGB(150, 0, 0, 0),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 4.0),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 3.0),
-                      child: RichText(
-                        text: const TextSpan(
-                          text: "Di minimarket, warung atau agen terdekat",
-                          style: TextStyle(
-                            color: Color.fromARGB(150, 0, 0, 0),
-                            fontSize: 15,
-                          ),
+                      SizedBox(height: 4.0),
+                      Text(
+                        "Di minimarket, warung atau agen terdekat",
+                        style: TextStyle(
+                          color: Color.fromARGB(150, 0, 0, 0),
+                          fontSize: 13,
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Row(
+                      SizedBox(height: 10),
+                      // Baris pertama item pembayaran (Tunai)
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                      'assets/icons/toko/icon_indomaret.png'),
-                                  iconSize: 50,
-                                ),
-                              ),
-                              const Text(
-                                'Indomaret',
-                                style: TextStyle(
-                                  color: Color.fromARGB(150, 0, 0, 0),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          PaymentOptionWidget(
+                            assetPath: 'assets/icons/toko/icon_indomaret.png',
+                            name: 'Indomaret',
+                            pagePath: PaymentTunaiIndomaret(),
                           ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                      'assets/icons/toko/icon_alfamart.png'),
-                                  iconSize: 50,
-                                ),
-                              ),
-                              const Text(
-                                'Alfamart',
-                                style: TextStyle(
-                                  color: Color.fromARGB(150, 0, 0, 0),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          PaymentOptionWidget(
+                            assetPath: 'assets/icons/toko/icon_alfamart.png',
+                            name: 'Alfamart',
+                            pagePath: PaymentTunaiAlfamart(),
                           ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                      'assets/icons/toko/icon_alfamidi.png'),
-                                  iconSize: 50,
-                                ),
-                              ),
-                              const Text(
-                                'Alfamidi',
-                                style: TextStyle(
-                                  color: Color.fromARGB(150, 0, 0, 0),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          PaymentOptionWidget(
+                            assetPath: 'assets/icons/toko/icon_alfamidi.png',
+                            name: 'Alfamidi',
+                            pagePath: PaymentTunaiAlfamidi(),
                           ),
                         ],
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Row(
+                      SizedBox(height: 10),
+                      // Baris kedua item pembayaran (Tunai)
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                      'assets/icons/toko/icon_lawson.jpg'),
-                                  iconSize: 50,
-                                ),
-                              ),
-                              const Text(
-                                'Lawson',
-                                style: TextStyle(
-                                  color: Color.fromARGB(150, 0, 0, 0),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          PaymentOptionWidget(
+                            assetPath: 'assets/icons/toko/icon_lawson.jpg',
+                            name: 'Lawson',
+                            pagePath: PaymentTunaiLawson(),
                           ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                      'assets/icons/toko/icon_familymart.png'),
-                                  iconSize: 50,
-                                ),
-                              ),
-                              const Text(
-                                'FamilyMart',
-                                style: TextStyle(
-                                  color: Color.fromARGB(150, 0, 0, 0),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          PaymentOptionWidget(
+                            assetPath: 'assets/icons/toko/icon_familymart.png',
+                            name: 'FamilyMart',
+                            pagePath: PaymentTunaiFamilymart(),
                           ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                      'assets/icons/toko/icon_mitratoped.jpg'),
-                                  iconSize: 50,
-                                ),
-                              ),
-                              const Text(
-                                'Tokopedia',
-                                style: TextStyle(
-                                  color: Color.fromARGB(150, 0, 0, 0),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          PaymentOptionWidget(
+                            assetPath: 'assets/icons/toko/icon_mitratoped.jpg',
+                            name: 'Tokopedia',
+                            pagePath: PaymentTunaiTokopedia(),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              // Container Pembayaran via Bank
-              Container(
-                margin: const EdgeInsets.symmetric(
-                    vertical: 15.0, horizontal: 15.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(1.0),
-                      spreadRadius: 3,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
-                width: 350,
-                height: 310,
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 3.0),
-                      child: RichText(
-                        text: const TextSpan(
-                          text: "Lewat bank",
-                          style: TextStyle(
-                            color: Color.fromARGB(150, 0, 0, 0),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                          ),
+                // Container pembayaran via bank
+                Container(
+                  margin: const EdgeInsets.only(
+                      top: 5.0, left: 15.0, right: 15.0, bottom: 20.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(1.0),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                  padding: const EdgeInsets.all(18.0),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Lewat bank",
+                        style: TextStyle(
+                          color: Color.fromARGB(150, 0, 0, 0),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 4.0),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 3.0),
-                      child: RichText(
-                        text: const TextSpan(
-                          text:
-                              "Dari ATM, mobile banking atau internet banking",
-                          style: TextStyle(
-                            color: Color.fromARGB(150, 0, 0, 0),
-                            fontSize: 15,
-                          ),
+                      SizedBox(height: 4.0),
+                      Text(
+                        "Dari ATM, mobile banking atau internet banking",
+                        style: TextStyle(
+                          color: Color.fromARGB(150, 0, 0, 0),
+                          fontSize: 13,
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Row(
+                      SizedBox(height: 10),
+                      // Baris pertama item pembayaran (Bank)
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                      'assets/icons/bank/icon_mandiri.png'),
-                                  iconSize: 50,
-                                ),
-                              ),
-                              const Text(
-                                'Mandiri',
-                                style: TextStyle(
-                                  color: Color.fromARGB(150, 0, 0, 0),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          PaymentOptionWidget(
+                            assetPath: 'assets/icons/bank/icon_bca.jpg',
+                            name: 'BCA',
+                            pagePath: PaymentBca(),
                           ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                      'assets/icons/bank/icon_bca.jpg'),
-                                  iconSize: 50,
-                                ),
-                              ),
-                              const Text(
-                                'BCA',
-                                style: TextStyle(
-                                  color: Color.fromARGB(150, 0, 0, 0),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          PaymentOptionWidget(
+                            assetPath: 'assets/icons/bank/icon_bri.png',
+                            name: 'BRI',
+                            pagePath: PaymentBri(),
                           ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                      'assets/icons/bank/icon_bni.jpg'),
-                                  iconSize: 50,
-                                ),
-                              ),
-                              const Text(
-                                'BNI',
-                                style: TextStyle(
-                                  color: Color.fromARGB(150, 0, 0, 0),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          PaymentOptionWidget(
+                            assetPath: 'assets/icons/bank/icon_bni.jpg',
+                            name: 'BNI',
+                            pagePath: PaymentBni(),
                           ),
                         ],
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Row(
+                      SizedBox(height: 10),
+                      // Baris kedua item pembayaran (Bank)
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                      'assets/icons/bank/icon_bri.png'),
-                                  iconSize: 50,
-                                ),
-                              ),
-                              const Text(
-                                'BRI',
-                                style: TextStyle(
-                                  color: Color.fromARGB(150, 0, 0, 0),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          PaymentOptionWidget(
+                            assetPath: 'assets/icons/bank/icon_mandiri.png',
+                            name: 'Mandiri',
+                            pagePath: PaymentMandiri(),
                           ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                      'assets/icons/bank/icon_jago.jpg'),
-                                  iconSize: 50,
-                                ),
-                              ),
-                              const Text(
-                                'Jago',
-                                style: TextStyle(
-                                  color: Color.fromARGB(150, 0, 0, 0),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          PaymentOptionWidget(
+                            assetPath: 'assets/icons/bank/icon_jago.jpg',
+                            name: 'Jago',
+                            pagePath: PaymentJago(),
                           ),
-                          Column(
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Image.asset(
-                                      'assets/icons/bank/icon_permata.jpg'),
-                                  iconSize: 50,
-                                ),
-                              ),
-                              const Text(
-                                'PermataBank',
-                                style: TextStyle(
-                                  color: Color.fromARGB(150, 0, 0, 0),
-                                  fontSize: 15,
-                                ),
-                              ),
-                            ],
+                          PaymentOptionWidget(
+                            assetPath: 'assets/icons/bank/icon_permata.jpg',
+                            name: 'Permata',
+                            pagePath: PaymentPermata(),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
