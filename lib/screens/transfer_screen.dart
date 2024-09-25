@@ -8,7 +8,7 @@ class TransferScreen extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color(0xFFFF8FAB),
         title: const Text(
           'Transfer',
           style: TextStyle(color: Colors.white),
@@ -18,3 +18,5 @@ class TransferScreen extends StatelessWidget {
     ));
   }
 }
+
+

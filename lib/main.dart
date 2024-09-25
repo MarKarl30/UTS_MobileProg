@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'FundWallet',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFFF8FAB)),
         useMaterial3: true,
         fontFamily: 'Poppins',
       ),

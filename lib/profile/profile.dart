@@ -1,8 +1,12 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:midterm_project/screens/login_screen.dart';
 import 'package:midterm_project/profile/edit.dart';
 import 'package:midterm_project/profile/changepw.dart';
 import 'package:midterm_project/profile/service/profileservice.dart';
+import 'package:midterm_project/profile/changepin.dart';
+
 
 void navigateToLoginScreen(BuildContext context) {
   Navigator.pushReplacement(
@@ -21,21 +25,38 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final StorageService _storageService = StorageService();
   String _username = 'Nama Pengguna';
-  String _email = 'email@example.com'; // Anda dapat menyesuaikan ini sesuai kebutuhan
+  String _email = 'email@example.com';
+  String? _profileImage; // Profile image path
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
     super.initState();
-    _loadUsername();
+    _loadProfileData();
   }
 
-  Future<void> _loadUsername() async {
+  Future<void> _loadProfileData() async {
     String? username = await _storageService.getUsername();
+    String? profileImage = await _storageService.getProfileImage();
+
     setState(() {
       if (username != null && username.isNotEmpty) {
         _username = username;
       }
+      if (profileImage != null && profileImage.isNotEmpty) {
+        _profileImage = profileImage;
+      }
     });
+  }
+
+  Future<void> _pickImage() async {
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      setState(() {
+        _profileImage = image.path;
+      });
+      await _storageService.saveProfileImage(image.path);
+    }
   }
 
   @override
@@ -43,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: const Color(0xFFFF8FAB),
           title: const Text(
             'Profil',
             style: TextStyle(color: Colors.white),
@@ -56,9 +77,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: CircleAvatar(
-                  radius: 50,
-                  backgroundImage: NetworkImage('https://via.placeholder.com/150'),
+                child: GestureDetector(
+                  onTap: _pickImage, // Pick image on tap
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: _profileImage != null
+                        ? FileImage(File(_profileImage!)) // Show selected image
+                        : const NetworkImage('https://via.placeholder.com/150') as ImageProvider,
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
@@ -84,7 +110,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     context,
                     MaterialPageRoute(builder: (context) => const ProfileEditScreen()),
                   );
-                  _loadUsername(); // Refresh username setelah kembali
+                  _loadProfileData(); // Refresh username after returning
                 },
               ),
               ListTile(
@@ -94,6 +120,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => const ChangePasswordScreen()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.pin),
+                title: const Text('Ubah PIN'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ChangePinScreen()),
                   );
                 },
               ),

@@ -47,7 +47,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: Color(0xFFFF8FAB),
           title: const Text(
             'Edit Profil',
             style: TextStyle(color: Colors.white),

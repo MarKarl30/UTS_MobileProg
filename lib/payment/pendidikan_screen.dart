@@ -20,7 +20,7 @@ class PendidikanScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Daftar Pendidikan'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFFFF8FAB),
       ),
       body: Scrollbar(
         thickness: 6,

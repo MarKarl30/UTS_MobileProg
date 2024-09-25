@@ -38,7 +38,7 @@ class BPJSScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Daftar BPJS'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFFFF8FAB),
       ),
       body: Scrollbar(
         thickness: 6,

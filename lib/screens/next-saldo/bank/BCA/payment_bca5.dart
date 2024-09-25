@@ -21,7 +21,7 @@ class PaymentBca5 extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 56,
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: const Color(0xFFFF8FAB),
           leading: const BackButton(color: Colors.white),
           title: const Text(
             'BCA',

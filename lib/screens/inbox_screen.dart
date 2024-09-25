@@ -8,7 +8,7 @@ class InboxScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.blueAccent,
+            backgroundColor: const Color(0xFFFF8FAB),
             title: const Text(
               'Notifikasi',
               style: TextStyle(color: Colors.white),

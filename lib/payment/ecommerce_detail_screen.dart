@@ -47,7 +47,7 @@ class EcommerceDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Detail $namaEcommerce'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFFFF8FAB),
       ),
       body: Center(
         child: Column(

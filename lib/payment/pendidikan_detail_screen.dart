@@ -39,7 +39,7 @@ class PendidikanDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Detail $namaPendidikan'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFFFF8FAB),
       ),
       body: Center(
         child: Column(

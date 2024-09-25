@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
           appBar: AppBar(
             toolbarHeight: 80,
-            backgroundColor: Colors.blueAccent,
+            backgroundColor: const Color(0xFFFF8FAB),
             title: const SizedBox(
               height: 100,
               child: Align(
@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: const Color(0xFFFF8FAB),
           body: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

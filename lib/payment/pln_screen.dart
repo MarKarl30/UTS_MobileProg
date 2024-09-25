@@ -23,7 +23,7 @@ class PLNScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Layanan PLN'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFFFF8FAB),
       ),
       body: Scrollbar(
         thickness: 6,

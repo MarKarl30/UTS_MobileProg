@@ -38,7 +38,7 @@ class _NavigationState extends State<Navigation> {
       ),
       bottomNavigationBar: Container(
         color: currentIndex == 0 || currentIndex == 2
-            ? Colors.blueAccent
+            ? Color(0xFFFF8FAB)
             : Colors.white,
         child: Container(
           decoration: const BoxDecoration(

@@ -18,7 +18,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Metode Pembayaran'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFFFF8FAB),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -51,7 +51,7 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                     );
                   },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue, // Background color biru
+              backgroundColor: const Color(0xFFFF8FAB), // Background color biru
               padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
             ),
             child: Text(
