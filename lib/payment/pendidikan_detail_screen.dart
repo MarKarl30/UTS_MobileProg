@@ -2,39 +2,31 @@ import 'package:flutter/material.dart';
 
 import 'payment_method_screen.dart'; // Tambahkan import untuk screen metode pembayaran
 
-class PajakDetailScreen extends StatelessWidget {
-  final String namaPajak;
-  final String kodePajak;
+class PendidikanDetailScreen extends StatelessWidget {
+  final String namaPendidikan;
+  final String kodePendidikan;
 
-  const PajakDetailScreen({
+  const PendidikanDetailScreen({
     Key? key,
-    required this.namaPajak,
-    required this.kodePajak,
+    required this.namaPendidikan,
+    required this.kodePendidikan,
   }) : super(key: key);
 
-  // Fungsi untuk mendapatkan jumlah bayaran berdasarkan kode pajak
+  // Fungsi untuk mendapatkan jumlah bayaran berdasarkan kode pendidikan
   String getBayaran(String kode) {
     switch (kode) {
-      case '001':
+      case '101':
         return 'Rp 1.000.000';
-      case '002':
+      case '102':
         return 'Rp 500.000';
-      case '003':
+      case '103':
         return 'Rp 250.000';
-      case '004':
+      case '104':
         return 'Rp 750.000';
-      case '005':
+      case '105':
         return 'Rp 300.000';
-      case '006':
+      case '106':
         return 'Rp 100.000';
-      case '007':
-        return 'Rp 150.000';
-      case '008':
-        return 'Rp 200.000';
-      case '009':
-        return 'Rp 50.000';
-      case '010':
-        return 'Rp 400.000';
       default:
         return 'Jumlah tidak tersedia';
     }
@@ -42,11 +34,11 @@ class PajakDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final totalAmount = getBayaran(kodePajak);
+    final totalAmount = getBayaran(kodePendidikan);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail $namaPajak'),
+        title: Text('Detail $namaPendidikan'),
         backgroundColor: Colors.blue,
       ),
       body: Center(
@@ -54,12 +46,12 @@ class PajakDetailScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              namaPajak,
+              namaPendidikan,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
             Text(
-              'Kode Pajak: $kodePajak',
+              'Kode Pendidikan: $kodePendidikan',
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 20),

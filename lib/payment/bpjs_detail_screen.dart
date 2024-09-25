@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'payment_method_screen.dart'; // Tambahkan import untuk screen metode pembayaran
 
-class PajakDetailScreen extends StatelessWidget {
-  final String namaPajak;
-  final String kodePajak;
+class BPJSDetailScreen extends StatelessWidget {
+  final String namaBPJS;
+  final String kodeBPJS;
 
-  const PajakDetailScreen({
+  const BPJSDetailScreen({
     Key? key,
-    required this.namaPajak,
-    required this.kodePajak,
+    required this.namaBPJS,
+    required this.kodeBPJS,
   }) : super(key: key);
 
-  // Fungsi untuk mendapatkan jumlah bayaran berdasarkan kode pajak
+  // Fungsi untuk mendapatkan jumlah bayaran berdasarkan kode BPJS
   String getBayaran(String kode) {
     switch (kode) {
       case '001':
@@ -27,14 +27,6 @@ class PajakDetailScreen extends StatelessWidget {
         return 'Rp 300.000';
       case '006':
         return 'Rp 100.000';
-      case '007':
-        return 'Rp 150.000';
-      case '008':
-        return 'Rp 200.000';
-      case '009':
-        return 'Rp 50.000';
-      case '010':
-        return 'Rp 400.000';
       default:
         return 'Jumlah tidak tersedia';
     }
@@ -42,11 +34,11 @@ class PajakDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final totalAmount = getBayaran(kodePajak);
+    final totalAmount = getBayaran(kodeBPJS);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail $namaPajak'),
+        title: Text('Detail $namaBPJS'),
         backgroundColor: Colors.blue,
       ),
       body: Center(
@@ -54,12 +46,12 @@ class PajakDetailScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              namaPajak,
+              namaBPJS,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
             Text(
-              'Kode Pajak: $kodePajak',
+              'Kode BPJS: $kodeBPJS',
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 20),
@@ -73,8 +65,7 @@ class PajakDetailScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        PaymentMethodScreen(totalAmount: totalAmount),
+                    builder: (context) => PaymentMethodScreen(totalAmount: totalAmount),
                   ),
                 );
               },

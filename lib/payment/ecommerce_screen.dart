@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:midterm_project/payment/ecommerce_detail_screen.dart';
 
 class EcommerceScreen extends StatelessWidget {
   const EcommerceScreen({super.key});
@@ -35,6 +36,17 @@ class EcommerceScreen extends StatelessWidget {
               child: ListTile(
                 title: Text(daftarEcommerce[index]['nama']!),
                 subtitle: Text('Kode: ${daftarEcommerce[index]['kode']}'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EcommerceDetailScreen(
+                        namaEcommerce: daftarEcommerce[index]['nama']!,
+                        kodeEcommerce: daftarEcommerce[index]['kode']!,
+                      ),
+                    ),
+                  );
+                },
               ),
             );
           },

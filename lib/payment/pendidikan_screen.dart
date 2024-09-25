@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'pendidikan_detail_screen.dart'; // Tambahkan import untuk screen detail pendidikan
+
 class PendidikanScreen extends StatelessWidget {
   const PendidikanScreen({super.key});
 
@@ -31,6 +33,17 @@ class PendidikanScreen extends StatelessWidget {
               child: ListTile(
                 title: Text(daftarPendidikan[index]['nama']!),
                 subtitle: Text('Kode: ${daftarPendidikan[index]['kode']}'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PendidikanDetailScreen(
+                        namaPendidikan: daftarPendidikan[index]['nama']!,
+                        kodePendidikan: daftarPendidikan[index]['kode']!,
+                      ),
+                    ),
+                  );
+                },
               ),
             );
           },

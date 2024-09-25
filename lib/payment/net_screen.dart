@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:midterm_project/payment/net_detail_screen.dart';
 
 class NetScreen extends StatelessWidget {
   const NetScreen({super.key});
@@ -35,6 +36,17 @@ class NetScreen extends StatelessWidget {
               child: ListTile(
                 title: Text(daftarInternet[index]['nama']!),
                 subtitle: Text('Kode: ${daftarInternet[index]['kode']}'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NetDetailScreen(
+                        namaNet: daftarInternet[index]['nama']!,
+                        kodeNet: daftarInternet[index]['kode']!,
+                      ),
+                    ),
+                  );
+                },
               ),
             );
           },

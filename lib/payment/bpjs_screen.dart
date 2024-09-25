@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:midterm_project/payment/bpjs_detail_screen.dart';
 
 class BPJSScreen extends StatelessWidget {
   const BPJSScreen({super.key});
@@ -50,6 +51,17 @@ class BPJSScreen extends StatelessWidget {
               child: ListTile(
                 title: Text(daftarBPJS[index]['nama']!),
                 subtitle: Text('Kode: ${daftarBPJS[index]['kode']}'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BPJSDetailScreen(
+                        namaBPJS: daftarBPJS[index]['nama']!,
+                        kodeBPJS: daftarBPJS[index]['kode']!,
+                      ),
+                    ),
+                  );
+                },
               ),
             );
           },

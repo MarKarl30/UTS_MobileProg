@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:midterm_project/payment/pln_detail_screen.dart';
 
 class PLNScreen extends StatelessWidget {
   const PLNScreen({super.key});
@@ -35,6 +36,17 @@ class PLNScreen extends StatelessWidget {
               child: ListTile(
                 title: Text(daftarPLN[index]['nama']!),
                 subtitle: Text('Kode: ${daftarPLN[index]['kode']}'),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PLNDetailScreen(
+                        namaPLN: daftarPLN[index]['nama']!,
+                        kodePLN: daftarPLN[index]['kode']!,
+                      ),
+                    ),
+                  );
+                },
               ),
             );
           },
