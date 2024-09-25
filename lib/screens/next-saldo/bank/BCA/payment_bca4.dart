@@ -31,7 +31,7 @@ class PaymentBca4 extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Cara isi GoPay:',
+                      'Cara isi saldo:',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
