@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'payment_method_screen.dart'; // Tambahkan import untuk screen metode pembayaran
+import 'qrpayment_screen.dart'; // Tambahkan import untuk screen metode pembayaran
 
 class EcommerceDetailScreen extends StatelessWidget {
   final String namaEcommerce;
@@ -46,9 +46,13 @@ class EcommerceDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail $namaEcommerce'),
-        leading: const BackButton(color: Colors.white),
-        backgroundColor: Colors.blueAccent,
+        title: Text(
+          'Detail $namaEcommerce',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Center(
         child: Column(
@@ -60,7 +64,7 @@ class EcommerceDetailScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              'Kode eCommerce: $kodeEcommerce',
+              'Kode E-commerce: $kodeEcommerce',
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 20),
@@ -75,7 +79,7 @@ class EcommerceDetailScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        PaymentMethodScreen(totalAmount: totalAmount),
+                        QRCodeScreen(totalAmount: totalAmount),
                   ),
                 );
               },

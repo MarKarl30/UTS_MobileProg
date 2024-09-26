@@ -19,9 +19,14 @@ class PendidikanScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Daftar Pendidikan'),
-        leading: const BackButton(color: Colors.white),
-        backgroundColor: Colors.blueAccent,
+        title: const Text(
+          'Daftar Pendidikan',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        iconTheme:
+            IconThemeData(color: Colors.black), // Mengubah warna ikon kembali
       ),
       body: Scrollbar(
         thickness: 6,
@@ -33,7 +38,6 @@ class PendidikanScreen extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child: ListTile(
                 title: Text(daftarPendidikan[index]['nama']!),
-                subtitle: Text('Kode: ${daftarPendidikan[index]['kode']}'),
                 onTap: () {
                   Navigator.push(
                     context,

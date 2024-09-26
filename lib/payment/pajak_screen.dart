@@ -23,9 +23,14 @@ class PajakScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Daftar Pajak'),
-        leading: const BackButton(color: Colors.white),
-        backgroundColor: Colors.blueAccent,
+        title: const Text(
+          'Daftar Pajak',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        iconTheme:
+            IconThemeData(color: Colors.black), // Mengubah warna ikon kembali
       ),
       body: ListView.builder(
         itemCount: daftarPajak.length,
@@ -34,7 +39,7 @@ class PajakScreen extends StatelessWidget {
             margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: ListTile(
               title: Text(daftarPajak[index]['nama']!),
-              subtitle: Text('Kode: ${daftarPajak[index]['kode']}'),
+              // Hapus subtitle yang menampilkan kode pajak
               onTap: () {
                 Navigator.push(
                   context,

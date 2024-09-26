@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'payment_method_screen.dart'; // Tambahkan import untuk screen metode pembayaran
+import 'qrpayment_screen.dart'; // Tambahkan import untuk screen QR code
 
 class PajakDetailScreen extends StatelessWidget {
   final String namaPajak;
@@ -46,9 +46,14 @@ class PajakDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail $namaPajak'),
-        leading: const BackButton(color: Colors.white),
-        backgroundColor: Colors.blueAccent,
+        title: Text(
+          'Detail $namaPajak',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        iconTheme:
+            IconThemeData(color: Colors.black), // Mengubah warna ikon kembali
       ),
       body: Center(
         child: Column(
@@ -57,6 +62,7 @@ class PajakDetailScreen extends StatelessWidget {
             Text(
               namaPajak,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
             Text(
@@ -75,7 +81,7 @@ class PajakDetailScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        PaymentMethodScreen(totalAmount: totalAmount),
+                        QRCodeScreen(totalAmount: totalAmount),
                   ),
                 );
               },

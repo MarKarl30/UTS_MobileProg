@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'payment_method_screen.dart'; // Tambahkan import untuk screen metode pembayaran
+import 'package:midterm_project/payment/qrpayment_screen.dart';
 
 class BPJSDetailScreen extends StatelessWidget {
   final String namaBPJS;
@@ -15,18 +14,26 @@ class BPJSDetailScreen extends StatelessWidget {
   // Fungsi untuk mendapatkan jumlah bayaran berdasarkan kode BPJS
   String getBayaran(String kode) {
     switch (kode) {
-      case '001':
+      case '201':
         return 'Rp 1.000.000';
-      case '002':
+      case '202':
         return 'Rp 500.000';
-      case '003':
+      case '203':
         return 'Rp 250.000';
-      case '004':
+      case '204':
         return 'Rp 750.000';
-      case '005':
+      case '205':
         return 'Rp 300.000';
-      case '006':
+      case '206':
         return 'Rp 100.000';
+      case '207':
+        return 'Rp 150.000';
+      case '208':
+        return 'Rp 200.000';
+      case '209':
+        return 'Rp 50.000';
+      case '210':
+        return 'Rp 400.000';
       default:
         return 'Jumlah tidak tersedia';
     }
@@ -38,9 +45,13 @@ class BPJSDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detail $namaBPJS'),
-        leading: const BackButton(color: Colors.white),
-        backgroundColor: Colors.blueAccent,
+        title: Text(
+          'Detail $namaBPJS',
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       body: Center(
         child: Column(
@@ -48,7 +59,8 @@ class BPJSDetailScreen extends StatelessWidget {
           children: [
             Text(
               namaBPJS,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 21, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 20),
             Text(
@@ -67,7 +79,7 @@ class BPJSDetailScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
-                        PaymentMethodScreen(totalAmount: totalAmount),
+                        QRCodeScreen(totalAmount: totalAmount),
                   ),
                 );
               },
