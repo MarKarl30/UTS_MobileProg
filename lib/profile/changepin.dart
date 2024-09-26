@@ -21,21 +21,27 @@ class _ChangePinScreenState extends State<ChangePinScreen> {
 
       if (_oldPinController.text != storedPin) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('PIN lama salah')),
+          const SnackBar(
+              content: Text('PIN lama salah'),
+              behavior: SnackBarBehavior.floating),
         );
         return;
       }
 
       if (_newPinController.text != _confirmPinController.text) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('PIN baru tidak cocok')),
+          const SnackBar(
+              content: Text('PIN baru tidak cocok'),
+              behavior: SnackBarBehavior.floating),
         );
         return;
       }
 
       await _storageService.savePin(_newPinController.text);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('PIN berhasil diubah')),
+        const SnackBar(
+            content: Text('PIN berhasil diubah'),
+            behavior: SnackBarBehavior.floating),
       );
       Navigator.pop(context);
     }
@@ -54,7 +60,8 @@ class _ChangePinScreenState extends State<ChangePinScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFFFF8FAB),
+          backgroundColor: Colors.blueAccent,
+          leading: const BackButton(color: Colors.white),
           title: const Text('Ubah PIN', style: TextStyle(color: Colors.white)),
           centerTitle: true,
         ),
@@ -94,7 +101,8 @@ class _ChangePinScreenState extends State<ChangePinScreen> {
                 TextFormField(
                   controller: _confirmPinController,
                   obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Konfirmasi PIN Baru'),
+                  decoration:
+                      const InputDecoration(labelText: 'Konfirmasi PIN Baru'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Silakan konfirmasi PIN baru';

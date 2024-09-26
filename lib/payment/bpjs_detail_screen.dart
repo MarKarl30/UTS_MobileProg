@@ -39,7 +39,8 @@ class BPJSDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Detail $namaBPJS'),
-        backgroundColor: const Color(0xFFFF8FAB),
+        leading: const BackButton(color: Colors.white),
+        backgroundColor: Colors.blueAccent,
       ),
       body: Center(
         child: Column(
@@ -65,7 +66,8 @@ class BPJSDetailScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PaymentMethodScreen(totalAmount: totalAmount),
+                    builder: (context) =>
+                        PaymentMethodScreen(totalAmount: totalAmount),
                   ),
                 );
               },

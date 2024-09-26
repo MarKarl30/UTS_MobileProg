@@ -24,7 +24,8 @@ class PajakScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Daftar Pajak'),
-        backgroundColor: const Color(0xFFFF8FAB),
+        leading: const BackButton(color: Colors.white),
+        backgroundColor: Colors.blueAccent,
       ),
       body: ListView.builder(
         itemCount: daftarPajak.length,

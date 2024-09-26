@@ -47,7 +47,8 @@ class PajakDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Detail $namaPajak'),
-        backgroundColor: const Color(0xFFFF8FAB),
+        leading: const BackButton(color: Colors.white),
+        backgroundColor: Colors.blueAccent,
       ),
       body: Center(
         child: Column(

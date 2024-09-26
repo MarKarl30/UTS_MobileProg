@@ -30,7 +30,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     if (_formKey.currentState!.validate()) {
       await _storageService.saveUsername(_usernameController.text);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Profil berhasil disimpan')),
+        const SnackBar(
+            content: Text('Profil berhasil disimpan'),
+            behavior: SnackBarBehavior.floating),
       );
       Navigator.pop(context);
     }
@@ -47,7 +49,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFFFF8FAB),
+          backgroundColor: Colors.blueAccent,
+          leading: const BackButton(color: Colors.white),
           title: const Text(
             'Edit Profil',
             style: TextStyle(color: Colors.white),

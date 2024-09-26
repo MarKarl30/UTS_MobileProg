@@ -174,8 +174,8 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
         _pinController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text("Harap lengkapi semua informasi!"),
-        ),
+            content: Text("Harap lengkapi semua informasi!"),
+            behavior: SnackBarBehavior.floating),
       );
       return;
     }
@@ -183,10 +183,10 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
     //Menampilkan massage berupa item top-up yang berhasil dilakukan
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          "Top-up $_selectedCategory sebesar $_selectedAmount berhasil!",
-        ),
-      ),
+          content: Text(
+            "Top-up $_selectedCategory sebesar $_selectedAmount berhasil!",
+          ),
+          behavior: SnackBarBehavior.floating),
     );
   }
 }

@@ -13,7 +13,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final StorageService _storageService = StorageService();
   final TextEditingController _oldPasswordController = TextEditingController();
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   Future<void> _changePassword() async {
     if (_formKey.currentState!.validate()) {
@@ -21,21 +22,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
       if (_oldPasswordController.text != storedPassword) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Kata sandi lama salah')),
+          const SnackBar(
+              content: Text('Kata sandi lama salah'),
+              behavior: SnackBarBehavior.floating),
         );
         return;
       }
 
       if (_newPasswordController.text != _confirmPasswordController.text) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Kata sandi baru tidak cocok')),
+          const SnackBar(
+              content: Text('Kata sandi baru tidak cocok'),
+              behavior: SnackBarBehavior.floating),
         );
         return;
       }
 
       await _storageService.savePassword(_newPasswordController.text);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Kata sandi berhasil diubah')),
+        const SnackBar(
+            content: Text('Kata sandi berhasil diubah'),
+            behavior: SnackBarBehavior.floating),
       );
       Navigator.pop(context);
     }
@@ -54,7 +61,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color(0xFFFF8FAB),
+          backgroundColor: Colors.blueAccent,
+          leading: const BackButton(color: Colors.white),
           title: const Text(
             'Ubah Kata Sandi',
             style: TextStyle(color: Colors.white),
@@ -70,7 +78,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 TextFormField(
                   controller: _oldPasswordController,
                   obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Kata Sandi Lama'),
+                  decoration:
+                      const InputDecoration(labelText: 'Kata Sandi Lama'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Silakan masukkan kata sandi lama';
@@ -82,7 +91,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 TextFormField(
                   controller: _newPasswordController,
                   obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Kata Sandi Baru'),
+                  decoration:
+                      const InputDecoration(labelText: 'Kata Sandi Baru'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Silakan masukkan kata sandi baru';
@@ -97,7 +107,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 TextFormField(
                   controller: _confirmPasswordController,
                   obscureText: true,
-                  decoration: const InputDecoration(labelText: 'Konfirmasi Kata Sandi Baru'),
+                  decoration: const InputDecoration(
+                      labelText: 'Konfirmasi Kata Sandi Baru'),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Silakan konfirmasi kata sandi baru';

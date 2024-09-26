@@ -29,7 +29,7 @@ class PaymentMandiri extends StatelessWidget {
         child: Scaffold(
       appBar: AppBar(
         toolbarHeight: 56,
-        backgroundColor: const Color(0xFFFF8FAB),
+        backgroundColor: Colors.blueAccent,
         leading: const BackButton(color: Colors.white),
         title: const Text(
           'Mandiri',

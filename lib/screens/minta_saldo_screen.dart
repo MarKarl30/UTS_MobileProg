@@ -24,14 +24,15 @@ class _MintaSaldoScreenState extends State<MintaSaldoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color(0xFFFF8FAB),
+          backgroundColor: Colors.blueAccent,
+          leading: const BackButton(color: Colors.white),
           centerTitle: true,
           title: const Text(
             'Minta dari QRIS',
             style: TextStyle(color: Colors.white, fontSize: 18),
           ),
         ),
-        backgroundColor: const Color(0xFFFF8FAB),
+        backgroundColor: Colors.blueAccent,
         body: Center(
           heightFactor: 1.05,
           child: Container(
@@ -67,7 +68,7 @@ class _MintaSaldoScreenState extends State<MintaSaldoScreen> {
                   padding: const EdgeInsets.only(top: 20.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFFF8FAB)),
+                        backgroundColor: Colors.blueAccent),
                     onPressed: () {
                       setState(() {
                         qrData = jumlahController.text;

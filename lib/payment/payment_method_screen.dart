@@ -18,7 +18,8 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Metode Pembayaran'),
-        backgroundColor: const Color(0xFFFF8FAB),
+        leading: const BackButton(color: Colors.white),
+        backgroundColor: Colors.blueAccent,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -47,11 +48,13 @@ class _PaymentMethodScreenState extends State<PaymentMethodScreen> {
                 : () {
                     // Tambahkan logika untuk konfirmasi pembayaran
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Pembayaran dikonfirmasi')),
+                      SnackBar(
+                          content: Text('Pembayaran dikonfirmasi'),
+                          behavior: SnackBarBehavior.floating),
                     );
                   },
             style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFFFF8FAB), // Background color biru
+              backgroundColor: Colors.blueAccent, // Background color biru
               padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
             ),
             child: Text(

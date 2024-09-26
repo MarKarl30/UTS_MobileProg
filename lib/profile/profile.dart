@@ -7,7 +7,6 @@ import 'package:midterm_project/profile/changepw.dart';
 import 'package:midterm_project/profile/service/profileservice.dart';
 import 'package:midterm_project/profile/changepin.dart';
 
-
 void navigateToLoginScreen(BuildContext context) {
   Navigator.pushReplacement(
     context,
@@ -64,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color(0xFFFF8FAB),
+          backgroundColor: Colors.blueAccent,
           title: const Text(
             'Profil',
             style: TextStyle(color: Colors.white),
@@ -83,7 +82,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     radius: 50,
                     backgroundImage: _profileImage != null
                         ? FileImage(File(_profileImage!)) // Show selected image
-                        : const NetworkImage('https://via.placeholder.com/150') as ImageProvider,
+                        : const NetworkImage('https://via.placeholder.com/150')
+                            as ImageProvider,
                   ),
                 ),
               ),
@@ -91,7 +91,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Center(
                 child: Text(
                   _username,
-                  style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(height: 10),
@@ -108,7 +109,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onTap: () async {
                   await Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ProfileEditScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const ProfileEditScreen()),
                   );
                   _loadProfileData(); // Refresh username after returning
                 },
@@ -119,7 +121,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ChangePasswordScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const ChangePasswordScreen()),
                   );
                 },
               ),
@@ -129,7 +132,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ChangePinScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const ChangePinScreen()),
                   );
                 },
               ),

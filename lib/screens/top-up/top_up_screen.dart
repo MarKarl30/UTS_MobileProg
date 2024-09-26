@@ -13,7 +13,7 @@ class TopUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(color: Color.fromARGB(200, 0, 0, 0)),
+        leading: const BackButton(color: Colors.white),
         backgroundColor: const Color.fromARGB(183, 233, 232, 232),
         title: const Text("Top Up",
             style: TextStyle(
