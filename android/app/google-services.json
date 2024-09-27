@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "448888469409",
+    "project_id": "utsmobprog-aa99a",
+    "storage_bucket": "utsmobprog-aa99a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:448888469409:android:32d3025454b0fbd0a7fde0",
+        "android_client_info": {
+          "package_name": "com.example.midterm_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-lW6cxOyesj4ERIMhaw-hX7HW29FJfdY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

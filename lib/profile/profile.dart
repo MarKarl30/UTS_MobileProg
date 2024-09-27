@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:midterm_project/screens/login_screen.dart';
+import 'package:midterm_project/screens/user-auth/login_screen.dart';
 import 'package:midterm_project/profile/edit.dart';
 import 'package:midterm_project/profile/changepw.dart';
 import 'package:midterm_project/profile/service/profileservice.dart';

@@ -1,23 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:midterm_project/screens/login_screen.dart';
-import 'package:midterm_project/screens/home_screen.dart';
-import 'package:midterm_project/widgets/navigation.dart';
+import 'package:midterm_project/screens/user-auth/login_screen.dart';
+import 'package:midterm_project/widgets/register_text_field.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:midterm_project/screens/user-auth/verify_otp_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
+void navigateToOtpScreen(BuildContext context, String phoneNumber) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => VerifyOtp(phoneNumber: phoneNumber)),
+  );
+}
 void navigateToLoginScreen(BuildContext context) {
   Navigator.pushReplacement(
     context,
     MaterialPageRoute(builder: (context) => const SignIn()),
   );
 }
-
-void navigateToHomeScreen(BuildContext context) {
-  Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => const HomeScreen()));
-}
-
-void navigateToNavigation(BuildContext context) {
-  Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => const Navigation()));
+void showLoadingDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false, 
+    builder: (context) => const Center(
+      child: CircularProgressIndicator(),
+    ),
+  );
 }
 
 class Register extends StatefulWidget {
@@ -35,69 +42,10 @@ class _RegisterState extends State<Register> {
   final pinController = TextEditingController();
   final confirmPinController = TextEditingController();
   bool _obscurePassword = true;
+  String phoneNumber = "";
+  bool enableOtpBtn = false;
 
-  Widget buildTextField({
-    required TextEditingController controller,
-    required String hintText,
-    required String? Function(String?) validator,
-    bool obscureText = false,
-    TextInputType keyboardType = TextInputType.text,
-    TextInputAction textInputAction = TextInputAction.done,
-  }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscureText,
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            width: 1.0,
-            color: Colors.black,
-          ),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            width: 1.0,
-            color: Colors.black,
-          ),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            width: 1.0,
-            color: Colors.red, // Error color
-          ),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            width: 1.0,
-            color: Colors.red, // Error color
-          ),
-          borderRadius: BorderRadius.circular(5.0),
-        ),
-        hintText: hintText,
-        hintStyle: const TextStyle(
-          color: Colors.grey,
-        ),
-        suffixIcon: obscureText
-            ? IconButton(
-                icon: Icon(
-                  _obscurePassword ? Icons.visibility : Icons.visibility_off,
-                ),
-                onPressed: () {
-                  setState(() {
-                    _obscurePassword = !_obscurePassword; // Toggle password visibility
-                  });
-                },
-              )
-            : null,
-      ),
-      validator: validator,
-    );
-  }
+  PhoneNumber number = PhoneNumber(isoCode: 'US');
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +69,7 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 const SizedBox(height: 24.0),
-                buildTextField(
+                CustomTextField(
                   controller: textController,
                   hintText: 'Enter Full Name (Sesuai KTP)',
                   validator: (value) {
@@ -132,58 +80,84 @@ class _RegisterState extends State<Register> {
                   },
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
+                  obscurePassword: false,
+                  onPasswordToggle: (value) {},
                 ),
                 const SizedBox(height: 16.0),
-                buildTextField(
-                  controller: phoneController,
-                  hintText: 'Enter Phone Number',
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your phone number';
-                    }
-                    return null;
+
+
+                InternationalPhoneNumberInput(
+                  onInputValidated: (value) {
+                    setState(() {
+                      enableOtpBtn = value; 
+                    });
                   },
-                  keyboardType: TextInputType.number,
-                  textInputAction: TextInputAction.next,
+                  onInputChanged: (value) {
+                    setState(() {
+                      phoneNumber = value.phoneNumber!;
+                    });
+                  },
+                  formatInput: true,
+                  autoFocus: true,
+                  keyboardType: TextInputType.phone,
+                  selectorConfig: const SelectorConfig(
+                    useEmoji: true,
+                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                  ),
+                  inputDecoration: const InputDecoration(
+                    hintText: 'Enter Phone Number', 
+                    hintStyle: TextStyle(
+                      color: Colors.grey, 
+                      fontSize: 16, 
+                    ),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                    border: OutlineInputBorder(),
+                  ),
                 ),
-                const SizedBox(height: 7.0),
-                const Text('Verify Phone Number'),
-                const SizedBox(height: 10),
-                buildTextField(
+                const SizedBox(height: 16),
+                CustomTextField(
                   controller: emailController,
                   hintText: 'Enter Email (optional)',
                   validator: (value) {
-                    if (value != null && value.isNotEmpty && !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                    if (value != null &&
+                        value.isNotEmpty &&
+                        !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
                       return 'Please enter a valid email';
                     }
                     return null;
                   },
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
+                  obscurePassword: false,
+                  onPasswordToggle: (value) {},
                 ),
-                const Text('Verify Email'),
                 const SizedBox(height: 16),
-                buildTextField(
+                CustomTextField(
                   controller: pinController,
-                  keyboardType: TextInputType.number,
                   hintText: 'Create PIN',
                   obscureText: true,
                   textInputAction: TextInputAction.next,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter a PIN';
-                    } else if (value.length < 4) {
-                      return 'PIN must be at least 4 digits';
-                    } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) { // PIN harus berupa angka
+                    } else if (value.length < 6) {
+                      return 'PIN must be at least 6 digits';
+                    } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
                       return 'PIN must be a number';
                     }
                     return null;
                   },
+                  keyboardType: TextInputType.number,
+                  obscurePassword: _obscurePassword,
+                  onPasswordToggle: (value) {
+                    setState(() {
+                      _obscurePassword = value;
+                    });
+                  },
                 ),
                 const SizedBox(height: 16),
-                buildTextField(
+                CustomTextField(
                   controller: confirmPinController,
-                  keyboardType: TextInputType.number,
                   hintText: 'Confirm PIN',
                   obscureText: true,
                   validator: (value) {
@@ -194,30 +168,39 @@ class _RegisterState extends State<Register> {
                     }
                     return null;
                   },
-                ),
-                TextButton(
-                  onPressed: () {
-                    navigateToHomeScreen(context);
-                    navigateToNavigation(context);
+                  keyboardType: TextInputType.number,
+                  obscurePassword: _obscurePassword,
+                  onPasswordToggle: (value) {
+                    setState(() {
+                      _obscurePassword = value;
+                    });
                   },
-                  style: TextButton.styleFrom(
-                    textStyle: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  child: const Text(
-                    'Continue Without Account?',
-                    textAlign: TextAlign.center,
-                  ),
                 ),
+                const SizedBox(height: 16),
                 ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Perform registration action
+                  onPressed: enableOtpBtn
+                     ? () async {
+                  if (_formKey.currentState!.validate()) {
+
+                    showLoadingDialog(context);
+                      try {
+                        await createUser(
+                          name: textController.text.trim(),
+                          phoneNumber: phoneNumber.trim(),
+                          email: emailController.text.trim(),
+                          pin: pinController.text.trim(),
+                        );
+
+                        Navigator.pop(context); 
+                        navigateToOtpScreen(context, phoneNumber);
+                      } catch (e) {
+                        Navigator.pop(context);
+                      }
                     }
-                  },
+                  }
+                  : null,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: enableOtpBtn ? Colors.blue : Colors.grey,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -231,6 +214,7 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                 ),
+
                 const SizedBox(height: 24.0),
                 const Text(
                   'Already have an account?',
@@ -257,4 +241,24 @@ class _RegisterState extends State<Register> {
       ),
     );
   }
+Future createUser({
+  required String name,
+  required String phoneNumber,
+  required String email,
+  required String pin,
+}) async {
+  final docUser = FirebaseFirestore.instance.collection('users').doc(); 
+
+  final json = {
+    'name': name,
+    'phone': phoneNumber,
+    'email': email,
+    'pin': pin, 
+    'createdAt': Timestamp.now(),
+  };
+
+  await docUser.set(json);
+}
+
+
 }
