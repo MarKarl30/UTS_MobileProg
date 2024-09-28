@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../screens/minta_saldo_screen.dart';
+import '../screens/qr_code_scanner.dart';
 import '../screens/home_screen.dart';
 import '../screens/history_screen.dart';
 import '../screens/inbox_screen.dart';
@@ -17,7 +17,7 @@ class _NavigationState extends State<Navigation> {
   final screen = [
     const HomeScreen(),
     const HistoryScreen(),
-    const MintaSaldoScreen(),
+    const QrCodeScanner(),
     const InboxScreen(),
     const ProfileScreen()
   ];
@@ -37,9 +37,11 @@ class _NavigationState extends State<Navigation> {
         children: screen,
       ),
       bottomNavigationBar: Container(
-        color: currentIndex == 0 || currentIndex == 2
+        color: (currentIndex == 0)
             ? Colors.blueAccent
-            : Colors.white,
+            : (currentIndex == 2)
+                ? Colors.black54.withOpacity(0.0)
+                : Colors.white,
         child: Container(
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
@@ -88,7 +90,7 @@ class _NavigationState extends State<Navigation> {
                           color: Colors.black,
                         ),
                         Text(
-                          'Minta',
+                          'Pay',
                           style: TextStyle(fontSize: 14),
                         )
                       ],

@@ -4,15 +4,20 @@ import 'package:midterm_project/screens/home_screen.dart';
 import 'package:midterm_project/widgets/navigation.dart';
 
 void navigateToHomeScreen(BuildContext context) {
-  Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (context) => const HomeScreen()),
+    (Route<dynamic> route) => false,
+  );
 }
 
 void navigateToNavigation(BuildContext context) {
-  Navigator.pushReplacement(
-      context, MaterialPageRoute(builder: (context) => const Navigation()));
+  Navigator.pushAndRemoveUntil(
+    context,
+    MaterialPageRoute(builder: (context) => const Navigation()),
+    (Route<dynamic> route) => false,
+  );
 }
-
 
 class VerifyOtp extends StatefulWidget {
   const VerifyOtp({super.key, required this.phoneNumber});
@@ -95,7 +100,7 @@ class _VerifyOtpState extends State<VerifyOtp> {
                   navigateToNavigation(context);
                 },
               ),
-              const SizedBox(height:30),
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(

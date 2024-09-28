@@ -43,7 +43,6 @@ class _BalanceState extends State<Balance> {
                   setState(() {
                     currentIndex = !currentIndex;
                   });
-                  ;
                 },
                 icon: Icon(
                     currentIndex ? Icons.visibility : Icons.visibility_off),
