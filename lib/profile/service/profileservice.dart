@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class StorageService {
@@ -5,8 +6,7 @@ class StorageService {
 
   static const String _keyUsername = 'username';
   static const String _keyOtp = 'otp';
-  static const String _keyPassword = 'password';
-  static const String _keyPin = 'pin'; // Add key for PIN
+  static const String _keyPin = 'pin'; // Key for PIN
   static const String _keyProfileImage = 'profile_image';
 
   // Save profile image path or URL
@@ -29,6 +29,23 @@ class StorageService {
     return await _storage.read(key: _keyUsername);
   }
 
+  // New method to fetch username from Firestore
+  Future<String?> getUsernameFromFirestore(String userId) async {
+    try {
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .get();
+
+      if (userDoc.exists) {
+        return userDoc['name']; // Assuming the field for username is 'name'
+      }
+    } catch (e) {
+      print('Error fetching username: $e');
+    }
+    return null;
+  }
+
   // Save OTP
   Future<void> saveOtp(String otp) async {
     await _storage.write(key: _keyOtp, value: otp);
@@ -37,16 +54,6 @@ class StorageService {
   // Get OTP
   Future<String?> getOtp() async {
     return await _storage.read(key: _keyOtp);
-  }
-
-  // Save password
-  Future<void> savePassword(String password) async {
-    await _storage.write(key: _keyPassword, value: password);
-  }
-
-  // Get password
-  Future<String?> getPassword() async {
-    return await _storage.read(key: _keyPassword);
   }
 
   // Save PIN
@@ -62,5 +69,11 @@ class StorageService {
   // Clear all data (e.g., when logging out)
   Future<void> clearAll() async {
     await _storage.deleteAll();
+  }
+
+  Future<String?> getUserId() async {
+    // Return the user ID from local storage
+    // This could be based on your authentication implementation
+    return 'user_id'; // Replace this with actual user ID retrieval logic
   }
 }
