@@ -144,6 +144,33 @@ flutter:
     - assets/images/banner/streamings/netflix.png
     - assets/images/banner/streamings/viu.png
     - assets/images/banner/streamings/disney.png
+
+    # banner games
+    - assets/images/banner/games/mobile_legends/diamonds.png
+    - assets/images/banner/games/mobile_legends/starlight.png
+    - assets/images/banner/games/pubg/uc.png
+    - assets/images/banner/games/pubg/season_pass.png
+    - assets/images/banner/games/genshin_impact/primogems.png
+    - assets/images/banner/games/genshin_impact/welkin.png
+
+    # banner tours
+    - assets/images/banner/tours/dufan/dufan1.png
+    - assets/images/banner/tours/dufan/dufan2.png
+    - assets/images/banner/tours/orchid_forest/orchid1.png
+    - assets/images/banner/tours/orchid_forest/orchid2.png
+    - assets/images/banner/tours/orchid_forest/orchid3.png
+
+    # banner streamings
+    - assets/images/banner/streamings/netflix/netflix1.png
+    - assets/images/banner/streamings/netflix/netflix2.png
+    - assets/images/banner/streamings/viu/viu1.png
+    - assets/images/banner/streamings/viu/viu2.png
+
+    #banner e-wallet
+    - assets/images/banner/ewallet/ovo.png
+    - assets/images/banner/ewallet/gopay.png
+    - assets/images/banner/ewallet/spay.png
+    - assets/images/banner/ewallet/isaku.png
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

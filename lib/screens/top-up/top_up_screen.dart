@@ -13,14 +13,18 @@ class TopUpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 56,
+        backgroundColor: Colors.blueAccent,
         leading: const BackButton(color: Colors.white),
-        backgroundColor: const Color.fromARGB(183, 233, 232, 232),
-        title: const Text("Top Up",
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-            )),
+        title: const Text(
+          "Top Up",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
       ),
-      backgroundColor: const Color.fromARGB(243, 246, 245, 245),
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(40),
         child: ListView(
@@ -31,14 +35,6 @@ class TopUpScreen extends StatelessWidget {
               height: 234,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 3,
-                    blurRadius: 5,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
@@ -50,7 +46,7 @@ class TopUpScreen extends StatelessWidget {
                     ),
                     Container(
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.5),
+                        color: Colors.black.withOpacity(0.35),
                       ),
                     ),
                     Padding(
@@ -86,21 +82,12 @@ class TopUpScreen extends StatelessWidget {
             // Container untuk layanan digital
             Container(
               margin: const EdgeInsets.only(bottom: 40),
-              padding: const EdgeInsets.all(30),
+              padding: const EdgeInsets.all(25),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 255, 255),
+                color: Colors.white,
                 border: Border.all(
-                    color: const Color.fromARGB(255, 0, 0, 0), width: 3),
+                    color: const Color.fromARGB(255, 0, 0, 0), width: 1),
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color:
-                        const Color.fromARGB(255, 62, 62, 62).withOpacity(0.3),
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -166,19 +153,10 @@ class TopUpScreen extends StatelessWidget {
             // Box untuk kategori Aktivitas & Hiburan
             Container(
               margin: const EdgeInsets.only(bottom: 40),
-              padding: const EdgeInsets.all(30),
+              padding: const EdgeInsets.all(28),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 19, 19, 19),
+                color: const Color.fromARGB(241, 3, 25, 49),
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                      color: const Color.fromARGB(255, 62, 62, 62)
-                          .withOpacity(0.3)
-                          .withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 2,
-                      offset: Offset(0, 4)),
-                ],
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

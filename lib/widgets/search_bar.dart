@@ -19,10 +19,10 @@ class _SearchItemState extends State<SearchItem> {
       onChanged: widget.onSearch,
       decoration: InputDecoration(
         hintText: 'Pencarian',
-        hintStyle: const TextStyle(color: Colors.grey),
+        hintStyle: const TextStyle(color: Colors.white),
         prefixIcon: const Icon(Icons.search, color: Colors.white),
         filled: true,
-        fillColor: const Color.fromARGB(255, 19, 19, 19),
+        fillColor: const Color.fromARGB(135, 30, 30, 30),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,

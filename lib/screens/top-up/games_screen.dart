@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:midterm_project/widgets/banner.dart';
 import 'package:midterm_project/widgets/card.dart';
 import 'package:midterm_project/widgets/search_bar.dart';
+import 'package:midterm_project/screens/top-up/games/mobile-legends_top_up_screen.dart';
+import 'package:midterm_project/screens/top-up/games/pubg_top_up_screen.dart';
+import 'package:midterm_project/screens/top-up/games/genshin-impact_top_up_screen.dart';
 
 class GamesTopUpScreen extends StatefulWidget {
   const GamesTopUpScreen({super.key});
@@ -48,18 +51,15 @@ class _GamesTopUpScreenState extends State<GamesTopUpScreen> {
   @override
   void initState() {
     super.initState();
-    filteredGames = games; //inisialisasi filteredGames sebagai games
+    filteredGames = games;
   }
 
   void _searchGames(String query) {
     setState(() {
       filteredGames = games.where((game) {
-        final nameLower = game['name']
-            .toLowerCase(); //mengubah setiap semua game pada list menjadi huruf kecil.
-        final searchLower = query
-            .toLowerCase(); //membaca input pada search bar menjadi huruf kecil semua.
-        return nameLower
-            .contains(searchLower); //mengembalikan game-game yang dicari.
+        final nameLower = game['name'].toLowerCase();
+        final searchLower = query.toLowerCase();
+        return nameLower.contains(searchLower);
       }).toList();
     });
   }
@@ -69,7 +69,7 @@ class _GamesTopUpScreenState extends State<GamesTopUpScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(color: Colors.white),
-        backgroundColor: const Color.fromARGB(183, 16, 16, 16),
+        backgroundColor: const Color.fromARGB(199, 3, 25, 49),
         title: const Text("Top Up Games",
             style: TextStyle(
               color: Colors.white,
@@ -77,7 +77,7 @@ class _GamesTopUpScreenState extends State<GamesTopUpScreen> {
               fontSize: 17,
             )),
       ),
-      backgroundColor: const Color.fromARGB(243, 0, 0, 0),
+      backgroundColor: const Color.fromARGB(199, 3, 25, 49),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
         child: Column(
@@ -89,7 +89,7 @@ class _GamesTopUpScreenState extends State<GamesTopUpScreen> {
               ],
             ),
             const SizedBox(height: 20),
-            SearchItem(onSearch: _searchGames), // Add search bar
+            SearchItem(onSearch: _searchGames),
             const SizedBox(height: 20),
             GridView.count(
               crossAxisCount: 2,
@@ -98,10 +98,40 @@ class _GamesTopUpScreenState extends State<GamesTopUpScreen> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: filteredGames.map((game) {
-                return ItemCard(
-                  name: game['name'],
-                  imagePath: game['imagePath'],
-                  isAvailable: game['isAvailable'] ?? true,
+                return GestureDetector(
+                  onTap: () {
+                    if (game['name'] == 'Mobile Legends') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MobileLegendsTopUpScreen(),
+                        ),
+                      );
+                    }
+
+                    if (game['name'] == 'PUBG Mobile') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PubgTopUpScreen(),
+                        ),
+                      );
+                    }
+
+                    if (game['name'] == 'Genshin Impact') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GenshinImpactTopUpScreen(),
+                        ),
+                      );
+                    }
+                  },
+                  child: ItemCard(
+                    name: game['name'],
+                    imagePath: game['imagePath'],
+                    isAvailable: game['isAvailable'] ?? true,
+                  ),
                 );
               }).toList(),
             ),

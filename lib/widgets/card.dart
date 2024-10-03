@@ -30,14 +30,14 @@ class ItemCard extends StatelessWidget {
               children: [
                 Image.asset(
                   imagePath,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill, // Mengisi seluruh container dengan stretch
                   color: isAvailable ? null : Colors.grey.withOpacity(0.7),
                   colorBlendMode: isAvailable ? null : BlendMode.dstATop,
                 ),
                 if (!isAvailable)
                   Container(
                     color: Colors.black.withOpacity(
-                        0.7), //cek apakah item tersedia, jika tidak maka akan diselimuiti oleh layer gelap
+                        0.7), // Lapisan gelap jika item tidak tersedia
                   ),
               ],
             ),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:midterm_project/widgets/banner.dart';
 import 'package:midterm_project/widgets/card.dart';
 import 'package:midterm_project/widgets/search_bar.dart';
+import 'package:midterm_project/screens/top-up/streaming/netflix_top_up_screen.dart';
+import 'package:midterm_project/screens/top-up/streaming/viu_top_up_screen.dart';
 
 class StreamingsTopUpScreen extends StatefulWidget {
   const StreamingsTopUpScreen({super.key});
@@ -49,15 +51,15 @@ class _StreamingsTopUpScreenState extends State<StreamingsTopUpScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(color: Colors.white),
-        backgroundColor: const Color.fromARGB(183, 16, 16, 16),
-        title: const Text("Top Up Platform Streaming",
+        backgroundColor: const Color.fromARGB(199, 3, 25, 49),
+        title: const Text("Top Up Streaming",
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w800,
               fontSize: 17,
             )),
       ),
-      backgroundColor: const Color.fromARGB(243, 0, 0, 0),
+      backgroundColor: const Color.fromARGB(199, 3, 25, 49),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
         child: Column(
@@ -70,7 +72,7 @@ class _StreamingsTopUpScreenState extends State<StreamingsTopUpScreen> {
               ],
             ),
             const SizedBox(height: 20),
-            SearchItem(onSearch: _searchStreamings), // Add search bar
+            SearchItem(onSearch: _searchStreamings),
             const SizedBox(height: 20),
             GridView.count(
               crossAxisCount: 2,
@@ -79,10 +81,31 @@ class _StreamingsTopUpScreenState extends State<StreamingsTopUpScreen> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: filteredStreamings.map((streaming) {
-                return ItemCard(
-                  name: streaming['name'],
-                  imagePath: streaming['imagePath'],
-                  isAvailable: streaming['isAvailable'] ?? true,
+                return GestureDetector(
+                  onTap: () {
+                    if (streaming['name'] == 'Netflix') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => NetflixTopUpScreen(),
+                        ),
+                      );
+                    }
+
+                    if (streaming['name'] == 'VIU') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ViuTopUpScreen(),
+                        ),
+                      );
+                    }
+                  },
+                  child: ItemCard(
+                    name: streaming['name'],
+                    imagePath: streaming['imagePath'],
+                    isAvailable: streaming['isAvailable'] ?? true,
+                  ),
                 );
               }).toList(),
             ),

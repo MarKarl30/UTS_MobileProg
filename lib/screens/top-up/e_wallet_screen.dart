@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:midterm_project/screens/top-up/ewallet/ovo.dart';
+import 'package:midterm_project/screens/top-up/ewallet/gopay.dart';
+import 'package:midterm_project/screens/top-up/ewallet/isaku.dart';
+import 'package:midterm_project/screens/top-up/ewallet/spay.dart';
 
 class EWalletTopUpScreen extends StatelessWidget {
   const EWalletTopUpScreen({super.key});
@@ -20,7 +24,7 @@ class EWalletTopUpScreen extends StatelessWidget {
         child: ListView(
           children: [
             Container(
-              padding: const EdgeInsets.all(30),
+              padding: const EdgeInsets.all(25),
               decoration: BoxDecoration(
                 color: const Color.fromARGB(255, 255, 255, 255),
                 border: Border.all(
@@ -56,14 +60,18 @@ class EWalletTopUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   GridView.count(
-                    crossAxisCount: 3,
+                    crossAxisCount: 2,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
-                      eWalletOption("assets/icons/e-wallet/ovo.png"),
-                      eWalletOption("assets/icons/e-wallet/gopay.png"),
-                      eWalletOption("assets/icons/e-wallet/spay.png"),
-                      eWalletOption("assets/icons/e-wallet/isaku.png"),
+                      eWalletOption(context, "assets/icons/e-wallet/ovo.png",
+                          OvoTopUpScreen()),
+                      eWalletOption(context, "assets/icons/e-wallet/gopay.png",
+                          GopayTopUpScreen()),
+                      eWalletOption(context, "assets/icons/e-wallet/spay.png",
+                          SpayTopUpScreen()),
+                      eWalletOption(context, "assets/icons/e-wallet/isaku.png",
+                          IsakuTopUpScreen()),
                     ],
                   ),
                 ],
@@ -76,13 +84,21 @@ class EWalletTopUpScreen extends StatelessWidget {
   }
 
   Widget eWalletOption(
-    String imagePath,
-  ) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Image.asset(imagePath, width: 100, height: 90),
-      ],
+      BuildContext context, String imagePath, Widget nextScreen) {
+    return GestureDetector(
+      onTap: () {
+        // Navigate to the respective top-up screen when tapped
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => nextScreen),
+        );
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(imagePath, width: 100, height: 90),
+        ],
+      ),
     );
   }
 }

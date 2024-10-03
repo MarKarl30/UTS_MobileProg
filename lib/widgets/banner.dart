@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 
 class BannerSlideShow extends StatefulWidget {
@@ -11,55 +12,87 @@ class BannerSlideShow extends StatefulWidget {
 
 class _BannerSlideShowState extends State<BannerSlideShow> {
   int _currentIndex = 0;
+  PageController? _pageController;
+  Timer? _timer;
 
-  void _nextPage() {
-    setState(() {
-      _currentIndex = (_currentIndex + 1) % widget.imagePaths.length;
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize PageController
+    _pageController = PageController(initialPage: _currentIndex);
+
+    // Start the automatic slide every 5 seconds
+    _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+      if (_currentIndex < widget.imagePaths.length - 1) {
+        _currentIndex++;
+      } else {
+        _currentIndex = 0;
+      }
+
+      // Animate to the next page
+      _pageController?.animateToPage(
+        _currentIndex,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
     });
   }
 
-  void _previousPage() {
-    setState(() {
-      _currentIndex = (_currentIndex - 1 + widget.imagePaths.length) %
-          widget.imagePaths.length;
-    });
+  @override
+  void dispose() {
+    _timer?.cancel(); // Cancel the timer when disposing the widget
+    _pageController?.dispose(); // Dispose the PageController safely
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Image.asset(
-              widget.imagePaths[_currentIndex],
-              fit: BoxFit.cover,
-              width: double.infinity,
-              height: 200,
-            ),
-            Positioned(
-              left: 10,
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
-                onPressed: _previousPage,
-              ),
-            ),
-            Positioned(
-              right: 10,
-              child: IconButton(
-                icon: const Icon(Icons.arrow_forward, color: Colors.white),
-                onPressed: _nextPage,
-              ),
-            ),
-          ],
+        SizedBox(
+          height: 200,
+          child: PageView.builder(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            itemCount: widget.imagePaths.length,
+            itemBuilder: (context, index) {
+              return Image.asset(
+                widget.imagePaths[index],
+                fit: BoxFit
+                    .contain, // Changed from BoxFit.cover to BoxFit.contain
+                width: double.infinity,
+              );
+            },
+          ),
         ),
         const SizedBox(height: 10),
-        Text(
-          '${_currentIndex + 1} / ${widget.imagePaths.length}',
-          style: const TextStyle(color: Colors.white),
+        // Indicator Dots
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            widget.imagePaths.length,
+            (index) => _buildDot(index),
+          ),
         ),
       ],
+    );
+  }
+
+  Widget _buildDot(int index) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 300),
+      margin: const EdgeInsets.symmetric(horizontal: 4),
+      width: _currentIndex == index ? 12 : 8,
+      height: _currentIndex == index ? 12 : 8,
+      decoration: BoxDecoration(
+        color: _currentIndex == index ? Colors.white : Colors.grey,
+        shape: BoxShape.circle,
+      ),
     );
   }
 }

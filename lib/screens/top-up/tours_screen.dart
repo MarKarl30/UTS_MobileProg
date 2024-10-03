@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:midterm_project/widgets/card.dart';
 import 'package:midterm_project/widgets/search_bar.dart';
+import 'package:midterm_project/screens/top-up/tour/orchid_forest_screen.dart';
+import 'package:midterm_project/screens/top-up/tour/dufan_screen.dart';
 
 class ToursTopUpScreen extends StatefulWidget {
   const ToursTopUpScreen({super.key});
@@ -12,11 +14,14 @@ class ToursTopUpScreen extends StatefulWidget {
 class _ToursTopUpScreenState extends State<ToursTopUpScreen> {
   List<Map<String, dynamic>> tours = [
     {'name': 'Dufan Ancol', 'imagePath': 'assets/icons/tours/dufan.png'},
-    {'name': 'Kidzania', 'imagePath': 'assets/icons/tours/kidzania.png'},
+    {
+      'name': 'Kidzania',
+      'imagePath': 'assets/icons/tours/kidzania.png',
+      'isAvailable': false
+    },
     {
       'name': 'Orchid Forest',
       'imagePath': 'assets/icons/tours/orchid.png',
-      'isAvailable': false
     },
     {
       'name': 'Wahoo',
@@ -48,15 +53,15 @@ class _ToursTopUpScreenState extends State<ToursTopUpScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(color: Colors.white),
-        backgroundColor: const Color.fromARGB(183, 16, 16, 16),
-        title: const Text("Beli Tiket Wisata",
+        backgroundColor: const Color.fromARGB(199, 3, 25, 49),
+        title: const Text("Tiiket Wisata",
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w800,
               fontSize: 17,
             )),
       ),
-      backgroundColor: const Color.fromARGB(243, 0, 0, 0),
+      backgroundColor: const Color.fromARGB(199, 3, 25, 49),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(30),
         child: Column(
@@ -71,10 +76,32 @@ class _ToursTopUpScreenState extends State<ToursTopUpScreen> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               children: filteredTours.map((tour) {
-                return ItemCard(
-                  name: tour['name'],
-                  imagePath: tour['imagePath'],
-                  isAvailable: tour['isAvailable'] ?? true,
+                return GestureDetector(
+                  onTap: () {
+                    if (tour['name'] == 'Orchid Forest') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OrchidForestScreen(),
+                        ),
+                      );
+                    }
+
+                    if (tour['name'] == 'Dufan Ancol') {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DufanAncolScreen(),
+                        ),
+                      );
+                    }
+                    // Add other tour navigation logic here
+                  },
+                  child: ItemCard(
+                    name: tour['name'],
+                    imagePath: tour['imagePath'],
+                    isAvailable: tour['isAvailable'] ?? true,
+                  ),
                 );
               }).toList(),
             ),
