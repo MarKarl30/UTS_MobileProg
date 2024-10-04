@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:midterm_project/screens/splash_screen.dart';
 import 'package:midterm_project/screens/user-auth/login_screen.dart';
+import 'package:midterm_project/widgets/navigation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +23,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Poppins',
       ),
-      home: const SplashScreen(child: SignIn()), // Use SplashScreen with Navigation as child
+      home: const SplashScreen(
+          child: SignIn()), // Use SplashScreen with Navigation as child
     );
   }
 }

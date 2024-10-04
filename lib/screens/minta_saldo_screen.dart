@@ -12,8 +12,9 @@ class MintaSaldoScreen extends StatefulWidget {
 
 class _MintaSaldoScreenState extends State<MintaSaldoScreen> {
   final TextEditingController jumlahController = TextEditingController();
-  String qrData = '';
+  String qrData = 'Rp 10.000';
 
+  @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     jumlahController.dispose();
@@ -36,17 +37,17 @@ class _MintaSaldoScreenState extends State<MintaSaldoScreen> {
         body: Center(
           heightFactor: 1.05,
           child: Container(
-            width: 300,
-            height: 400,
+            width: 350,
+            height: 485,
             decoration: BoxDecoration(
                 color: Colors.white, borderRadius: BorderRadius.circular(15.0)),
             child: Column(
               children: [
                 Center(
-                  heightFactor: 1.3,
+                  heightFactor: 1.2,
                   child: QrImageView(
                     data: qrData,
-                    size: 200,
+                    size: 275,
                   ),
                 ),
                 Padding(
@@ -65,7 +66,7 @@ class _MintaSaldoScreenState extends State<MintaSaldoScreen> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 25.0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent),

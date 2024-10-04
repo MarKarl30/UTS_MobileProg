@@ -31,10 +31,10 @@ class HomeScreen extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
           const SliverAppBar(
-            toolbarHeight: 50,
+            toolbarHeight: 65,
             backgroundColor: Colors.blueAccent,
             title: SizedBox(
-              height: 65,
+              height: 80,
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Balance(),
@@ -47,8 +47,58 @@ class HomeScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
+                width: 370,
+                height: 60,
+                margin: const EdgeInsets.only(
+                    top: 15.0, bottom: 15.0, left: 10.0, right: 10.0),
+                color: Colors.blueAccent,
+                child: GridView.count(
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: 2,
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.only(top: 5.0, right: 10.0),
+                      decoration: const BoxDecoration(
+                          border: Border(
+                              right:
+                                  BorderSide(color: Colors.white, width: 0.7))),
+                      child: const Column(
+                        children: [
+                          Text(
+                            'Uang Masuk',
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 238, 235, 235)),
+                          ),
+                          SizedBox(
+                            height: 7,
+                          ),
+                          Text('Rp 300.000',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18.0))
+                        ],
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(top: 5.0, left: 10.0),
+                      child: Column(
+                        children: [
+                          Text('Uang Keluar',
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 238, 235, 235))),
+                          SizedBox(
+                            height: 7,
+                          ),
+                          Text('Rp 450.000',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 18.0))
+                        ],
+                      ),
+                    )
+                  ],
+                )),
+            Container(
               margin: const EdgeInsets.only(
-                  top: 15.0, bottom: 15.0, left: 15.0, right: 15.0),
+                  top: 15.0, bottom: 15.0, left: 10.0, right: 10.0),
               decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
@@ -59,7 +109,7 @@ class HomeScreen extends StatelessWidget {
                   ],
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10.0)),
-              width: 350,
+              width: 370,
               height: 80,
               child: GridView.count(
                 physics: const NeverScrollableScrollPhysics(),
@@ -140,7 +190,7 @@ class HomeScreen extends StatelessWidget {
             ),
             Container(
               padding:
-                  const EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
+                  const EdgeInsets.only(top: 10.0, left: 10.0, right: 10.0),
               child: const BannerSlideShow(
                 imagePaths: [
                   "assets/images/banner/streamings/disney.png",
@@ -153,7 +203,7 @@ class HomeScreen extends StatelessWidget {
             ),
             Container(
                 margin: const EdgeInsets.only(
-                    top: 15.0, bottom: 40.0, left: 15.0, right: 15.0),
+                    top: 25.0, bottom: 40.0, left: 10.0, right: 10.0),
                 decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -164,7 +214,7 @@ class HomeScreen extends StatelessWidget {
                     ],
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10.0)),
-                width: 350,
+                width: 370,
                 height: 200,
                 child: Stack(
                   children: [

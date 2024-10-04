@@ -65,7 +65,7 @@ class _NavigationState extends State<Navigation> {
                     buildNavBarItem(Icons.home, 'Home', 0),
                     buildNavBarItem(Icons.history, 'History', 1),
                     const SizedBox(width: 20),
-                    buildNavBarItem(Icons.notifications, 'Inbox', 3),
+                    buildNavBarItem(Icons.email, 'Inbox', 3),
                     buildNavBarItem(Icons.account_circle, 'Profile', 4),
                   ],
                 ),
