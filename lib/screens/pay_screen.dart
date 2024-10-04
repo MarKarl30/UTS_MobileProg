@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
-import 'package:midterm_project/widgets/navigation.dart';
+import 'package:midterm_project/screens/after_pay_screen.dart';
 
 class PayScreen extends StatelessWidget {
   const PayScreen({super.key});
@@ -49,6 +49,9 @@ class PayScreen extends StatelessWidget {
             const SizedBox(height: 20),
             Pinput(
               length: 6,
+              obscureText: true,
+              pinAnimationType: PinAnimationType.fade,
+              animationDuration: const Duration(milliseconds: 200),
               defaultPinTheme: defaultPinTheme,
               focusedPinTheme: focusedPinTheme,
               submittedPinTheme: submittedPinTheme,
@@ -56,7 +59,8 @@ class PayScreen extends StatelessWidget {
                 Navigator.pushReplacement(
                   // ignore: use_build_context_synchronously
                   context,
-                  MaterialPageRoute(builder: (context) => const Navigation()),
+                  MaterialPageRoute(
+                      builder: (context) => const AfterPayScreen()),
                 );
               },
             ),
