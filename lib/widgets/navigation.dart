@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import '../screens/qr_code_scanner.dart';
 import '../screens/home_screen.dart';
 import '../screens/history_screen.dart';
-import '../screens/inbox_screen.dart';
 import '../profile/profile.dart';
+import '../screens/wallet/wallet_screen.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
@@ -18,8 +18,8 @@ class _NavigationState extends State<Navigation> {
     const HomeScreen(),
     const HistoryScreen(),
     const QrCodeScanner(),
-    const InboxScreen(),
-    const ProfileScreen()
+    const WalletScreen(),
+    const ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -65,7 +65,7 @@ class _NavigationState extends State<Navigation> {
                     buildNavBarItem(Icons.home, 'Home', 0),
                     buildNavBarItem(Icons.history, 'History', 1),
                     const SizedBox(width: 20),
-                    buildNavBarItem(Icons.email, 'Inbox', 3),
+                    buildNavBarItem(Icons.wallet_rounded, 'Wallet', 3),
                     buildNavBarItem(Icons.account_circle, 'Profile', 4),
                   ],
                 ),

@@ -8,6 +8,7 @@ class InboxScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
+            leading: const BackButton(color: Colors.white),
             backgroundColor: Colors.blueAccent,
             title: const Text(
               'Inbox',

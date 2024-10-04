@@ -13,6 +13,7 @@ import 'package:midterm_project/screens/saldo_screen.dart';
 import 'package:midterm_project/screens/transfer_screen.dart';
 import 'package:midterm_project/screens/minta_saldo_screen.dart';
 import 'package:midterm_project/screens/top-up/top_up_screen.dart';
+import 'package:midterm_project/screens/inbox_screen.dart'; 
 
 // Slide Show
 import 'package:midterm_project/widgets/banner.dart';
@@ -30,16 +31,29 @@ class HomeScreen extends StatelessWidget {
       body: NestedScrollView(
         physics: const NeverScrollableScrollPhysics(),
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          const SliverAppBar(
+          SliverAppBar(
             toolbarHeight: 65,
             backgroundColor: Colors.blueAccent,
-            title: SizedBox(
-              height: 80,
+            title: const SizedBox(
+              height: 55,
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: Balance(),
               ),
             ),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.notifications), // Inbox icon
+                color: Colors.white,
+                onPressed: () {
+                  // Navigate to InboxScreen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const InboxScreen()),
+                  );
+                },
+              ),
+            ],
           )
         ],
         body: SingleChildScrollView(
@@ -50,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                 width: 370,
                 height: 60,
                 margin: const EdgeInsets.only(
-                    top: 15.0, bottom: 15.0, left: 10.0, right: 10.0),
+                    top: 5.0, bottom: 15.0, left: 10.0, right: 10.0),
                 color: Colors.blueAccent,
                 child: GridView.count(
                   physics: const NeverScrollableScrollPhysics(),
