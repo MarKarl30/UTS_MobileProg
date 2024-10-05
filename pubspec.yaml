@@ -47,7 +47,7 @@ dependencies:
   mobile_scanner: ^5.1.1
   flutter_credit_card: ^4.0.1
   contacts_service: ^0.6.3
-  permission_handler: ^11.3.1 
+  permission_handler: ^11.3.1
 
 dev_dependencies:
   flutter_test:
@@ -174,6 +174,11 @@ flutter:
     - assets/images/banner/ewallet/gopay.png
     - assets/images/banner/ewallet/spay.png
     - assets/images/banner/ewallet/isaku.png
+
+    #Social Media
+    - assets/icons/social/instagram.png
+    - assets/icons/social/tiktok.png
+    - assets/icons/social/x.png
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

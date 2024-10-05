@@ -20,6 +20,8 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   late List<Map<String, dynamic>> cartItems;
+  final TextEditingController _pinController = TextEditingController();
+  final String _correctPin = '1234'; // Predefined correct PIN
 
   @override
   void initState() {
@@ -65,20 +67,19 @@ class _CartPageState extends State<CartPage> {
                   final item = cartItems[index];
                   return Card(
                     margin: const EdgeInsets.symmetric(vertical: 10),
-                    elevation: 5, // Add shadow effect
+                    elevation: 5,
                     shape: RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(10), // Rounded corners
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                    color: Colors.grey[850], // Card background color
+                    color: Colors.grey[850],
                     child: ListTile(
                       contentPadding: const EdgeInsets.symmetric(
                         vertical: 10,
                         horizontal: 15,
-                      ), // Adjust content padding
+                      ),
                       leading: const Icon(
                         Icons.shopping_bag,
-                        color: Colors.amber, // Icon color
+                        color: Colors.amber,
                       ),
                       title: Text(
                         item['name'],
@@ -106,7 +107,6 @@ class _CartPageState extends State<CartPage> {
                 },
               ),
             ),
-            // Container to center the total price and button
             Container(
               alignment: Alignment.center,
               child: Column(
@@ -119,56 +119,72 @@ class _CartPageState extends State<CartPage> {
                   ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: const Text('Konfirmasi Pembayaran'),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text('Total: Rp $totalPrice'),
-                                const SizedBox(height: 15),
-                                const TextField(
-                                  decoration: InputDecoration(
-                                    labelText: 'Enter your PIN',
+                    onPressed: cartItems.isNotEmpty
+                        ? () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: const Text('Konfirmasi Pembayaran'),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text('Total: Rp $totalPrice'),
+                                      const SizedBox(height: 15),
+                                      TextField(
+                                        controller: _pinController,
+                                        decoration: const InputDecoration(
+                                          labelText: 'PIN',
+                                        ),
+                                        obscureText: true,
+                                      ),
+                                    ],
                                   ),
-                                  obscureText: true,
-                                ),
-                              ],
-                            ),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                  widget.onPurchase();
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text('Payment successful!'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        if (_pinController.text ==
+                                            _correctPin) {
+                                          Navigator.of(context).pop();
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text(
+                                                  'Terima kasih, pembayaran berhasil!'),
+                                            ),
+                                          );
+                                          Navigator.of(context).popUntil(
+                                              (route) => route.isFirst);
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text('PIN salah!'),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      child: const Text('Bayar'),
                                     ),
-                                  );
-                                  Navigator.of(context).popUntil((route) =>
-                                      route.isFirst); // Redirect ke home
-                                },
-                                child: const Text('Pay'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Cancel'),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    child: const Text('Konfirmasi Pembayaran'),
-                    style: TextButton.styleFrom(
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Batal'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        : null,
+                    style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      backgroundColor: const Color.fromARGB(198, 0, 0, 0),
+                      backgroundColor: cartItems.isNotEmpty
+                          ? const Color.fromARGB(198, 0, 0, 0)
+                          : Colors.grey,
                     ),
+                    child: const Text('Konfirmasi Pembayaran'),
                   ),
                 ],
               ),

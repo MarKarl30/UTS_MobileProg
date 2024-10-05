@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:midterm_project/widgets/games/cart_screen.dart';
-import 'package:midterm_project/widgets/banner.dart'; // Import the cart page
+import 'package:midterm_project/widgets/banner.dart';
+import 'package:midterm_project/widgets/footer.dart';
 
 class GenericTopUpScreen extends StatefulWidget {
   final String gameName;
@@ -24,6 +25,7 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
   String selectedCategory = '';
   List<Map<String, dynamic>> selectedOptions = [];
   List<Map<String, dynamic>> cartItems = [];
+  final TextEditingController idController = TextEditingController();
 
   @override
   void initState() {
@@ -39,16 +41,29 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
   }
 
   void _addToCart(Map<String, dynamic> item) {
+    if (idController.text.isEmpty) {
+      // Show a Snackbar message if Game ID is not entered
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Harap mengisi ID Game terlebih dahulu!'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return; // Exit the function if ID is empty
+    }
+
     setState(() {
       cartItems.add(item); // Add item to cart
     });
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('${item['name']} added to cart!'),
+        content: Text('${item['name']} Ditambahkan ke keranjang!'),
         duration: const Duration(seconds: 1),
       ),
     );
   }
+
+  int get cartItemCount => cartItems.length; // Getter for cart item count
 
   @override
   Widget build(BuildContext context) {
@@ -70,43 +85,64 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
               IconButton(
                 icon: const Icon(Icons.shopping_cart, color: Colors.white),
                 onPressed: () {
-                  // Navigate to the cart page
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => CartPage(
-                        initialCartItems: cartItems,
-                        onRemove: (item) {
-                          setState(() {
-                            cartItems
-                                .remove(item); // Remove the item from the cart
-                          });
-                        },
-                        onPurchase: () {
-                          print('Purchase successful!');
-                        },
-                        onCartUpdate: (updatedCartItems) {
-                          setState(() {
-                            cartItems = updatedCartItems;
-                          });
-                        },
+                  // checking the id game is already inputted or not.
+                  if (idController.text.isNotEmpty) {
+                    // Direct user to cart page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CartPage(
+                          initialCartItems: cartItems,
+                          onRemove: (item) {
+                            setState(() {
+                              cartItems.remove(item); // Remove cart item
+                            });
+                          },
+                          onPurchase: () {
+                            print('Pembayaran berhasil, terima kasih!');
+                          },
+                          onCartUpdate: (updatedCartItems) {
+                            setState(() {
+                              cartItems = updatedCartItems;
+                            });
+                          },
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  } else {
+                    // Show snackbar message if the id is empty
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content:
+                            Text('Silakan masukkan ID Game terlebih dahulu!'),
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  }
                 },
               ),
-              if (cartItems.isNotEmpty)
+              // Show the amount of items just added
+              if (cartItemCount >
+                  0) // Only shows the amount if the amunt is greater than zero
                 Positioned(
-                  right: 0,
+                  right: 8,
+                  top: 8,
                   child: Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: const BoxDecoration(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
                       color: Colors.red,
                       shape: BoxShape.circle,
                     ),
-                    child: Text(
-                      '${cartItems.length}',
-                      style: const TextStyle(color: Colors.white, fontSize: 12),
+                    constraints: const BoxConstraints(
+                      minWidth: 20,
+                      minHeight: 20,
+                    ),
+                    child: Center(
+                      child: Text(
+                        '$cartItemCount',
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 12),
+                      ),
                     ),
                   ),
                 ),
@@ -124,16 +160,17 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
               BannerSlideShow(
                 imagePaths: widget.bannerImagePaths,
               ),
+              const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      'Select Category',
+                      'Pilih Kategori',
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: 23,
                           fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 10),
@@ -141,11 +178,13 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
                     const SizedBox(height: 20),
                     _buildTopUpInfo(),
                     const SizedBox(height: 30),
+                    _buildIdInput(), // Add ID input box here
+                    const SizedBox(height: 30),
                     const Text(
-                      'Top-Up Items:',
+                      'Item top-up',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -157,10 +196,33 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
                   ],
                 ),
               ),
+              const SizedBox(height: 90),
+              Footer(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  // Method to build ID input box
+  Widget _buildIdInput() {
+    return TextField(
+      controller: idController,
+      decoration: InputDecoration(
+        labelText: 'Masukkan ID Game',
+        labelStyle: const TextStyle(color: Colors.white),
+        prefixIcon: const Icon(Icons.email, color: Colors.white),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Colors.white),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: const BorderSide(color: Colors.green),
+        ),
+      ),
+      style: const TextStyle(color: Colors.white),
     );
   }
 
@@ -202,13 +264,13 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           Text(
-            "Top-Up Information:",
+            "Informasi Top-Up :",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 20),
           Text(
             "1. Masukkan item yang ingin dibeli dengan klik icon keranjang di sebelah kanan item",
             style: TextStyle(fontSize: 14),
@@ -245,10 +307,8 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
           style: const TextStyle(color: Colors.white),
         ),
         trailing: IconButton(
-          icon: const Icon(Icons.add_shopping_cart, color: Colors.white),
-          onPressed: () {
-            _addToCart(option); // Add item to cart
-          },
+          icon: const Icon(Icons.add_shopping_cart, color: Colors.green),
+          onPressed: () => _addToCart(option),
         ),
       ),
     );

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:midterm_project/widgets/banner.dart';
+import 'package:midterm_project/widgets/footer.dart';
+import 'package:midterm_project/screens/home_screen.dart';
 
 class GenericTopUpScreen extends StatefulWidget {
   final String streamName;
@@ -25,21 +27,25 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
   List<Map<String, dynamic>> selectedItems = [];
   final TextEditingController _pinController = TextEditingController();
   final TextEditingController _emailController =
-      TextEditingController(); // Controller untuk email
-  String pin = "1234"; // Contoh PIN yang benar
+      TextEditingController(); // Email controlller
+  String pin = "1234"; // User pin sample
 
   @override
   void initState() {
     super.initState();
-    selectedCategory = widget.categories.first;
-    selectedOptions = widget.topUpOptions[selectedCategory] ?? [];
+    selectedCategory = widget.categories
+        .first; // at first, fist category will be the chosen categoty
+    selectedOptions = widget.topUpOptions[selectedCategory] ??
+        []; // Retrieve the chosen category
   }
 
   void _updateOptions(String category) {
     setState(() {
-      selectedCategory = category;
-      selectedOptions = widget.topUpOptions[category] ?? [];
-      selectedItems.clear();
+      selectedCategory = category; // for updating the chosen category
+      selectedOptions = widget.topUpOptions[category] ??
+          []; // update the category that has been chosen by the user
+      selectedItems
+          .clear(); // Clear the items that alr selected in one category if user decide to move to another category
     });
     print('Selected Category: $selectedCategory');
     print('Selected Options: $selectedOptions');
@@ -48,14 +54,31 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
   void _toggleSelection(Map<String, dynamic> option) {
     setState(() {
       if (selectedItems.contains(option)) {
-        selectedItems.remove(option);
+        selectedItems.remove(
+            option); // remove the selected option if user select again the items
       } else {
-        selectedItems.add(option);
+        selectedItems.add(
+            option); // if at first, the item isn't selected by user, and then get selected.
       }
     });
   }
 
   void _confirmPurchase() {
+    // Checking is the email alr inputted or not
+    if (_emailController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Email tidak boleh kosong.")),
+      );
+      return;
+    }
+
+    if (selectedItems.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Pilih setidaknya satu paket.")),
+      );
+      return;
+    }
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -96,11 +119,11 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
                   const SizedBox(height: 20),
                   TextField(
                     controller: _pinController,
-                    autofocus: true,
-                    obscureText: true,
+                    style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      labelText: 'Enter your PIN',
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelText: 'PIN',
+                      labelStyle: const TextStyle(
+                          color: Color.fromARGB(134, 255, 255, 255)),
                       prefixIcon:
                           const Icon(Icons.lock_outline, color: Colors.white),
                       filled: true,
@@ -111,19 +134,17 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
                       ),
                     ),
                     keyboardType: TextInputType.number,
+                    obscureText: true,
                   ),
                   const SizedBox(height: 20),
-                  // Menampilkan daftar item yang dicentang
+                  // Display the items
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: selectedItems.map((item) {
                       return Container(
-                        color: const Color.fromARGB(255, 24, 102,
-                            228), // Warna latar belakang saat item dipilih
-                        padding:
-                            const EdgeInsets.all(12), // Padding dalam container
-                        margin: const EdgeInsets.only(
-                            bottom: 4), // Menghilangkan gap antara item
+                        color: const Color.fromARGB(255, 24, 102, 228),
+                        padding: const EdgeInsets.all(12),
+                        margin: const EdgeInsets.only(bottom: 4),
                         child: Row(
                           children: [
                             const Icon(Icons.check_circle,
@@ -142,18 +163,18 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
                     }).toList(),
                   ),
                   const SizedBox(height: 30),
-                  // Tombol konfirmasi
+                  // Purchase confirmation button
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton.icon(
                         onPressed: () {
                           if (_pinController.text == pin) {
-                            _showSuccessNotification();
-                            Navigator.of(context).pop();
+                            Navigator.of(context)
+                                .pop(); // For closing the modal
+                            _showSuccessNotification(); // Show succeed notification
                           } else {
-                            _showErrorNotification();
-                            Navigator.of(context).pop();
+                            _showErrorNotification(); // If there's something wrong
                           }
                         },
                         icon: const Icon(Icons.check, color: Colors.white),
@@ -173,7 +194,8 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
                       ),
                       ElevatedButton.icon(
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          Navigator.of(context)
+                              .pop(); // Close the modal if user cancel to purchasing
                         },
                         icon: const Icon(Icons.cancel, color: Colors.white),
                         label: const Text(
@@ -201,9 +223,14 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
   }
 
   void _showSuccessNotification() {
-    Navigator.of(context).popUntil((route) => route.isFirst);
+    // Redirect user to home if succeed
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+      (route) => false,
+    );
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Pembayaran berhasil!")),
+      const SnackBar(content: Text("Terima kasih, pembayaran berhasil!")),
     );
   }
 
@@ -234,7 +261,7 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Banner Slideshow
+              // Slideshow banner
               BannerSlideShow(
                 imagePaths: widget.bannerImagePaths,
               ),
@@ -242,12 +269,14 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
               _buildCategorySection(),
               const SizedBox(height: 60),
               _buildTopUpOptions(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
               _buildTopUpInfo(),
               const SizedBox(height: 40),
-              _buildEmailInput(), // Menambahkan input email di sini
+              _buildEmailInput(),
               const SizedBox(height: 30),
               _buildProceedButton(),
+              const SizedBox(height: 90),
+              Footer(),
             ],
           ),
         ),
@@ -260,39 +289,47 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
+          padding: EdgeInsets.symmetric(vertical: 10.0),
           child: Text(
-            'Device',
+            "Pilih Kategori:",
             style: TextStyle(
               color: Colors.white,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: DropdownButton<String>(
-            dropdownColor: const Color.fromARGB(255, 48, 71, 94),
-            value: selectedCategory,
-            items: widget.categories.map((category) {
-              return DropdownMenuItem<String>(
-                value: category,
-                child: Text(
-                  category,
-                  style: const TextStyle(color: Colors.white),
+        Container(
+          height: 45,
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 0, 35, 69),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: widget.categories.length,
+            separatorBuilder: (context, index) => const SizedBox(width: 10),
+            itemBuilder: (context, index) {
+              final category = widget.categories[index];
+              return GestureDetector(
+                onTap: () => _updateOptions(category),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: selectedCategory == category
+                        ? const Color.fromARGB(255, 51, 102, 255)
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Center(
+                    child: Text(
+                      category,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               );
-            }).toList(),
-            onChanged: (value) {
-              _updateOptions(value!);
             },
-            style: const TextStyle(color: Colors.white),
-            iconEnabledColor: Colors.white,
-            underline: Container(
-              height: 2,
-              color: Colors.white,
-            ),
           ),
         ),
       ],
@@ -303,40 +340,41 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          child: Text(
-            'Jenis Paket',
-            style: TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
-            ),
+        const Text(
+          "Pilih Opsi Top-Up:",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
           ),
         ),
+        const SizedBox(height: 20),
         ...selectedOptions.map((option) {
           return GestureDetector(
-            onTap: () => _toggleSelection(option),
+            onTap: () => _toggleSelection(option), // Menangani pemilihan opsi
             child: Container(
               color: selectedItems.contains(option)
-                  ? const Color.fromARGB(255, 21, 53, 85)
-                  : Colors.transparent,
-              padding: const EdgeInsets.all(16),
-              margin: const EdgeInsets.only(
-                  bottom: 4), // Menghilangkan gap antara item
+                  ? const Color.fromARGB(255, 51, 102, 255)
+                  : const Color.fromARGB(255, 0, 35, 69),
+              padding: const EdgeInsets.all(12),
+              margin: const EdgeInsets.only(bottom: 4),
               child: Row(
                 children: [
-                  const Icon(Icons.card_giftcard, color: Colors.white),
-                  const SizedBox(width: 12),
+                  Icon(
+                    selectedItems.contains(option)
+                        ? Icons.check_circle
+                        : Icons.circle_outlined,
+                    color: selectedItems.contains(option)
+                        ? Colors.greenAccent
+                        : Colors.white,
+                  ),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      option['name'],
+                      '${option['name']} - Rp ${option['price']}',
                       style: const TextStyle(color: Colors.white),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  Text(
-                    'Rp ${option['price']}',
-                    style: const TextStyle(color: Colors.white),
                   ),
                 ],
               ),
@@ -350,7 +388,7 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
   Widget _buildTopUpInfo() {
     return Container(
       margin: const EdgeInsets.only(top: 20.0),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.amber[100],
         borderRadius: BorderRadius.circular(10),
@@ -359,25 +397,25 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           Text(
-            "Top-Up Information:",
+            "Informasi Top-Up :",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 8),
+          SizedBox(height: 20),
           Text(
-            "1. Pilih dengan menekan paket yang Anda ingin berlangganan",
+            "1. Pilih langganan paket yang anda inginkan. Masing-masing paket aktif 30 hari setelah pembelian",
             style: TextStyle(fontSize: 14),
           ),
           SizedBox(height: 15),
           Text(
-            "2. Masukkan email platform streaming Anda, setelah pembayaran berhasil, dalam beberapa menit, kami akan menigirimkan kode voucher ke email Anda",
+            "2. Masukkan email dan pin anda secara tepat untuk melakukan pembelian item",
             style: TextStyle(fontSize: 14),
           ),
           SizedBox(height: 15),
           Text(
-            "3. Kode voucher wajib ditukar sebelum 30 hari setelah pembelian, lewat dari itu maka akan hangus.",
+            "3. Kami akan mengirimkan kode paket sesuai pembelian item Anda ke email yang diinput. Tukar kode tersebut di platform streamingnya. Apabila kode tidak segera ditukar dalam jangka waktu lebih dari 1 minggu, maka kode akan hangus ",
             style: TextStyle(fontSize: 14),
           ),
         ],
@@ -386,44 +424,36 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
   }
 
   Widget _buildEmailInput() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          'Masukkan Email',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+    return TextField(
+      controller: _emailController,
+      style: const TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        labelText: 'Email Anda',
+        labelStyle: const TextStyle(color: Color.fromARGB(134, 255, 255, 255)),
+        filled: true,
+        fillColor: const Color.fromARGB(255, 0, 35, 69),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
         ),
-        const SizedBox(height: 10),
-        TextField(
-          controller: _emailController,
-          decoration: InputDecoration(
-            hintText: 'email',
-            hintStyle: const TextStyle(color: Colors.white54),
-            filled: true,
-            fillColor: const Color.fromARGB(255, 30, 44, 54),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide.none,
-            ),
-          ),
-          style: const TextStyle(color: Colors.white),
-        ),
-      ],
+      ),
+      keyboardType: TextInputType.emailAddress,
     );
   }
 
   Widget _buildProceedButton() {
     return ElevatedButton(
-      onPressed: selectedItems.isNotEmpty ? _confirmPurchase : null,
-      child: const Text('Lanjutkan'),
+      onPressed: _confirmPurchase,
+      child: const Text(
+        "Lanjutkan",
+        style: TextStyle(color: Colors.white),
+      ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: const Color.fromARGB(255, 0, 35, 69),
-        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-        textStyle: const TextStyle(fontSize: 16),
+        backgroundColor: const Color.fromARGB(255, 51, 102, 255),
+        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
       ),
     );
   }

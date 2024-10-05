@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:midterm_project/widgets/banner.dart';
 import 'package:midterm_project/widgets/card.dart';
 import 'package:midterm_project/widgets/search_bar.dart';
+import 'package:midterm_project/widgets/footer.dart';
 import 'package:midterm_project/screens/top-up/games/mobile-legends_top_up_screen.dart';
 import 'package:midterm_project/screens/top-up/games/pubg_top_up_screen.dart';
 import 'package:midterm_project/screens/top-up/games/genshin-impact_top_up_screen.dart';
@@ -78,65 +79,74 @@ class _GamesTopUpScreenState extends State<GamesTopUpScreen> {
             )),
       ),
       backgroundColor: const Color.fromARGB(199, 3, 25, 49),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(30),
-        child: Column(
-          children: [
-            BannerSlideShow(
-              imagePaths: [
-                "assets/images/banner/games/promo1.png",
-                "assets/images/banner/games/valorant.png",
-              ],
-            ),
-            const SizedBox(height: 20),
-            SearchItem(onSearch: _searchGames),
-            const SizedBox(height: 20),
-            GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 5,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              children: filteredGames.map((game) {
-                return GestureDetector(
-                  onTap: () {
-                    if (game['name'] == 'Mobile Legends') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MobileLegendsTopUpScreen(),
-                        ),
-                      );
-                    }
-
-                    if (game['name'] == 'PUBG Mobile') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PubgTopUpScreen(),
-                        ),
-                      );
-                    }
-
-                    if (game['name'] == 'Genshin Impact') {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => GenshinImpactTopUpScreen(),
-                        ),
-                      );
-                    }
-                  },
-                  child: ItemCard(
-                    name: game['name'],
-                    imagePath: game['imagePath'],
-                    isAvailable: game['isAvailable'] ?? true,
+      body: Column(
+        mainAxisAlignment:
+            MainAxisAlignment.spaceBetween, // Ensure footer at bottom
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(30),
+              child: Column(
+                children: [
+                  BannerSlideShow(
+                    imagePaths: [
+                      "assets/images/banner/games/promo1.png",
+                      "assets/images/banner/games/valorant.png",
+                    ],
                   ),
-                );
-              }).toList(),
+                  const SizedBox(height: 40),
+                  SearchItem(onSearch: _searchGames),
+                  const SizedBox(height: 20),
+                  GridView.count(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 5,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: filteredGames.map((game) {
+                      return GestureDetector(
+                        onTap: () {
+                          // Navigate based on game name
+                          if (game['name'] == 'Mobile Legends') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    MobileLegendsTopUpScreen(),
+                              ),
+                            );
+                          } else if (game['name'] == 'PUBG Mobile') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PubgTopUpScreen(),
+                              ),
+                            );
+                          } else if (game['name'] == 'Genshin Impact') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    GenshinImpactTopUpScreen(),
+                              ),
+                            );
+                          }
+                        },
+                        child: ItemCard(
+                          name: game['name'],
+                          imagePath: game['imagePath'],
+                          isAvailable: game['isAvailable'] ?? true,
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                  const SizedBox(height: 70),
+                  Footer(),
+                ],
+              ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

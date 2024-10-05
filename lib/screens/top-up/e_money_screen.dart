@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:midterm_project/screens/home_screen.dart'; // Import your HomeScreen here
 
 class EMoneyTopUpScreen extends StatelessWidget {
   const EMoneyTopUpScreen({super.key});
@@ -9,6 +10,9 @@ class EMoneyTopUpScreen extends StatelessWidget {
     final TextEditingController _accountController = TextEditingController();
     final TextEditingController _amountController = TextEditingController();
     final TextEditingController _pinController = TextEditingController();
+
+    // Predefined PIN for demonstration purposes
+    const String correctPin = "1234"; // Replace with your actual PIN logic
 
     return Scaffold(
       appBar: AppBar(
@@ -29,16 +33,14 @@ class EMoneyTopUpScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(30),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 255, 255),
-                border: Border.all(
-                    color: const Color.fromARGB(255, 0, 0, 0), width: 3),
+                color: Colors.white,
+                border: Border.all(color: Colors.black54, width: 1.5),
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
-                    color:
-                        const Color.fromARGB(255, 62, 62, 62).withOpacity(0.3),
-                    spreadRadius: 1,
-                    blurRadius: 1,
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
                     offset: const Offset(0, 4),
                   ),
                 ],
@@ -49,8 +51,9 @@ class EMoneyTopUpScreen extends StatelessWidget {
                   const Text(
                     "Uang Elektronik",
                     style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 26,
                       fontWeight: FontWeight.bold,
+                      color: Colors.blueAccent,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -59,8 +62,9 @@ class EMoneyTopUpScreen extends StatelessWidget {
                   const Text(
                     "Bank Penyedia:",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      color: Colors.black87,
                     ),
                   ),
                   const SizedBox(height: 8),
@@ -73,7 +77,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
                   const Text(
                     "Nomor Kartu:",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -83,6 +87,9 @@ class EMoneyTopUpScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Nomor',
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.blueAccent),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -91,7 +98,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
                   const Text(
                     "Jumlah Nominal:",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -102,6 +109,9 @@ class EMoneyTopUpScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Rp.',
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.blueAccent),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -115,26 +125,29 @@ class EMoneyTopUpScreen extends StatelessWidget {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
+                      children: const [
+                        Text(
                           "Informasi:",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 8),
-                        const Text(
-                            "1. Sebelum isi saldo, pastikan HP dan kartu Anda mendukung fitur NFC.",
-                            style: TextStyle(fontSize: 14)),
+                        SizedBox(height: 8),
+                        Text(
+                          "1. Sebelum isi saldo, pastikan HP dan kartu Anda mendukung fitur NFC.",
+                          style: TextStyle(fontSize: 14),
+                        ),
                         SizedBox(height: 15),
-                        const Text(
-                            "2. Pastikan Anda menahan kartunya di area NFC.",
-                            style: TextStyle(fontSize: 14)),
+                        Text(
+                          "2. Pastikan Anda menahan kartunya di area NFC.",
+                          style: TextStyle(fontSize: 14),
+                        ),
                         SizedBox(height: 15),
-                        const Text(
-                            "3. Saldo maksimum kartu e-Money sebesar Rp 2.000.000,00.",
-                            style: TextStyle(fontSize: 14)),
+                        Text(
+                          "3. Saldo maksimum kartu e-Money sebesar Rp 2.000.000,00.",
+                          style: TextStyle(fontSize: 14),
+                        ),
                       ],
                     ),
                   ),
@@ -145,7 +158,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
                   const Text(
                     "Masukkan PIN",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -157,8 +170,20 @@ class EMoneyTopUpScreen extends StatelessWidget {
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'PIN',
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.blueAccent),
+                      ),
                     ),
                   ),
+                  const SizedBox(height: 10),
+
+                  // Error message for incorrect PIN
+                  if (_pinController.text.isNotEmpty &&
+                      _pinController.text != correctPin)
+                    const Text(
+                      "PIN yang dimasukkan salah!",
+                      style: TextStyle(color: Colors.red, fontSize: 14),
+                    ),
                   const SizedBox(height: 30),
 
                   // Konfirmasi Button
@@ -175,76 +200,117 @@ class EMoneyTopUpScreen extends StatelessWidget {
                               content: Text('Semua field harus diisi!'),
                             ),
                           );
-                        } else {
-                          // Menampilkan dialog konfirmasi
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: const Text('Konfirmasi Transaksi'),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                        'Nomor Kartu: ${_accountController.text}'),
-                                    Text(
-                                        'Jumlah: Rp ${_amountController.text}'),
-                                    const SizedBox(height: 15),
-                                    const Text(
-                                        'Apakah Anda yakin ingin melanjutkan?'),
-                                  ],
-                                ),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () {
-                                      // Menutup dialog tanpa melanjutkan
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Batal'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      // Jika pengguna mengkonfirmasi, tampilkan SnackBar dan tutup dialog
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                              'Transaksi berhasil! Jumlah: Rp ${_amountController.text}, PIN: ${_pinController.text}'),
-                                        ),
-                                      );
-
-                                      // Clear inputs
-                                      _accountController.clear();
-                                      _amountController.clear();
-                                      _pinController.clear();
-
-                                      // Menutup dialog
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Konfirmasi'),
-                                  ),
-                                ],
-                              );
-                            },
+                        } else if (_pinController.text != correctPin) {
+                          // Validate PIN
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('PIN yang dimasukkan salah!'),
+                            ),
                           );
+                        } else if (!RegExp(r'^[0-9]+$')
+                                .hasMatch(_accountController.text) ||
+                            !RegExp(r'^[0-9]+$')
+                                .hasMatch(_amountController.text)) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  'Nomor kartu dan jumlah nominal harus berupa angka!'),
+                            ),
+                          );
+                        } else {
+                          // Check minimum amount
+                          double amount =
+                              double.tryParse(_amountController.text) ?? 0.0;
+                          if (amount < 10000) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                    'Jumlah nominal minimal Rp 10.000,00!'),
+                              ),
+                            );
+                          } else {
+                            // Menampilkan dialog konfirmasi
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Konfirmasi Transaksi'),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                          'Nomor Kartu: ${_accountController.text}'),
+                                      Text(
+                                          'Jumlah: Rp ${_amountController.text}'),
+                                      const SizedBox(height: 15),
+                                      const Text(
+                                          'Apakah Anda yakin ingin melanjutkan?'),
+                                    ],
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        // Menutup dialog tanpa melanjutkan
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Batal'),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        // Jika pengguna mengkonfirmasi, tampilkan SnackBar dan tutup dialog
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                                'Transaksi berhasil! Jumlah: Rp ${_amountController.text}, PIN: ${_pinController.text}'),
+                                          ),
+                                        );
+
+                                        // Clear inputs
+                                        _accountController.clear();
+                                        _amountController.clear();
+                                        _pinController.clear();
+
+                                        // Menutup dialog
+                                        Navigator.of(context).pop();
+
+                                        // Navigate to HomeScreen
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomeScreen(),
+                                          ),
+                                        );
+                                      },
+                                      child: const Text('Konfirmasi'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
                         }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
-                            Colors.white, // Warna latar belakang tombol
+                            Colors.blueAccent, // Warna latar belakang tombol
                         padding: const EdgeInsets.symmetric(
                             horizontal: 40, vertical: 15), // Padding tombol
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
                               30), // Membuat sudut melengkung
                         ),
-                        textStyle: const TextStyle(
-                          fontSize: 18, // Ukuran font
+                      ),
+                      child: const Text(
+                        'Konfirmasi',
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.black, // Warna teks
+                          fontSize: 18,
+                          color: Colors
+                              .white, // Set the button text color to white
                         ),
                       ),
-                      child: const Text("Konfirmasi"), // Teks tombol
                     ),
                   ),
                 ],
@@ -256,15 +322,21 @@ class EMoneyTopUpScreen extends StatelessWidget {
     );
   }
 
-  // Widget untuk mengatur konten bank
-  Widget bankOption(String imagePath, String bankName) {
+  Widget bankOption(String assetPath, String bankName) {
     return Row(
       children: [
-        Image.asset(imagePath, width: 40, height: 40), // Ukuran logo bank
-        const SizedBox(width: 10), // Jarak antara logo dan nama bank
+        Image.asset(
+          assetPath,
+          width: 40,
+          height: 40,
+        ),
+        const SizedBox(width: 10),
         Text(
           bankName,
-          style: const TextStyle(fontSize: 14),
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ],
     );

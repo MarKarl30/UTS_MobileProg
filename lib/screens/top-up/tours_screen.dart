@@ -3,6 +3,7 @@ import 'package:midterm_project/widgets/card.dart';
 import 'package:midterm_project/widgets/search_bar.dart';
 import 'package:midterm_project/screens/top-up/tour/orchid_forest_screen.dart';
 import 'package:midterm_project/screens/top-up/tour/dufan_screen.dart';
+import 'package:midterm_project/widgets/footer.dart';
 
 class ToursTopUpScreen extends StatefulWidget {
   const ToursTopUpScreen({super.key});
@@ -35,7 +36,7 @@ class _ToursTopUpScreenState extends State<ToursTopUpScreen> {
   @override
   void initState() {
     super.initState();
-    filteredTours = tours; // Initially show all platforms
+    filteredTours = tours;
   }
 
   void _searchTours(String query) {
@@ -54,7 +55,7 @@ class _ToursTopUpScreenState extends State<ToursTopUpScreen> {
       appBar: AppBar(
         leading: const BackButton(color: Colors.white),
         backgroundColor: const Color.fromARGB(199, 3, 25, 49),
-        title: const Text("Tiiket Wisata",
+        title: const Text("Tiket Wisata",
             style: TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w800,
@@ -67,7 +68,7 @@ class _ToursTopUpScreenState extends State<ToursTopUpScreen> {
         child: Column(
           children: [
             const SizedBox(height: 20),
-            SearchItem(onSearch: _searchTours), // Add search bar
+            SearchItem(onSearch: _searchTours),
             const SizedBox(height: 20),
             GridView.count(
               crossAxisCount: 2,
@@ -95,7 +96,6 @@ class _ToursTopUpScreenState extends State<ToursTopUpScreen> {
                         ),
                       );
                     }
-                    // Add other tour navigation logic here
                   },
                   child: ItemCard(
                     name: tour['name'],
@@ -105,6 +105,8 @@ class _ToursTopUpScreenState extends State<ToursTopUpScreen> {
                 );
               }).toList(),
             ),
+            const SizedBox(height: 120),
+            Footer(),
           ],
         ),
       ),

@@ -4,6 +4,7 @@ import 'package:midterm_project/widgets/card.dart';
 import 'package:midterm_project/widgets/search_bar.dart';
 import 'package:midterm_project/screens/top-up/streaming/netflix_top_up_screen.dart';
 import 'package:midterm_project/screens/top-up/streaming/viu_top_up_screen.dart';
+import 'package:midterm_project/widgets/footer.dart';
 
 class StreamingsTopUpScreen extends StatefulWidget {
   const StreamingsTopUpScreen({super.key});
@@ -109,6 +110,8 @@ class _StreamingsTopUpScreenState extends State<StreamingsTopUpScreen> {
                 );
               }).toList(),
             ),
+            const SizedBox(height: 70),
+            Footer(),
           ],
         ),
       ),

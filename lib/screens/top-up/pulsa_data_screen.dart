@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:midterm_project/screens/home_screen.dart';
 
 class PulsaDataTopUpScreen extends StatefulWidget {
   const PulsaDataTopUpScreen({super.key});
@@ -13,104 +14,103 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
   String _selectedAmount = '';
   final TextEditingController _pinController = TextEditingController();
 
-  // List untuk item Pulsa dan Data
-  final List<String> _pulsaOptions = [
-    'Rp 10.000,00',
-    'Rp 20.000,00',
-    'Rp 50.000,00',
-    'Rp 100.000,00'
+  // List for items
+  final List<Map<String, dynamic>> _pulsaOptions = [
+    {'amount': 'Rp 10.000,00', 'icon': Icons.phone_iphone},
+    {'amount': 'Rp 20.000,00', 'icon': Icons.phone_android},
+    {'amount': 'Rp 50.000,00', 'icon': Icons.phone},
+    {'amount': 'Rp 100.000,00', 'icon': Icons.phone_bluetooth_speaker},
   ];
-  final List<String> _dataOptions = [
-    'AON 1GB - 15rb',
-    'AON 4GB - 50rb',
-    'AON 10GB - 100rb',
-    'Promo 2GB - 15rb',
-    'Promo 4GB - 40rb',
-    'Regular 2GB - 30rb',
-    'Regular 5GB - 70rb',
+  final List<Map<String, dynamic>> _dataOptions = [
+    {'amount': 'AON 1GB - 15rb', 'icon': Icons.wifi},
+    {'amount': 'AON 4GB - 50rb', 'icon': Icons.wifi_tethering},
+    {'amount': 'AON 10GB - 100rb', 'icon': Icons.signal_wifi_4_bar},
+    {'amount': 'Promo 2GB - 15rb', 'icon': Icons.signal_wifi_4_bar},
+    {'amount': 'Promo 4GB - 40rb', 'icon': Icons.signal_wifi_4_bar},
+    {'amount': 'Regular 2GB - 30rb', 'icon': Icons.signal_wifi_off},
+    {'amount': 'Regular 5GB - 70rb', 'icon': Icons.signal_wifi_off},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Top Up Pulsa & Data"),
-        backgroundColor: const Color.fromARGB(183, 233, 232, 232),
+        toolbarHeight: 56,
+        backgroundColor: Colors.blue,
+        leading: const BackButton(color: Colors.white),
+        title: const Text(
+          "Pulsa & Data",
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
       ),
-      backgroundColor: const Color.fromARGB(243, 246, 245, 245),
+      backgroundColor: const Color.fromARGB(255, 240, 240, 240),
       body: Padding(
-        padding: const EdgeInsets.all(40),
+        padding: const EdgeInsets.all(20),
         child: ListView(
           children: [
-            // Input nomor telepon
             const SizedBox(height: 10.0),
             TextField(
               controller: _phoneNumberController,
               keyboardType: TextInputType.phone,
-              style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+              style: const TextStyle(color: Colors.black),
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.phone,
-                    color: const Color.fromARGB(179, 40, 39, 39)),
+                prefixIcon: Icon(Icons.phone, color: Colors.blue),
                 hintText: "No. Telp",
-                hintStyle: const TextStyle(color: Color.fromARGB(179, 0, 0, 0)),
+                hintStyle: const TextStyle(color: Colors.grey),
                 border: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: const Color.fromARGB(255, 0, 0, 0)),
+                  borderSide: BorderSide(color: Colors.blue),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
             ),
-            const SizedBox(height: 80.0),
+            const SizedBox(height: 50.0),
+            // Category selection with icons
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                choiceChipWidget("Pulsa"),
-                choiceChipWidget("Data"),
+                choiceChipWidget("Pulsa", Icons.sim_card),
+                choiceChipWidget("Data", Icons.wifi),
               ],
             ),
-            const SizedBox(height: 20.0),
-
-            GridView.count(
-              crossAxisCount: 3,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+            const SizedBox(height: 50.0),
+            // List for top-up options
+            Column(
               children: _selectedCategory == 'Pulsa'
-                  ? _pulsaOptions.map((amount) => topUpItem(amount)).toList()
-                  : _dataOptions.map((amount) => topUpItem(amount)).toList(),
+                  ? _pulsaOptions.map((option) => topUpItem(option)).toList()
+                  : _dataOptions.map((option) => topUpItem(option)).toList(),
             ),
-            const SizedBox(height: 80.0),
-            // Konfirmasi pembayaran
-            const SizedBox(height: 10.0),
+            const SizedBox(height: 50.0),
+            // Purchase confirmation
             TextField(
               controller: _pinController,
               obscureText: true,
               keyboardType: TextInputType.number,
-              style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+              style: const TextStyle(color: Colors.black),
               decoration: InputDecoration(
-                prefixIcon:
-                    Icon(Icons.lock, color: const Color.fromARGB(179, 0, 0, 0)),
+                prefixIcon: Icon(Icons.lock, color: Colors.blue),
                 hintText: "PIN",
-                hintStyle: const TextStyle(color: Color.fromARGB(179, 0, 0, 0)),
+                hintStyle: const TextStyle(color: Colors.grey),
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey.shade300),
+                  borderSide: BorderSide(color: Colors.blue),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
               ),
             ),
-            const SizedBox(height: 60.0),
-
-            //button untuk konfirmasi
+            const SizedBox(height: 30.0),
+            // Purchase confirmation button
             ElevatedButton(
               onPressed: () {
-                // Aksi konfirmasi top-up
                 _confirmTopUp();
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                backgroundColor: Colors.blue,
                 padding: const EdgeInsets.all(15.0),
               ),
               child: const Text(
-                "Top-up Sekarang!",
+                "Konfirmasi",
                 style: TextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
@@ -120,47 +120,80 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
     );
   }
 
-  //widget untuk menentukan category apa yang dipilih (pulsa dan data) secara interaktif
-  Widget choiceChipWidget(String category) {
+  // Widget fot deciding which category is active now for more responsiveness
+  Widget choiceChipWidget(String category, IconData icon) {
     return ChoiceChip(
-      label: Text(category),
+      label: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, color: Colors.white), // Icon for category
+          const SizedBox(width: 5),
+          Text(category),
+        ],
+      ),
       selected: _selectedCategory == category,
       onSelected: (selected) {
         setState(() {
           _selectedCategory = category;
         });
       },
-      selectedColor: const Color.fromARGB(255, 111, 120, 118),
-      backgroundColor: const Color.fromARGB(255, 25, 25, 25),
+      selectedColor: Colors.blue,
+      backgroundColor: Colors.blueGrey[800],
       labelStyle: const TextStyle(color: Colors.white),
     );
   }
 
-  //widget untuk item topup pulsa ataupun data
-  Widget topUpItem(String amount) {
+  // Widget for items
+  Widget topUpItem(Map<String, dynamic> option) {
+    bool isSelected =
+        _selectedAmount == option['amount']; // Check if this option is selected
+
     return GestureDetector(
       onTap: () {
         setState(() {
-          _selectedAmount = amount;
+          _selectedAmount = option['amount'];
         });
       },
-      child: Container(
-        margin: const EdgeInsets.all(10.0),
-        padding: const EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
-          color: _selectedAmount == amount
-              ? const Color.fromARGB(255, 44, 48, 48)
-              : Color.fromARGB(255, 25, 25, 25),
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Center(
-          child: Text(
-            amount,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 13,
-            ),
-            textAlign: TextAlign.center,
+      child: Card(
+        margin: const EdgeInsets.symmetric(vertical: 5.0),
+        color: isSelected ? Colors.blue[700] : Colors.blueGrey[800],
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Row(
+            children: [
+              // Circular checkmark icon
+              Container(
+                width: 24,
+                height: 24,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: isSelected
+                      ? Colors.green
+                      : Colors.transparent, // Change color when selected
+                  border: Border.all(
+                    color: isSelected
+                        ? Colors.green
+                        : Colors.white, // Border color
+                    width: 2,
+                  ),
+                ),
+                child: isSelected
+                    ? const Icon(Icons.check,
+                        color: Colors.white, size: 16) // Checkmark icon
+                    : null, // No icon if not selected
+              ),
+              const SizedBox(width: 10),
+              Text(
+                option['amount'],
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+              const Spacer(), // Spacing to push the text to the left
+              const Icon(Icons.arrow_forward_ios,
+                  color: Colors.white), // Arrow icon for selection indication
+            ],
           ),
         ),
       ),
@@ -168,7 +201,7 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
   }
 
   void _confirmTopUp() {
-    // Memeriksa input apakah sudah valid sesuai dengan ketentuan untuk melakukan konfirmasi top-up
+    // Validate the input
     if (_phoneNumberController.text.isEmpty ||
         _selectedAmount.isEmpty ||
         _pinController.text.isEmpty) {
@@ -180,13 +213,33 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
       return;
     }
 
-    //Menampilkan massage berupa item top-up yang berhasil dilakukan
+    // Validate for correct pin
+    const String correctPin = '123456'; // Set the correct PIN here
+    if (_pinController.text != correctPin) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+            content: Text("PIN yang dimasukkan salah!"),
+            behavior: SnackBarBehavior.floating),
+      );
+      return;
+    }
+
+    // Display snackbar message for the succed item purchased
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-          content: Text(
-            "Top-up $_selectedCategory sebesar $_selectedAmount berhasil!",
-          ),
-          behavior: SnackBarBehavior.floating),
+        content: Text(
+          "Top-up $_selectedCategory sebesar $_selectedAmount berhasil!",
+        ),
+        behavior: SnackBarBehavior.floating,
+      ),
     );
+
+    // Navigate to HomeScreen after a delay
+    Future.delayed(const Duration(seconds: 0), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+    });
   }
 }

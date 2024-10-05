@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // For date formatting
+import 'package:intl/intl.dart';
 import 'package:midterm_project/widgets/banner.dart';
+import 'package:midterm_project/widgets/footer.dart';
+import 'package:midterm_project/screens/home_screen.dart';
 
 class GenericTourScreen extends StatefulWidget {
   final String tourName;
@@ -35,6 +37,7 @@ class _GenericTourScreenState extends State<GenericTourScreen> {
   final String pin = "1234"; // Example PIN
   bool showAdditionalInfo = false;
   DateTime? selectedDate;
+  final TextEditingController _emailController = TextEditingController();
 
   // Constants
   static const Color backgroundColor = Color.fromARGB(199, 3, 25, 49);
@@ -43,6 +46,20 @@ class _GenericTourScreenState extends State<GenericTourScreen> {
   static const Color greyTextColor = Colors.grey;
 
   void _confirmPurchase() {
+    // Validate inputs
+    if (selectedDate == null) {
+      _showErrorNotification("Tanggal kunjungan harus dipilih.");
+      return;
+    }
+    if (adultTickets + childTickets == 0) {
+      _showErrorNotification("Minimal satu tiket harus dibeli.");
+      return;
+    }
+    if (_emailController.text.isEmpty) {
+      _showErrorNotification("Email harus diisi.");
+      return;
+    }
+
     showDialog(
       context: context,
       builder: (context) {
@@ -96,9 +113,14 @@ class _GenericTourScreenState extends State<GenericTourScreen> {
               onPressed: () {
                 if (_pinController.text == pin) {
                   _showSuccessNotification();
-                  Navigator.of(context).pop();
+                  // Navigate to HomeScreen
+                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) =>
+                        HomeScreen(), // Replace with your HomeScreen
+                  ));
                 } else {
-                  _showErrorNotification();
+                  _showErrorNotification("PIN salah, coba lagi.");
                   Navigator.of(context).pop();
                 }
               },
@@ -123,9 +145,9 @@ class _GenericTourScreenState extends State<GenericTourScreen> {
     );
   }
 
-  void _showErrorNotification() {
+  void _showErrorNotification(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("PIN salah, coba lagi.")),
+      SnackBar(content: Text(message)),
     );
   }
 
@@ -169,33 +191,56 @@ class _GenericTourScreenState extends State<GenericTourScreen> {
               const SizedBox(height: 10),
               Text('Jam Operasional: Setiap hari, ${widget.operationalHours}',
                   style: const TextStyle(color: greyTextColor)),
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
 
-              // Date Picker
+              // Date Picker with Icon
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text('Tanggal Kunjungan:',
-                      style: TextStyle(color: textColor)),
-                  TextButton(
+                      style: TextStyle(
+                          color: textColor,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold)),
+                  IconButton(
+                    icon: const Icon(Icons.calendar_today, color: Colors.blue),
                     onPressed: () => _selectDate(context),
-                    child: Text(
-                        selectedDate == null
-                            ? 'Pilih Tanggal'
-                            : DateFormat('dd/MM/yyyy').format(selectedDate!),
-                        style: const TextStyle(color: Colors.blue)),
                   ),
+                  Text(
+                      selectedDate == null
+                          ? ''
+                          : DateFormat('dd/MM/yyyy').format(selectedDate!),
+                      style: const TextStyle(color: Colors.blue)),
                 ],
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
+
+              // Email input with Icon
+              TextField(
+                controller: _emailController,
+                decoration: InputDecoration(
+                  labelText: 'Masukkan Email',
+                  labelStyle: TextStyle(color: textColor),
+                  filled: true,
+                  fillColor: const Color.fromARGB(248, 48, 90, 154),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
+                  prefixIcon: const Icon(Icons.email,
+                      color: textColor), // Email icon added here
+                ),
+                keyboardType: TextInputType.emailAddress,
+              ),
+              const SizedBox(height: 50),
 
               // Terms and Conditions
               _buildTermsAndConditionsSection(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
 
               // Ticket Quantity
               _buildTicketQuantitySection(),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
 
               // Buy Ticket Button
               ElevatedButton(
@@ -208,6 +253,8 @@ class _GenericTourScreenState extends State<GenericTourScreen> {
                 child: const Text("Beli Tiket",
                     style: TextStyle(color: textColor)),
               ),
+              const SizedBox(height: 100),
+              Footer(),
             ],
           ),
         ),
@@ -227,14 +274,18 @@ class _GenericTourScreenState extends State<GenericTourScreen> {
         children: [
           const Text(
             'Syarat dan Ketentuan:',
-            style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                color: textColor, fontWeight: FontWeight.bold, fontSize: 24),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 30),
           ...widget.termsAndConditions.map((item) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('• $item', style: const TextStyle(color: textColor)),
-                  const SizedBox(height: 6), // Add spacing between items
+                  Text(
+                    '- $item',
+                    style: TextStyle(color: textColor),
+                  ),
+                  const SizedBox(height: 5),
                 ],
               )),
           const SizedBox(height: 10),
@@ -245,26 +296,19 @@ class _GenericTourScreenState extends State<GenericTourScreen> {
               });
             },
             child: Text(
-              showAdditionalInfo ? 'Tutup Informasi' : 'Informasi Selengkapnya',
-              style: TextStyle(
-                color: buttonColor, // Use the same color as "Pilih Tanggal"
-                decoration: TextDecoration.underline,
-              ),
+              showAdditionalInfo ? 'Sembunyikan' : 'Lihat lebih lanjut',
+              style: TextStyle(color: buttonColor),
             ),
           ),
           if (showAdditionalInfo) ...[
-            const SizedBox(height: 10),
             const Text(
-              'Cara Penggunaan E-Ticket:',
+              'Informasi Tambahan:',
               style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
-            ...widget.additionalInfo.map((info) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('• $info', style: const TextStyle(color: textColor)),
-                    const SizedBox(height: 6), // Add spacing between items
-                  ],
+            ...widget.additionalInfo.map((info) => Text(
+                  '- $info',
+                  style: TextStyle(color: textColor),
                 )),
           ],
         ],
@@ -275,84 +319,71 @@ class _GenericTourScreenState extends State<GenericTourScreen> {
   Widget _buildTicketQuantitySection() {
     return Container(
       padding: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 21, 53, 85),
-        borderRadius: BorderRadius.circular(10),
-      ),
+      color: const Color.fromARGB(249, 19, 45, 84),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Jumlah Tiket:',
-            style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+            'Opsi Tiket',
+            style: TextStyle(
+                color: textColor, fontWeight: FontWeight.bold, fontSize: 24),
           ),
-          const SizedBox(height: 10),
-          // Adult tickets section
+          const SizedBox(height: 30),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Icon(Icons.person,
-                  color: textColor), // Icon for adult tickets
-              const SizedBox(width: 10),
-              Text("Tiket Dewasa: ", style: TextStyle(color: textColor)),
-              IconButton(
-                icon: const Icon(Icons.remove, color: textColor),
-                onPressed: () {
-                  setState(() {
-                    if (adultTickets > 0) adultTickets--;
-                  });
-                },
-              ),
-              Text('$adultTickets', style: TextStyle(color: textColor)),
-              IconButton(
-                icon: const Icon(Icons.add, color: textColor),
-                onPressed: () {
-                  setState(() {
-                    adultTickets++;
-                  });
-                },
-              ),
+              _buildTicketCounter("Dewasa", adultTickets, (value) {
+                setState(() {
+                  adultTickets = value;
+                });
+              }, Icons.person),
+              _buildTicketCounter("Anak", childTickets, (value) {
+                setState(() {
+                  childTickets = value;
+                });
+              }, Icons.child_care),
             ],
-          ),
-          // Price for adult tickets
-          Text(
-            'Rp. ${widget.adultTicketPrice}',
-            style: TextStyle(color: textColor),
-          ),
-          const SizedBox(height: 10), // Spacing between sections
-
-          // Child tickets section
-          Row(
-            children: [
-              const Icon(Icons.child_care,
-                  color: textColor), // Icon for child tickets
-              const SizedBox(width: 10),
-              Text("Tiket Anak: ", style: TextStyle(color: textColor)),
-              IconButton(
-                icon: const Icon(Icons.remove, color: textColor),
-                onPressed: () {
-                  setState(() {
-                    if (childTickets > 0) childTickets--;
-                  });
-                },
-              ),
-              Text('$childTickets', style: TextStyle(color: textColor)),
-              IconButton(
-                icon: const Icon(Icons.add, color: textColor),
-                onPressed: () {
-                  setState(() {
-                    childTickets++;
-                  });
-                },
-              ),
-            ],
-          ),
-          // Price for child tickets
-          Text(
-            'Rp. ${widget.childTicketPrice}',
-            style: TextStyle(color: textColor),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildTicketCounter(
+      String title, int count, ValueChanged<int> onChanged, IconData icon) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Icon(icon,
+                color: textColor), // Display the icon for each ticket type
+            const SizedBox(width: 8), // Spacing between icon and title
+            Text(title, style: const TextStyle(color: textColor, fontSize: 16)),
+          ],
+        ),
+        Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.remove,
+                  color: Colors.red), // Red for subtraction
+              onPressed: () {
+                if (count > 0) {
+                  onChanged(count - 1);
+                }
+              },
+            ),
+            Text(count.toString(),
+                style: const TextStyle(color: textColor, fontSize: 20)),
+            IconButton(
+              icon: const Icon(Icons.add,
+                  color: Colors.green), // Green for addition
+              onPressed: () {
+                onChanged(count + 1);
+              },
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

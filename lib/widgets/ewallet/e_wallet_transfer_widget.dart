@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:midterm_project/screens/home_screen.dart';
 
 class EWalletTransferWidget extends StatefulWidget {
   final String bannerImage; // Banner image for the wallet
@@ -91,21 +92,19 @@ class _EWalletTransferWidgetState extends State<EWalletTransferWidget> {
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 219, 226, 228),
                     borderRadius: BorderRadius.circular(8.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color.fromARGB(255, 228, 220, 220)
-                            .withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 2,
-                        offset: const Offset(9, 9),
-                      ),
-                    ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Nomor Akun Tujuan",
-                          style: TextStyle(fontSize: 16)),
+                      const Text(
+                        "Nomor Akun Tujuan",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
                       Row(
                         children: [
                           Text(widget.uniqueCode,
@@ -114,9 +113,14 @@ class _EWalletTransferWidgetState extends State<EWalletTransferWidget> {
                           Expanded(
                             child: TextField(
                               controller: _accountController,
-                              keyboardType: TextInputType.text,
-                              decoration: const InputDecoration(
+                              keyboardType:
+                                  TextInputType.number, // Allow only numbers
+                              decoration: InputDecoration(
                                 hintText: "Nomor",
+                                prefixIcon: const Icon(Icons
+                                    .account_circle), // Icon for account number
+                                border:
+                                    const OutlineInputBorder(), // Add border
                               ),
                             ),
                           ),
@@ -133,26 +137,27 @@ class _EWalletTransferWidgetState extends State<EWalletTransferWidget> {
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 219, 226, 228),
                     borderRadius: BorderRadius.circular(8.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color.fromARGB(255, 228, 220, 220)
-                            .withOpacity(0.2),
-                        spreadRadius: 2,
-                        blurRadius: 2,
-                        offset: const Offset(9, 9),
-                      ),
-                    ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text("Jumlah Transfer",
-                          style: TextStyle(fontSize: 16)),
+                      const Text(
+                        "Jumlah Transfer",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
                       TextField(
                         controller: _amountController,
                         keyboardType: TextInputType.number,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           hintText: "Rp.",
+                          prefixIcon:
+                              const Icon(Icons.money), // Icon for amount
+                          border: const OutlineInputBorder(), // Add border
                         ),
                       ),
                     ],
@@ -177,8 +182,17 @@ class _EWalletTransferWidgetState extends State<EWalletTransferWidget> {
 
   // Show transaction details in a bottom sheet
   void _showTransactionDetails(BuildContext context) {
-    if (_accountController.text.isNotEmpty &&
-        _amountController.text.isNotEmpty) {
+    final double amount = double.tryParse(
+            _amountController.text.replaceAll('.', '').replaceAll(',', '.')) ??
+        0; // Convert amount to double
+
+    // Check if account number is numeric
+    final String accountNumber = _accountController.text;
+    final bool isAccountNumberValid = RegExp(r'^[0-9]+$')
+        .hasMatch(accountNumber); // Regex to check for numeric values
+
+    if (accountNumber.isNotEmpty && isAccountNumberValid && amount >= 10000) {
+      // Proceed if all validations pass
       showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
@@ -221,9 +235,17 @@ class _EWalletTransferWidgetState extends State<EWalletTransferWidget> {
         },
       );
     } else {
+      // Prepare error messages based on the invalid input
+      String message = "";
+      if (accountNumber.isEmpty) {
+        message = "Harap isi nomor akun tujuan";
+      } else if (!isAccountNumberValid) {
+        message = "Nomor akun tujuan hanya boleh berupa angka";
+      } else if (amount < 10000) {
+        message = "Jumlah transfer minimal Rp 10.000,00";
+      }
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-            content: Text("Harap isi nomor akun dan jumlah transfer")),
+        SnackBar(content: Text(message)),
       );
     }
   }
@@ -232,17 +254,32 @@ class _EWalletTransferWidgetState extends State<EWalletTransferWidget> {
   void _handleConfirmTransaction(BuildContext context) {
     final String pin = _pinController.text;
 
-    if (pin.isNotEmpty) {
+    if (pin.isNotEmpty && pin == "1234") {
+      // Contoh validasi PIN
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-              "Berhasil mentransfer Rp${_amountController.text} ke akun ${_accountController.text}"),
+            "Berhasil mentransfer Rp ${_amountController.text} ke akun ${_accountController.text}",
+          ),
         ),
       );
-      Navigator.pop(context); // Close the bottom sheet
-    } else {
+
+      // Redirect user to HomeScreen after succeed doing transaction
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ),
+      );
+    } else if (pin.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Harap masukkan PIN")),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("PIN yang anda masukkan salah, harap coba lagi"),
+        ),
       );
     }
   }
