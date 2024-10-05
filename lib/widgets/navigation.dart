@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../screens/qr_code_scanner.dart';
-import '../screens/home_screen.dart';
-import '../screens/history_screen.dart';
+
 import '../profile/profile.dart';
+import '../screens/history_screen.dart';
+import '../screens/home_screen.dart';
+import '../screens/qr_code_scanner.dart';
 import '../screens/wallet/wallet_screen.dart';
 
 class Navigation extends StatefulWidget {

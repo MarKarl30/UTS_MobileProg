@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pinput/pinput.dart';
 import 'package:midterm_project/screens/after_pay_screen.dart';
+import 'package:pinput/pinput.dart';
 
 class PayScreen extends StatelessWidget {
   const PayScreen({super.key});

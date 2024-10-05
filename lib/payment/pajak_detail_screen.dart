@@ -48,12 +48,12 @@ class PajakDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Detail $namaPajak',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blueAccent,
         iconTheme:
-            IconThemeData(color: Colors.black), // Mengubah warna ikon kembali
+            IconThemeData(color: Colors.white), // Mengubah warna ikon kembali
       ),
       body: Center(
         child: Column(
@@ -85,6 +85,14 @@ class PajakDetailScreen extends StatelessWidget {
                   ),
                 );
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
               child: const Text('Bayar Sekarang'),
             ),
           ],

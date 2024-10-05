@@ -47,11 +47,11 @@ class BPJSDetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Detail $namaBPJS',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.blueAccent,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Center(
         child: Column(
@@ -83,6 +83,14 @@ class BPJSDetailScreen extends StatelessWidget {
                   ),
                 );
               },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
               child: const Text('Bayar Sekarang'),
             ),
           ],

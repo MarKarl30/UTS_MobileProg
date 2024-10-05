@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:midterm_project/screens/user-auth/login_screen.dart';
-import 'package:midterm_project/widgets/register_text_field.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-import 'package:midterm_project/screens/user-auth/verify_otp_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:midterm_project/screens/user-auth/login_screen.dart';
+import 'package:midterm_project/screens/user-auth/verify_otp_screen.dart';
+import 'package:midterm_project/widgets/register_text_field.dart';
 
 void navigateToOtpScreen(BuildContext context, String phoneNumber) {
   Navigator.push(

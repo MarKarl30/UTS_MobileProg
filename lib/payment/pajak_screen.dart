@@ -25,12 +25,12 @@ class PajakScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Daftar Pajak',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blueAccent,
         iconTheme:
-            IconThemeData(color: Colors.black), // Mengubah warna ikon kembali
+            IconThemeData(color: Colors.white), // Mengubah warna ikon kembali
       ),
       body: ListView.builder(
         itemCount: daftarPajak.length,

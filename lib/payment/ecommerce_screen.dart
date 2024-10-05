@@ -24,11 +24,11 @@ class EcommerceScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Daftar E-commerce',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.blueAccent,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Scrollbar(
         thickness: 6,

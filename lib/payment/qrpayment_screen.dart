@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart'; // Pastikan impor ini ada
 
+import 'saldo_payment.dart';
+
 class QRCodeScreen extends StatelessWidget {
   final String totalAmount;
 
@@ -12,12 +14,12 @@ class QRCodeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'QR Code Pembayaran',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blueAccent,
         iconTheme:
-            IconThemeData(color: Colors.black), // Mengubah warna ikon kembali
+            IconThemeData(color: Colors.white), // Mengubah warna ikon kembali
       ),
       body: Center(
         child: Column(
@@ -37,6 +39,33 @@ class QRCodeScreen extends StatelessWidget {
                   'Total yang harus dibayar: $totalAmount', // Pastikan parameter ini benar
               version: QrVersions.auto,
               size: 250.0,
+            ),
+            SizedBox(height: 20), // Menambahkan jarak antara QR code dan tombol
+            ElevatedButton(
+              onPressed: () {
+                // Menghapus simbol mata uang dan pemisah ribuan
+                String cleanedAmount =
+                    totalAmount.replaceAll(RegExp(r'[^\d]'), '');
+                double amount = double.parse(cleanedAmount);
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SaldoPaymentScreen(
+                      totalAmount: amount,
+                    ),
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: Text('Bayar dengan saldo'),
             ),
           ],
         ),

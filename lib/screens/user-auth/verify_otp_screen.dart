@@ -1,8 +1,9 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:pinput/pinput.dart';
 import 'package:midterm_project/screens/home_screen.dart';
 import 'package:midterm_project/widgets/navigation.dart';
+import 'package:pinput/pinput.dart';
 
 
 void navigateToHomeScreen(BuildContext context) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 // Payment
 import 'package:midterm_project/payment/bpjs_screen.dart';
 import 'package:midterm_project/payment/ecommerce_screen.dart';
@@ -7,14 +6,12 @@ import 'package:midterm_project/payment/net_screen.dart';
 import 'package:midterm_project/payment/pajak_screen.dart';
 import 'package:midterm_project/payment/pendidikan_screen.dart';
 import 'package:midterm_project/payment/pln_screen.dart';
-
+import 'package:midterm_project/screens/inbox_screen.dart';
+import 'package:midterm_project/screens/minta_saldo_screen.dart';
 // Screen
 import 'package:midterm_project/screens/saldo_screen.dart';
-import 'package:midterm_project/screens/transfer/transfer_screen.dart';
-import 'package:midterm_project/screens/minta_saldo_screen.dart';
 import 'package:midterm_project/screens/top-up/top_up_screen.dart';
-import 'package:midterm_project/screens/inbox_screen.dart';
-
+import 'package:midterm_project/screens/transfer/transfer_screen.dart';
 // Slide Show
 import 'package:midterm_project/widgets/banner.dart';
 

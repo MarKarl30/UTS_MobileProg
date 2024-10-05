@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:midterm_project/screens/splash_screen.dart';
 import 'package:midterm_project/screens/user-auth/login_screen.dart';
-import 'package:midterm_project/widgets/navigation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
