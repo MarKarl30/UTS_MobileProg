@@ -45,7 +45,9 @@ dependencies:
   firebase_auth: ^5.3.0
   firebase_storage: ^12.3.1
   mobile_scanner: ^5.1.1
-  flutter_credit_card: ^4.0.1 
+  flutter_credit_card: ^4.0.1
+  contacts_service: ^0.6.3
+  permission_handler: ^11.3.1 
 
 dev_dependencies:
   flutter_test:

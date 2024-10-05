@@ -10,10 +10,10 @@ import 'package:midterm_project/payment/pln_screen.dart';
 
 // Screen
 import 'package:midterm_project/screens/saldo_screen.dart';
-import 'package:midterm_project/screens/transfer_screen.dart';
+import 'package:midterm_project/screens/transfer/transfer_screen.dart';
 import 'package:midterm_project/screens/minta_saldo_screen.dart';
 import 'package:midterm_project/screens/top-up/top_up_screen.dart';
-import 'package:midterm_project/screens/inbox_screen.dart'; 
+import 'package:midterm_project/screens/inbox_screen.dart';
 
 // Slide Show
 import 'package:midterm_project/widgets/banner.dart';
@@ -49,7 +49,8 @@ class HomeScreen extends StatelessWidget {
                   // Navigate to InboxScreen
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const InboxScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const InboxScreen()),
                   );
                 },
               ),
