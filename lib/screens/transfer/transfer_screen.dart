@@ -45,10 +45,18 @@ class _TransferScreenState extends State<TransferScreen> {
   Future<void> _loadProfileData() async {
     _userId = await _transferService.getUserId();
     if (_userId != null) {
-      String? username = await _transferService.getUsername();
+      // fetch user detail dari firestore
+      final userDetails = await _transferService.fetchUserDetails();
+
+      // fetch username
+      String username = userDetails['userName'] ?? '';
+
+      // fetch profile image
       String? profileImage = await _transferService.getProfileImage();
+
+      // ganti value state dengan value yang sudah di fetch
       setState(() {
-        _username = username ?? '';
+        _username = username;
         _profileImage = profileImage ?? '';
       });
     }
