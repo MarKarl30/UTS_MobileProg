@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'pendidikan_detail_screen.dart'; // Tambahkan import untuk screen detail pendidikan
+import 'pendidikan_detail_screen.dart';
 
 class PendidikanScreen extends StatelessWidget {
   const PendidikanScreen({super.key});
@@ -24,9 +24,8 @@ class PendidikanScreen extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent, // Mengubah warna latar belakang
-        iconTheme:
-            IconThemeData(color: Colors.white), // Mengubah warna ikon kembali
+        backgroundColor: Colors.blueAccent,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Scrollbar(
         thickness: 6,

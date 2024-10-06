@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart'; // Tambahkan impor ini
-import 'package:midterm_project/payment/payment_success_screen.dart'; // Impor layar baru
+import 'package:intl/intl.dart';
+import 'package:midterm_project/payment/payment_success_screen.dart';
 
 class SaldoPaymentScreen extends StatefulWidget {
   final double totalAmount;
@@ -66,7 +66,7 @@ class _SaldoPaymentScreenState extends State<SaldoPaymentScreen> {
               ],
             ),
             SizedBox(height: 30),
-            Spacer(), // Tambahkan Spacer di sini
+            Spacer(),
             Center(
               child: ElevatedButton(
                 onPressed: () {

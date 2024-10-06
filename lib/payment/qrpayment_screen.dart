@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart'; // Pastikan impor ini ada
+import 'package:qr_flutter/qr_flutter.dart';
 
 import 'saldo_payment.dart';
 
@@ -18,8 +18,7 @@ class QRCodeScreen extends StatelessWidget {
         ),
         centerTitle: true,
         backgroundColor: Colors.blueAccent,
-        iconTheme:
-            IconThemeData(color: Colors.white), // Mengubah warna ikon kembali
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Center(
         child: Column(
@@ -35,8 +34,7 @@ class QRCodeScreen extends StatelessWidget {
               ),
             ),
             QrImageView(
-              data:
-                  'Total yang harus dibayar: $totalAmount', // Pastikan parameter ini benar
+              data: 'Total yang harus dibayar: $totalAmount',
               version: QrVersions.auto,
               size: 250.0,
             ),

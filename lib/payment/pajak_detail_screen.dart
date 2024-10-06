@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'qrpayment_screen.dart'; // Tambahkan import untuk screen QR code
+import 'qrpayment_screen.dart';
 
 class PajakDetailScreen extends StatelessWidget {
   final String namaPajak;

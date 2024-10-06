@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:midterm_project/widgets/navigation.dart'; // Pastikan impor ini ada
+import 'package:midterm_project/widgets/navigation.dart';
 
 class PaymentSuccessScreen extends StatefulWidget {
   @override
@@ -36,7 +36,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              'assets/images/payment/centang.png', // Pastikan path gambar benar
+              'assets/images/payment/centang.png',
               height: 150,
               width: 150,
             ),

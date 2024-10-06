@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'qrpayment_screen.dart'; // Tambahkan import untuk screen metode pembayaran
+import 'qrpayment_screen.dart';
 
 class EcommerceDetailScreen extends StatelessWidget {
   final String namaEcommerce;
