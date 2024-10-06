@@ -21,7 +21,9 @@ class HistoryScreen extends StatelessWidget {
             Container(
                 color: const Color.fromARGB(255, 230, 227, 227),
                 child: const ListTile(
-                  title: Text('Bulan ini', style: TextStyle(fontSize: 18.0)),
+                  title: Text('Bulan ini',
+                      style: TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.bold)),
                   trailing: Text(
                     '-Rp 450.000',
                     style: TextStyle(color: Colors.red, fontSize: 16),
@@ -86,7 +88,9 @@ class HistoryScreen extends StatelessWidget {
             Container(
                 color: const Color.fromARGB(255, 230, 227, 227),
                 child: const ListTile(
-                  title: Text('September', style: TextStyle(fontSize: 18.0)),
+                  title: Text('September',
+                      style: TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.bold)),
                   trailing: Text(
                     '-Rp 1.350.000',
                     style: TextStyle(color: Colors.red, fontSize: 16),
@@ -148,7 +152,9 @@ class HistoryScreen extends StatelessWidget {
             Container(
                 color: const Color.fromARGB(255, 230, 227, 227),
                 child: const ListTile(
-                  title: Text('Agustus', style: TextStyle(fontSize: 18.0)),
+                  title: Text('Agustus',
+                      style: TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.bold)),
                   trailing: Text(
                     '-Rp 1.200.000',
                     style: TextStyle(color: Colors.red, fontSize: 16),
@@ -227,7 +233,9 @@ class HistoryScreen extends StatelessWidget {
             Container(
                 color: const Color.fromARGB(255, 230, 227, 227),
                 child: const ListTile(
-                  title: Text('Juli', style: TextStyle(fontSize: 18.0)),
+                  title: Text('Juli',
+                      style: TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.bold)),
                   trailing: Text(
                     '-Rp 0',
                     style: TextStyle(color: Colors.red, fontSize: 16),
