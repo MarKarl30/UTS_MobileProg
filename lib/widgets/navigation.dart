@@ -1,10 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../profile/profile.dart';
+import '../profile/newprofile.dart';
 import '../screens/history_screen.dart';
 import '../screens/home_screen.dart';
 import '../screens/qr_code_scanner.dart';
 import '../screens/wallet/wallet_screen.dart';
+import '../screens/user-auth/login_screen.dart'; // Import SignIn screen
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
@@ -20,13 +21,30 @@ class _NavigationState extends State<Navigation> {
     const HistoryScreen(),
     const QrCodeScanner(),
     const WalletScreen(),
-    const ProfileScreen(),
+    const ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      currentIndex = index;
-    });
+    if (index == 4) {
+      // Check if the user is logged in before accessing the profile
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        // User is logged in, proceed to the profile
+        setState(() {
+          currentIndex = index;
+        });
+      } else {
+        // User not logged in, redirect to SignIn screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const SignIn()),
+        );
+      }
+    } else {
+      setState(() {
+        currentIndex = index;
+      });
+    }
   }
 
   @override
@@ -52,51 +70,54 @@ class _NavigationState extends State<Navigation> {
             ],
           ),
           child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+            child: BottomAppBar(
+              height: 70,
+              shape: const CircularNotchedRectangle(),
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  buildNavBarItem(Icons.home, 'Home', 0),
+                  buildNavBarItem(Icons.history, 'History', 1),
+                  const SizedBox(width: 20),
+                  buildNavBarItem(Icons.wallet_rounded, 'Wallet', 3),
+                  buildNavBarItem(Icons.account_circle, 'Profile', 4),
+                ],
               ),
-              child: BottomAppBar(
-                height: 70,
-                shape: const CircularNotchedRectangle(),
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    buildNavBarItem(Icons.home, 'Home', 0),
-                    buildNavBarItem(Icons.history, 'History', 1),
-                    const SizedBox(width: 20),
-                    buildNavBarItem(Icons.wallet_rounded, 'Wallet', 3),
-                    buildNavBarItem(Icons.account_circle, 'Profile', 4),
-                  ],
-                ),
-              )),
+            ),
+          ),
         ),
       ),
       floatingActionButton: ClipOval(
         child: Material(
           color: Colors.white,
           child: InkWell(
-              onTap: () => _onItemTapped(2),
-              child: const SizedBox(
-                  width: 67,
-                  height: 67,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 8.0),
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.qr_code_2,
-                          size: 30,
-                          color: Colors.black,
-                        ),
-                        Text(
-                          'Pay',
-                          style: TextStyle(fontSize: 14),
-                        )
-                      ],
+            onTap: () => _onItemTapped(2),
+            child: const SizedBox(
+              width: 67,
+              height: 67,
+              child: Padding(
+                padding: EdgeInsets.only(top: 8.0),
+                child: Column(
+                  children: [
+                    Icon(
+                      Icons.qr_code_2,
+                      size: 30,
+                      color: Colors.black,
                     ),
-                  ))),
+                    Text(
+                      'Pay',
+                      style: TextStyle(fontSize: 14),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -117,7 +138,8 @@ class _NavigationState extends State<Navigation> {
           Text(
             label,
             style: TextStyle(
-                color: currentIndex == index ? Colors.black : Colors.grey),
+              color: currentIndex == index ? Colors.black : Colors.grey,
+            ),
           )
         ],
       ),
