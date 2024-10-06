@@ -27,6 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String userName = 'Loading...';
   String phoneNumber = 'Loading...';
   File? _image;
+  bool isDarkMode = false; // Added for dark mode toggle
 
   @override
   void initState() {
@@ -90,86 +91,116 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+    Widget build(BuildContext context) {
+      return Scaffold(
       appBar: AppBar(
-        title: const Text("Profile Page"),
-        backgroundColor: Colors.blueAccent,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: _pickImage,
-              child: CircleAvatar(
-                radius: 40,
-                backgroundColor: const Color.fromARGB(255, 0, 0, 0),
-                backgroundImage: _image != null ? FileImage(_image!) : null,
-                child: _image == null
-                    ? const Icon(
-                        Icons.person,
-                        size: 50,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                      )
-                    : null,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              currentUser?.email ?? 'Email not available',
-              textAlign: TextAlign.center,
-              style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontSize: 18),
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'My Details',
-              style: TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 20),
-            MyTextBox(
-              text: userName,
-              sectionName: 'Username',
-              onPressed: () {},
-            ),
-            const SizedBox(height: 16),
-            MyTextBox(
-              text: phoneNumber,
-              sectionName: 'Phone Number',
-              onPressed: () {},
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const EditProfilePage()),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Color.fromARGB(255, 0, 0, 0),
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-              ),
-              child: const Text('Edit Profile', style: TextStyle(fontSize: 16)),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: _logout,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-              ),
-              child: const Text('Logout', style: TextStyle(fontSize: 16)),
-            ),
-          ],
+        title: Text(
+          "Profile Page",
+          style: TextStyle(
+            color: isDarkMode ? Colors.white : Colors.black, // Change color dynamically
+          ),
         ),
+        backgroundColor: isDarkMode ? Colors.black : Colors.blueAccent,
+        actions: [
+          Switch(
+            value: isDarkMode,
+            onChanged: (value) {
+              setState(() {
+                isDarkMode = value;
+              });
+            },
+            activeColor: Colors.white,
+          ),
+        ],
+      ),
+      body: Stack(
+        children: [
+          // Dark mode background
+          if (isDarkMode)
+            Positioned.fill(
+              child: Image.asset(
+                'assets/images/image.png',  // Assuming this is the path of the doodle background
+                fit: BoxFit.cover,
+              ),
+            ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: _pickImage,
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                    backgroundImage: _image != null ? FileImage(_image!) : null,
+                    child: _image == null
+                        ? const Icon(
+                            Icons.person,
+                            size: 50,
+                            color: Color.fromARGB(255, 255, 255, 255),
+                          )
+                        : null,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  currentUser?.email ?? 'Email not available',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: isDarkMode ? Colors.white : Colors.black,
+                    fontSize: 18,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'My Details',
+                  style: TextStyle(
+                    color: isDarkMode ? Colors.white : Colors.black,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                MyTextBox(
+                  text: userName,
+                  sectionName: 'Username',
+                  onPressed: () {},
+                ),
+                const SizedBox(height: 16),
+                MyTextBox(
+                  text: phoneNumber,
+                  sectionName: 'Phone Number',
+                  onPressed: () {},
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const EditProfilePage()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  ),
+                  child: const Text('Edit Profile', style: TextStyle(fontSize: 16)),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: _logout,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+                  ),
+                  child: const Text('Logout', style: TextStyle(fontSize: 16)),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

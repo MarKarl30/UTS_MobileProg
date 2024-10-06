@@ -180,6 +180,9 @@ flutter:
     - assets/icons/social/instagram.png
     - assets/icons/social/tiktok.png
     - assets/icons/social/x.png
+
+    #profile
+    - assets/images/image.png
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
