@@ -117,22 +117,22 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 const SizedBox(height: 16),
-                CustomTextField(
-                  controller: emailController,
-                  hintText: 'Enter Email',
-                  validator: (value) {
-                    if (value != null &&
-                        value.isNotEmpty &&
-                        !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                      return 'Please enter a valid email';
-                    }
-                    return null;
-                  },
-                  keyboardType: TextInputType.emailAddress,
-                  textInputAction: TextInputAction.next,
-                  obscurePassword: false,
-                  onPasswordToggle: (value) {},
-                ),
+                  CustomTextField(
+                    controller: emailController,
+                    hintText: 'Enter Email',
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter an email address'; // Mandatory email warning
+                      } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                        return 'Please enter a valid email address'; // Valid email check
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    obscurePassword: false,
+                    onPasswordToggle: (value) {},
+                  ),
                 const SizedBox(height: 16),
                 CustomTextField(
                   controller: pinController,
