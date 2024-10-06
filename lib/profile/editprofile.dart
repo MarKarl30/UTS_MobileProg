@@ -25,7 +25,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     _loadUserData();
   }
 
-  // Load the current user data from Firestore
   Future<void> _loadUserData() async {
     User currentUser = _auth.currentUser!;
     _currentUserEmail = currentUser.email;
@@ -43,19 +42,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
   }
 
-  // Update user profile details in Firestore
   Future<void> _updateProfile() async {
     if (_formKey.currentState!.validate()) {
       try {
         User? user = _auth.currentUser;
 
-        // Update Firestore with new user details
         await FirebaseFirestore.instance.collection('users').doc(user!.email).update({
           'name': _nameController.text,
           'phone': _phoneController.text,
         });
 
-        // Update the PIN in FirebaseAuth if it's changed
         if (_pinController.text.isNotEmpty) {
           await user.updatePassword(_pinController.text);
         }
@@ -64,7 +60,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
           const SnackBar(content: Text('Profile updated successfully')),
         );
 
-        Navigator.pop(context); // Return to the profile page
+        Navigator.pop(context);
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to update profile: $e')),
@@ -95,7 +91,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
           key: _formKey,
           child: ListView(
             children: [
-              // Name field
               TextFormField(
                 controller: _nameController,
                 decoration: const InputDecoration(
@@ -111,7 +106,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
               const SizedBox(height: 16),
 
-              // Phone number field
               TextFormField(
                 controller: _phoneController,
                 decoration: const InputDecoration(
@@ -128,7 +122,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
               const SizedBox(height: 16),
 
-              // PIN field
               TextFormField(
                 controller: _pinController,
                 decoration: InputDecoration(
@@ -154,7 +147,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
               const SizedBox(height: 16),
 
-              // Confirm PIN field
               TextFormField(
                 controller: _confirmPinController,
                 decoration: InputDecoration(
@@ -179,8 +171,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 },
               ),
               const SizedBox(height: 16),
-
-              // Save button
+              
               ElevatedButton(
                 onPressed: _updateProfile,
                 child: const Text('Save Changes'),

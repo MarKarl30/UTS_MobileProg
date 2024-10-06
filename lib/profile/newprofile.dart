@@ -27,7 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String userName = 'Loading...';
   String phoneNumber = 'Loading...';
   File? _image;
-  bool isDarkMode = false; // Added for dark mode toggle
+  bool isDarkMode = false; 
 
   @override
   void initState() {
@@ -50,7 +50,6 @@ class _ProfilePageState extends State<ProfilePage> {
           userName = userDoc['name'] ?? 'No name found';
           phoneNumber = userDoc['phone'] ?? 'No phone number found';
         });
-        // Debugging lines
         print('User Name: $userName');
         print('Phone Number: $phoneNumber');
       } else {
@@ -64,7 +63,7 @@ class _ProfilePageState extends State<ProfilePage> {
         userName = 'Error loading name';
         phoneNumber = 'Error loading phone';
       });
-      print('Error fetching user details: $e'); // Add error log
+      print('Error fetching user details: $e'); 
     }
   }
 
@@ -97,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
         title: Text(
           "Profile Page",
           style: TextStyle(
-            color: isDarkMode ? Colors.white : Colors.black, // Change color dynamically
+            color: isDarkMode ? Colors.white : Colors.black, 
           ),
         ),
         backgroundColor: isDarkMode ? Colors.black : Colors.blueAccent,
@@ -115,11 +114,10 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: Stack(
         children: [
-          // Dark mode background
           if (isDarkMode)
             Positioned.fill(
               child: Image.asset(
-                'assets/images/image.png',  // Assuming this is the path of the doodle background
+                'assets/images/image.png',  
                 fit: BoxFit.cover,
               ),
             ),
@@ -131,7 +129,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   onTap: _pickImage,
                   child: CircleAvatar(
                     radius: 40,
-                    backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+                    backgroundColor: const Color.fromARGB(255, 230, 227, 227),
                     backgroundImage: _image != null ? FileImage(_image!) : null,
                     child: _image == null
                         ? const Icon(
@@ -181,7 +179,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: const Color.fromARGB(255, 230, 227, 227),
                     foregroundColor: Colors.black,
                     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                   ),
@@ -191,8 +189,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ElevatedButton(
                   onPressed: _logout,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
+                    backgroundColor: const Color.fromARGB(255, 230, 227, 227),
+                    foregroundColor: Colors.black,
                     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
                   ),
                   child: const Text('Logout', style: TextStyle(fontSize: 16)),

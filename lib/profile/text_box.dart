@@ -28,8 +28,8 @@ class MyTextBox extends StatelessWidget {
             children: [
               Text(
                 sectionName,
-                style: TextStyle(
-                  color: const Color.fromARGB(255, 0, 0, 0),
+                style: const TextStyle(
+                  color: Color.fromARGB(255, 0, 0, 0),
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Futura'
@@ -41,7 +41,7 @@ class MyTextBox extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
               fontFamily: 'Futura'
             ),

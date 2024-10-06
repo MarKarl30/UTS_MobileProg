@@ -16,6 +16,7 @@ class Navigation extends StatefulWidget {
 
 class _NavigationState extends State<Navigation> {
   int currentIndex = 0;
+  bool isDarkMode = false;
   final screen = [
     const HomeScreen(),
     const HistoryScreen(),
@@ -60,7 +61,9 @@ class _NavigationState extends State<Navigation> {
             ? Colors.blueAccent
             : (currentIndex == 2)
                 ? Colors.black54.withOpacity(0.0)
-                : Colors.white,
+                : (currentIndex == 4 && isDarkMode)
+                  ? Colors.black
+                  : Colors.white,
         child: Container(
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(

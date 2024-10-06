@@ -119,7 +119,7 @@ class _RegisterState extends State<Register> {
                 const SizedBox(height: 16),
                 CustomTextField(
                   controller: emailController,
-                  hintText: 'Enter Email (optional)',
+                  hintText: 'Enter Email',
                   validator: (value) {
                     if (value != null &&
                         value.isNotEmpty &&
