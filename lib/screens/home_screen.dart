@@ -86,7 +86,9 @@ class HomeScreen extends StatelessWidget {
                           ),
                           Text('Rp 300.000',
                               style: TextStyle(
-                                  color: Colors.white, fontSize: 18.0))
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold))
                         ],
                       ),
                     ),
@@ -102,7 +104,9 @@ class HomeScreen extends StatelessWidget {
                           ),
                           Text('Rp 450.000',
                               style: TextStyle(
-                                  color: Colors.white, fontSize: 18.0))
+                                  color: Colors.white,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold))
                         ],
                       ),
                     )
@@ -125,7 +129,7 @@ class HomeScreen extends StatelessWidget {
               height: 80,
               child: GridView.count(
                 physics: const NeverScrollableScrollPhysics(),
-                childAspectRatio: 4.5,
+                childAspectRatio: 4.75,
                 crossAxisCount: 1,
                 children: <Widget>[
                   Row(
@@ -143,8 +147,13 @@ class HomeScreen extends StatelessWidget {
                                           const SaldoScreen()),
                                 );
                               },
-                              icon: const Icon(Icons.money)),
-                          const Text('Isi Saldo')
+                              icon: const Icon(
+                                Icons.money,
+                                color: Colors.blueAccent,
+                              )),
+                          const Text(
+                            'Isi Saldo',
+                          )
                         ],
                       ),
                       Column(
@@ -159,7 +168,10 @@ class HomeScreen extends StatelessWidget {
                                           const TransferScreen()),
                                 );
                               },
-                              icon: const Icon(Icons.send)),
+                              icon: const Icon(
+                                Icons.send_outlined,
+                                color: Colors.blueAccent,
+                              )),
                           const Text('Transfer')
                         ],
                       ),
@@ -175,7 +187,10 @@ class HomeScreen extends StatelessWidget {
                                           const MintaSaldoScreen()),
                                 );
                               },
-                              icon: const Icon(Icons.request_quote)),
+                              icon: const Icon(
+                                Icons.request_quote_outlined,
+                                color: Colors.blueAccent,
+                              )),
                           const Text('Minta Saldo')
                         ],
                       ),
@@ -191,7 +206,10 @@ class HomeScreen extends StatelessWidget {
                                           const TopUpScreen()),
                                 );
                               },
-                              icon: const Icon(Icons.shop_2)),
+                              icon: const Icon(
+                                Icons.shop_2_outlined,
+                                color: Colors.blueAccent,
+                              )),
                           const Text('Top Up')
                         ],
                       ),
@@ -235,7 +253,7 @@ class HomeScreen extends StatelessWidget {
                       child: const Text(
                         'Pembayaran',
                         style: TextStyle(
-                            fontWeight: FontWeight.w600, fontSize: 18),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                     ),
                     GridView.count(

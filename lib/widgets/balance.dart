@@ -15,7 +15,8 @@ class _BalanceState extends State<Balance> {
       // list of text which the text get form here
       const Text(
         'Rp 500.000',
-        style: TextStyle(color: Colors.white, fontSize: 18),
+        style: TextStyle(
+            color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
       ),
       const Icon(
         Icons.more_horiz,
