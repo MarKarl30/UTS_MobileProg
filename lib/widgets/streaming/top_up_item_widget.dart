@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:midterm_project/widgets/banner.dart';
 import 'package:midterm_project/widgets/footer.dart';
-import 'package:midterm_project/screens/home_screen.dart';
+import 'package:midterm_project/widgets/navigation.dart';
 
 class GenericTopUpScreen extends StatefulWidget {
   final String streamName;
@@ -28,7 +28,7 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
   final TextEditingController _pinController = TextEditingController();
   final TextEditingController _emailController =
       TextEditingController(); // Email controlller
-  String pin = "1234"; // User pin sample
+  String pin = "1234";
 
   @override
   void initState() {
@@ -226,7 +226,7 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
     // Redirect user to home if succeed
     Navigator.pushAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),
+      MaterialPageRoute(builder: (context) => Navigation()),
       (route) => false,
     );
     ScaffoldMessenger.of(context).showSnackBar(

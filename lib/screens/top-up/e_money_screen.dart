@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:midterm_project/screens/home_screen.dart'; // Import your HomeScreen here
+import 'package:midterm_project/widgets/navigation.dart';
 
 class EMoneyTopUpScreen extends StatelessWidget {
   const EMoneyTopUpScreen({super.key});
@@ -12,7 +12,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
     final TextEditingController _pinController = TextEditingController();
 
     // Predefined PIN for demonstration purposes
-    const String correctPin = "1234"; // Replace with your actual PIN logic
+    const String correctPin = "1234";
 
     return Scaffold(
       appBar: AppBar(
@@ -58,7 +58,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
 
-                  // Bank Penyedia e-Money
+                  // Bank that support e-money
                   const Text(
                     "Bank Penyedia:",
                     style: TextStyle(
@@ -73,7 +73,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
                   bankOption("assets/icons/bank/icon_bri.png", "BRI e-Money"),
                   const SizedBox(height: 30),
 
-                  // Nomor Kartu Bank
+                  //  Bank card number
                   const Text(
                     "Nomor Kartu:",
                     style: TextStyle(
@@ -94,7 +94,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
 
-                  // Jumlah Nominal
+                  //transfer amounts
                   const Text(
                     "Jumlah Nominal:",
                     style: TextStyle(
@@ -116,7 +116,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 30),
 
-                  // Informasi dan ketentuan
+                  // information and term
                   Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
@@ -152,7 +152,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 30), // Add spacing before the button
+                  const SizedBox(height: 30),
 
                   // PIN Input
                   const Text(
@@ -186,12 +186,11 @@ class EMoneyTopUpScreen extends StatelessWidget {
                     ),
                   const SizedBox(height: 30),
 
-                  // Konfirmasi Button
+                  // confirmation button
                   Center(
-                    // Memusatkan tombol
                     child: ElevatedButton(
                       onPressed: () {
-                        // Validasi semua input
+                        // inputs validation
                         if (_accountController.text.isEmpty ||
                             _amountController.text.isEmpty ||
                             _pinController.text.isEmpty) {
@@ -229,7 +228,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
                               ),
                             );
                           } else {
-                            // Menampilkan dialog konfirmasi
+                            // show confirmation dialog
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -257,7 +256,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
                                     ),
                                     TextButton(
                                       onPressed: () {
-                                        // Jika pengguna mengkonfirmasi, tampilkan SnackBar dan tutup dialog
+                                        // when the purchase succesful
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
@@ -271,7 +270,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
                                         _amountController.clear();
                                         _pinController.clear();
 
-                                        // Menutup dialog
+                                        // close dialog
                                         Navigator.of(context).pop();
 
                                         // Navigate to HomeScreen
@@ -279,7 +278,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                const HomeScreen(),
+                                                const Navigation(),
                                           ),
                                         );
                                       },
@@ -293,13 +292,11 @@ class EMoneyTopUpScreen extends StatelessWidget {
                         }
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            Colors.blueAccent, // Warna latar belakang tombol
+                        backgroundColor: Colors.blueAccent,
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 40, vertical: 15), // Padding tombol
+                            horizontal: 40, vertical: 15),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              30), // Membuat sudut melengkung
+                          borderRadius: BorderRadius.circular(30),
                         ),
                       ),
                       child: const Text(
@@ -307,8 +304,7 @@ class EMoneyTopUpScreen extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
-                          color: Colors
-                              .white, // Set the button text color to white
+                          color: Colors.white,
                         ),
                       ),
                     ),

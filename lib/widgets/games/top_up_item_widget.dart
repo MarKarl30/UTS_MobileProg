@@ -178,7 +178,7 @@ class _GenericTopUpScreenState extends State<GenericTopUpScreen> {
                     const SizedBox(height: 20),
                     _buildTopUpInfo(),
                     const SizedBox(height: 30),
-                    _buildIdInput(), // Add ID input box here
+                    _buildIdInput(),
                     const SizedBox(height: 30),
                     const Text(
                       'Item top-up',

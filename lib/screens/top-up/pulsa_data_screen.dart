@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:midterm_project/screens/home_screen.dart';
+import 'package:midterm_project/widgets/navigation.dart';
 
 class PulsaDataTopUpScreen extends StatefulWidget {
   const PulsaDataTopUpScreen({super.key});
@@ -120,7 +120,7 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
     );
   }
 
-  // Widget fot deciding which category is active now for more responsiveness
+  // Widget for deciding which category is active now for more responsiveness
   Widget choiceChipWidget(String category, IconData icon) {
     return ChoiceChip(
       label: Row(
@@ -171,9 +171,7 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
                       ? Colors.green
                       : Colors.transparent, // Change color when selected
                   border: Border.all(
-                    color: isSelected
-                        ? Colors.green
-                        : Colors.white, // Border color
+                    color: isSelected ? Colors.green : Colors.white,
                     width: 2,
                   ),
                 ),
@@ -190,7 +188,7 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
                   fontSize: 16,
                 ),
               ),
-              const Spacer(), // Spacing to push the text to the left
+              const Spacer(),
               const Icon(Icons.arrow_forward_ios,
                   color: Colors.white), // Arrow icon for selection indication
             ],
@@ -238,7 +236,7 @@ class _PulsaDataTopUpScreenState extends State<PulsaDataTopUpScreen> {
     Future.delayed(const Duration(seconds: 0), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+        MaterialPageRoute(builder: (context) => const Navigation()),
       );
     });
   }

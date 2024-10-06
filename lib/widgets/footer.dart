@@ -4,7 +4,6 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // Set the background color to blue
       padding: const EdgeInsets.symmetric(vertical: 10.0),
       child: Column(
         children: [
@@ -14,34 +13,28 @@ class Footer extends StatelessWidget {
               IconButton(
                 icon: Image.asset(
                   'assets/icons/social/instagram.png',
-                  width: 30, // Set the width
-                  height: 30, // Set the height
+                  width: 30,
+                  height: 30,
                 ),
-                onPressed: () {
-                  // Handle Instagram click
-                },
+                onPressed: () {},
               ),
-              SizedBox(width: 10), // Reduced spacing
+              SizedBox(width: 10),
               IconButton(
                 icon: Image.asset(
                   'assets/icons/social/x.png',
-                  width: 30, // Set the width
-                  height: 30, // Set the height
+                  width: 30,
+                  height: 30,
                 ),
-                onPressed: () {
-                  // Handle X click
-                },
+                onPressed: () {},
               ),
-              SizedBox(width: 10), // Reduced spacing
+              SizedBox(width: 10),
               IconButton(
                 icon: Image.asset(
                   'assets/icons/social/tiktok.png',
-                  width: 30, // Set the width
-                  height: 30, // Set the height
+                  width: 30,
+                  height: 30,
                 ),
-                onPressed: () {
-                  // Handle TikTok click
-                },
+                onPressed: () {},
               ),
             ],
           ),

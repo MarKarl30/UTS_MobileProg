@@ -79,7 +79,7 @@ class TopUpScreen extends StatelessWidget {
               ),
             ),
 
-            // Container untuk layanan digital
+            // Container for layanan digital
             Container(
               margin: const EdgeInsets.only(bottom: 40),
               padding: const EdgeInsets.all(25),
@@ -150,7 +150,7 @@ class TopUpScreen extends StatelessWidget {
                 ],
               ),
             ),
-            // Box untuk kategori Aktivitas & Hiburan
+            // container for aktivitas & hiburan
             Container(
               margin: const EdgeInsets.only(bottom: 40),
               padding: const EdgeInsets.all(28),
@@ -227,7 +227,7 @@ class TopUpScreen extends StatelessWidget {
     );
   }
 
-  //widget untuk section top-up kategori layanan digital
+  //widget for section tup up layanan digital
   Widget topUpLayananDigital(IconData iconData, String label) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -244,7 +244,7 @@ class TopUpScreen extends StatelessWidget {
     );
   }
 
-  //widget untuk section top-up kategori aktivitas dan hiburan
+  //widget for section top-up aktivitas & hiburan category
   Widget topUpAktivitasHiburan(IconData iconData, String label) {
     return Column(
       mainAxisSize: MainAxisSize.min,

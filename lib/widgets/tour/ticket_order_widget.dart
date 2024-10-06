@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:midterm_project/widgets/banner.dart';
 import 'package:midterm_project/widgets/footer.dart';
-import 'package:midterm_project/screens/home_screen.dart';
+import 'package:midterm_project/widgets/navigation.dart';
 
 class GenericTourScreen extends StatefulWidget {
   final String tourName;
@@ -11,7 +11,7 @@ class GenericTourScreen extends StatefulWidget {
   final String operationalHours;
   final List<String> termsAndConditions;
   final List<String> additionalInfo;
-  final double adultTicketPrice; // Added ticket prices
+  final double adultTicketPrice;
   final double childTicketPrice;
 
   const GenericTourScreen({
@@ -22,7 +22,7 @@ class GenericTourScreen extends StatefulWidget {
     required this.operationalHours,
     required this.termsAndConditions,
     required this.additionalInfo,
-    required this.adultTicketPrice, // Added ticket prices
+    required this.adultTicketPrice,
     required this.childTicketPrice,
   }) : super(key: key);
 
@@ -34,12 +34,11 @@ class _GenericTourScreenState extends State<GenericTourScreen> {
   int adultTickets = 0;
   int childTickets = 0;
   final TextEditingController _pinController = TextEditingController();
-  final String pin = "1234"; // Example PIN
+  final String pin = "1234";
   bool showAdditionalInfo = false;
   DateTime? selectedDate;
   final TextEditingController _emailController = TextEditingController();
 
-  // Constants
   static const Color backgroundColor = Color.fromARGB(199, 3, 25, 49);
   static const Color buttonColor = Color.fromARGB(255, 24, 102, 228);
   static const Color textColor = Colors.white;
@@ -116,8 +115,7 @@ class _GenericTourScreenState extends State<GenericTourScreen> {
                   // Navigate to HomeScreen
                   Navigator.of(context).pop(); // Close the dialog
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) =>
-                        HomeScreen(), // Replace with your HomeScreen
+                    builder: (context) => Navigation(),
                   ));
                 } else {
                   _showErrorNotification("PIN salah, coba lagi.");

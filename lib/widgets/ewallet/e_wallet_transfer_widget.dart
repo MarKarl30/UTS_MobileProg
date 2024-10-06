@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:midterm_project/screens/home_screen.dart';
+import 'package:midterm_project/widgets/navigation.dart';
 
 class EWalletTransferWidget extends StatefulWidget {
-  final String bannerImage; // Banner image for the wallet
-  final Color backgroundColor; // Background color for the UI
-  final String uniqueCode; // Unique code for each e-wallet
+  final String bannerImage;
+  final Color backgroundColor;
+  final String uniqueCode;
 
   EWalletTransferWidget({
     required this.bannerImage,
@@ -21,7 +21,7 @@ class _EWalletTransferWidgetState extends State<EWalletTransferWidget> {
   final TextEditingController _amountController = TextEditingController();
   final TextEditingController _pinController = TextEditingController();
   bool _isBalanceVisible = true; // Toggles balance visibility
-  final String _balance = "50.000,00"; // Example balance
+  final String _balance = "50.000,00";
 
   @override
   Widget build(BuildContext context) {
@@ -119,8 +119,7 @@ class _EWalletTransferWidgetState extends State<EWalletTransferWidget> {
                                 hintText: "Nomor",
                                 prefixIcon: const Icon(Icons
                                     .account_circle), // Icon for account number
-                                border:
-                                    const OutlineInputBorder(), // Add border
+                                border: const OutlineInputBorder(),
                               ),
                             ),
                           ),
@@ -155,9 +154,8 @@ class _EWalletTransferWidgetState extends State<EWalletTransferWidget> {
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           hintText: "Rp.",
-                          prefixIcon:
-                              const Icon(Icons.money), // Icon for amount
-                          border: const OutlineInputBorder(), // Add border
+                          prefixIcon: const Icon(Icons.money),
+                          border: const OutlineInputBorder(),
                         ),
                       ),
                     ],
@@ -255,7 +253,7 @@ class _EWalletTransferWidgetState extends State<EWalletTransferWidget> {
     final String pin = _pinController.text;
 
     if (pin.isNotEmpty && pin == "1234") {
-      // Contoh validasi PIN
+      // Validate pin
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -268,7 +266,7 @@ class _EWalletTransferWidgetState extends State<EWalletTransferWidget> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => HomeScreen(),
+          builder: (context) => Navigation(),
         ),
       );
     } else if (pin.isEmpty) {
