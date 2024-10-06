@@ -41,7 +41,7 @@ class _ProfilePageState extends State<ProfilePage> {
     try {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance
           .collection('users')
-          .doc(currentUser!.uid)
+          .doc(currentUser!.email)
           .get();
 
       if (userDoc.exists) {
