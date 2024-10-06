@@ -24,7 +24,7 @@ class PendidikanScreen extends StatelessWidget {
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Colors.blueAccent, // Mengubah warna latar belakang
         iconTheme:
             IconThemeData(color: Colors.white), // Mengubah warna ikon kembali
       ),

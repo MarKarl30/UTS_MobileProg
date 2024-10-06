@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // Tambahkan impor ini
+import 'package:midterm_project/payment/payment_success_screen.dart'; // Impor layar baru
 
 class SaldoPaymentScreen extends StatefulWidget {
   final double totalAmount;
@@ -69,28 +70,23 @@ class _SaldoPaymentScreenState extends State<SaldoPaymentScreen> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    if (currentBalance >= widget.totalAmount) {
-                      currentBalance -= widget.totalAmount;
-                      // Tampilkan notifikasi pembayaran berhasil
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Pembayaran berhasil!'),
-                          backgroundColor: Colors.green,
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
-                    } else {
-                      // Tampilkan notifikasi pembayaran gagal
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Pembayaran gagal: Saldo tidak cukup'),
-                          backgroundColor: Colors.red,
-                          duration: Duration(seconds: 2),
-                        ),
-                      );
-                    }
-                  });
+                  if (currentBalance >= widget.totalAmount) {
+                    // Jika saldo cukup, navigasi ke layar sukses
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PaymentSuccessScreen(),
+                      ),
+                    );
+                  } else {
+                    // Jika saldo tidak cukup, tampilkan pesan kesalahan
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Pembayaran Gagal. Saldo tidak cukup'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,

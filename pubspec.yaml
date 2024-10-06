@@ -183,6 +183,9 @@ flutter:
 
     #profile
     - assets/images/image.png
+
+    #Payment
+    - assets/images/payment/centang.png
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

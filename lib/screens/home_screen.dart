@@ -31,6 +31,7 @@ class HomeScreen extends StatelessWidget {
           SliverAppBar(
             toolbarHeight: 65,
             backgroundColor: Colors.blueAccent,
+            automaticallyImplyLeading: false,
             title: const SizedBox(
               height: 55,
               child: Align(
